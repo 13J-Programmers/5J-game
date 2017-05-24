@@ -1,6 +1,6 @@
 # 5J game
 
-Pandemic（案）
+Pandemic + Puzzle = Puzzdemic（パズデミック）
 
 + Feature
     - 2048 (パズルゲーム) のようなゲーム感
@@ -17,5 +17,9 @@ Pandemic（案）
 + Env
     - node
     - express
+    - ejs
     - socket.io -- 他のプレイヤとの同期
     - mongodb -- ランキング（優先度低）
+    - jquery
+    - async/await
+    - EventEmitter -- https://github.com/Olical/EventEmitter
