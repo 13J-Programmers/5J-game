@@ -1,4 +1,5 @@
 
 window.requestAnimationFrame(() => {
-  new GameManager("red", InputManager, HTMLActuator);
+  var socket = io();
+  new GameManager("red", InputManager, HTMLActuator, socket);
 });

@@ -49,11 +49,11 @@ app.use(function(err, req, res, next) {
 
 // start listen with socket.io
 app.io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('a player connected');
 
-  socket.on('new message', function(msg){
+  socket.on('game-new-event', function(msg){
     console.log('new message: ' + msg);
-    app.io.emit('chat message', msg);
+    app.io.emit('game-event', msg);
   });
 });
 
