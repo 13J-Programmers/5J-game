@@ -15,12 +15,13 @@ Pandemic + Puzzle = Puzzdemic（パズデミック）
     - 4種類のワクチンが完成するとゲームクリアとなる
     - 2人しかいなくても遊べる2プレイヤモード（それぞれが2地域を担当する）もあると当日安心
 + Env
-    - node
-    - express
-    - ejs
-    - socket.io -- 他のプレイヤとの同期
+    - Chrome >= 58
+    - node >= 7.6
+    - express 4.x -- フレームワーク
+    - ejs -- テンプレートエンジン
+    - socket.io 2.x -- 他のプレイヤとの同期
     - mongodb -- ランキング（優先度低）
-    - jquery
+    - jquery 3.x
     - async/await
     - EventEmitter -- https://github.com/Olical/EventEmitter
 
