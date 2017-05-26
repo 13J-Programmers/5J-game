@@ -1,10 +1,11 @@
 
 class GameManager {
-  constructor(color, InputManager, Actuator) {
+  constructor(color, InputManager, Actuator, socket) {
     this.size         = 4; // Size of the grid
     this.copeWith     = color; // color will be virus color (red, blue, green, yellow)
     this.inputManager = new InputManager;
     this.actuator     = new Actuator(color);
+    this.socket       = socket;
     this.startTiles   = 2;
 
     this.inputManager.on("move", this.move.bind(this));
@@ -26,6 +27,8 @@ class GameManager {
 
   // Set up the game
   setup() {
+    var self = this;
+
     this.grid  = new Grid(this.size);
     this.score = 0;
     this.over  = false;
@@ -35,6 +38,13 @@ class GameManager {
     for (var i = 0; i < this.startTiles; i++) {
       this.addRandomTile();
     }
+
+    this.socket.on('game-event', function (received_data) {
+      if (received_data.knowledge === self.copeWith) {
+        // It's very helpful
+        console.log('received knowledge: ' + received_data.knowledge);
+      }
+    });
 
     // Update the actuator
     this.actuate();
@@ -81,6 +91,7 @@ class GameManager {
   move(direction) {
     // 0: up, 1: right, 2: down, 3: left
     var self = this;
+    var send_socket_data = {};
 
     if (this.isGameTerminated()) return; // Don't do anything if the game's over
 
@@ -136,9 +147,11 @@ class GameManager {
           tile.syringe = true;
           self.won = true;
           console.log("Finish developing vaccine: " + tile.type);
+          send_socket_data.vaccine = tile.type;
         } else if (tile.value >= 20 && tile.type !== self.copeWith) {
           tile.pack = true;
           console.log("Share knowledge: " + tile.type);
+          send_socket_data.knowledge = tile.type;
         }
       })
     });
@@ -149,6 +162,10 @@ class GameManager {
       if (!this.movesAvailable()) {
         this.over = true; // Game over!
         console.log("game over");
+      }
+
+      if (Object.keys(send_socket_data).length > 0) {
+        this.socket.emit('game-new-event', send_socket_data);
       }
 
       this.actuate();
