@@ -44,6 +44,40 @@ hr {
   }
 }
 
+.game-container {
+  margin-top: 40px;
+  position: relative;
+  padding: 15px;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -ms-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  background: #bbada0;
+  border-radius: 6px;
+  width: 500px;
+  height: 500px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.game-message {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(238, 228, 218, 0.5);
+  z-index: 100;
+  text-align: center;
+  animation: fade-in 800ms ease 1200ms;
+  animation-fill-mode: both;
+}
 .game-message p {
   font-size: 60px;
   font-weight: bold;
@@ -99,6 +133,237 @@ hr {
   transition: 100ms ease-in-out;
   transition-property: transform;
 }
+.tile.tile-position-1-1 {
+  transform: translate(0px, 0px); }
+.tile.tile-position-1-2 {
+  transform: translate(0px, 121px); }
+.tile.tile-position-1-3 {
+  transform: translate(0px, 242px); }
+.tile.tile-position-1-4 {
+  transform: translate(0px, 363px); }
+.tile.tile-position-2-1 {
+  transform: translate(121px, 0px); }
+.tile.tile-position-2-2 {
+  transform: translate(121px, 121px); }
+.tile.tile-position-2-3 {
+  transform: translate(121px, 242px); }
+.tile.tile-position-2-4 {
+  transform: translate(121px, 363px); }
+.tile.tile-position-3-1 {
+  transform: translate(242px, 0px); }
+.tile.tile-position-3-2 {
+  transform: translate(242px, 121px); }
+.tile.tile-position-3-3 {
+  transform: translate(242px, 242px); }
+.tile.tile-position-3-4 {
+  transform: translate(242px, 363px); }
+.tile.tile-position-4-1 {
+  transform: translate(363px, 0px); }
+.tile.tile-position-4-2 {
+  transform: translate(363px, 121px); }
+.tile.tile-position-4-3 {
+  transform: translate(363px, 242px); }
+.tile.tile-position-4-4 {
+  transform: translate(363px, 363px); }
+.tile .tile-inner {
+  border-radius: 3px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 10;
+  font-size: 55px;
+}
+.tile.tile-pink-2 .tile-inner {
+  background: pink url("/images/tile-2.png");
+  background-size: contain; }
+.tile.tile-pink-4 .tile-inner {
+  background: pink url("/images/tile-4.png");
+  background-size: contain; }
+.tile.tile-pink-6 .tile-inner {
+  background: pink url("/images/tile-6.png");
+  background-size: contain; }
+.tile.tile-pink-8 .tile-inner {
+  background: pink url("/images/tile-8.png");
+  background-size: contain; }
+.tile.tile-pink-10 .tile-inner {
+  background: pink url("/images/tile-10.png");
+  background-size: contain; }
+.tile.tile-pink-12 .tile-inner {
+  background: pink url("/images/tile-12.png");
+  background-size: contain; }
+.tile.tile-pink-14 .tile-inner {
+  background: pink url("/images/tile-14.png");
+  background-size: contain; }
+.tile.tile-pink-16 .tile-inner {
+  background: pink url("/images/tile-16.png");
+  background-size: contain; }
+.tile.tile-pink-18 .tile-inner {
+  background: pink url("/images/tile-18.png");
+  background-size: contain; }
+.tile.tile-pink-20 .tile-inner {
+  background: pink url("/images/tile-20.png");
+  background-size: contain; }
+.tile.tile-pink-22 .tile-inner {
+  background: pink url("/images/tile-22.png");
+  background-size: contain; }
+.tile.tile-pink-24 .tile-inner {
+  background: pink url("/images/tile-24.png");
+  background-size: contain; }
+.tile.tile-pink-26 .tile-inner {
+  background: pink url("/images/tile-26.png");
+  background-size: contain; }
+.tile.tile-pink-28 .tile-inner {
+  background: pink url("/images/tile-28.png");
+  background-size: contain; }
+.tile.tile-lightblue-2 .tile-inner {
+  background: lightblue url("/images/tile-2.png");
+  background-size: contain; }
+.tile.tile-lightblue-4 .tile-inner {
+  background: lightblue url("/images/tile-4.png");
+  background-size: contain; }
+.tile.tile-lightblue-6 .tile-inner {
+  background: lightblue url("/images/tile-6.png");
+  background-size: contain; }
+.tile.tile-lightblue-8 .tile-inner {
+  background: lightblue url("/images/tile-8.png");
+  background-size: contain; }
+.tile.tile-lightblue-10 .tile-inner {
+  background: lightblue url("/images/tile-10.png");
+  background-size: contain; }
+.tile.tile-lightblue-12 .tile-inner {
+  background: lightblue url("/images/tile-12.png");
+  background-size: contain; }
+.tile.tile-lightblue-14 .tile-inner {
+  background: lightblue url("/images/tile-14.png");
+  background-size: contain; }
+.tile.tile-lightblue-16 .tile-inner {
+  background: lightblue url("/images/tile-16.png");
+  background-size: contain; }
+.tile.tile-lightblue-18 .tile-inner {
+  background: lightblue url("/images/tile-18.png");
+  background-size: contain; }
+.tile.tile-lightblue-20 .tile-inner {
+  background: lightblue url("/images/tile-20.png");
+  background-size: contain; }
+.tile.tile-lightblue-22 .tile-inner {
+  background: lightblue url("/images/tile-22.png");
+  background-size: contain; }
+.tile.tile-lightblue-24 .tile-inner {
+  background: lightblue url("/images/tile-24.png");
+  background-size: contain; }
+.tile.tile-lightblue-26 .tile-inner {
+  background: lightblue url("/images/tile-26.png");
+  background-size: contain; }
+.tile.tile-lightblue-28 .tile-inner {
+  background: lightblue url("/images/tile-28.png");
+  background-size: contain; }
+.tile.tile-yellow-2 .tile-inner {
+  background: yellow url("/images/tile-2.png");
+  background-size: contain; }
+.tile.tile-yellow-4 .tile-inner {
+  background: yellow url("/images/tile-4.png");
+  background-size: contain; }
+.tile.tile-yellow-6 .tile-inner {
+  background: yellow url("/images/tile-6.png");
+  background-size: contain; }
+.tile.tile-yellow-8 .tile-inner {
+  background: yellow url("/images/tile-8.png");
+  background-size: contain; }
+.tile.tile-yellow-10 .tile-inner {
+  background: yellow url("/images/tile-10.png");
+  background-size: contain; }
+.tile.tile-yellow-12 .tile-inner {
+  background: yellow url("/images/tile-12.png");
+  background-size: contain; }
+.tile.tile-yellow-14 .tile-inner {
+  background: yellow url("/images/tile-14.png");
+  background-size: contain; }
+.tile.tile-yellow-16 .tile-inner {
+  background: yellow url("/images/tile-16.png");
+  background-size: contain; }
+.tile.tile-yellow-18 .tile-inner {
+  background: yellow url("/images/tile-18.png");
+  background-size: contain; }
+.tile.tile-yellow-20 .tile-inner {
+  background: yellow url("/images/tile-20.png");
+  background-size: contain; }
+.tile.tile-yellow-22 .tile-inner {
+  background: yellow url("/images/tile-22.png");
+  background-size: contain; }
+.tile.tile-yellow-24 .tile-inner {
+  background: yellow url("/images/tile-24.png");
+  background-size: contain; }
+.tile.tile-yellow-26 .tile-inner {
+  background: yellow url("/images/tile-26.png");
+  background-size: contain; }
+.tile.tile-yellow-28 .tile-inner {
+  background: yellow url("/images/tile-28.png");
+  background-size: contain; }
+.tile.tile-lightgreen-2 .tile-inner {
+  background: lightgreen url("/images/tile-2.png");
+  background-size: contain; }
+.tile.tile-lightgreen-4 .tile-inner {
+  background: lightgreen url("/images/tile-4.png");
+  background-size: contain; }
+.tile.tile-lightgreen-6 .tile-inner {
+  background: lightgreen url("/images/tile-6.png");
+  background-size: contain; }
+.tile.tile-lightgreen-8 .tile-inner {
+  background: lightgreen url("/images/tile-8.png");
+  background-size: contain; }
+.tile.tile-lightgreen-10 .tile-inner {
+  background: lightgreen url("/images/tile-10.png");
+  background-size: contain; }
+.tile.tile-lightgreen-12 .tile-inner {
+  background: lightgreen url("/images/tile-12.png");
+  background-size: contain; }
+.tile.tile-lightgreen-14 .tile-inner {
+  background: lightgreen url("/images/tile-14.png");
+  background-size: contain; }
+.tile.tile-lightgreen-16 .tile-inner {
+  background: lightgreen url("/images/tile-16.png");
+  background-size: contain; }
+.tile.tile-lightgreen-18 .tile-inner {
+  background: lightgreen url("/images/tile-18.png");
+  background-size: contain; }
+.tile.tile-lightgreen-20 .tile-inner {
+  background: lightgreen url("/images/tile-20.png");
+  background-size: contain; }
+.tile.tile-lightgreen-22 .tile-inner {
+  background: lightgreen url("/images/tile-22.png");
+  background-size: contain; }
+.tile.tile-lightgreen-24 .tile-inner {
+  background: lightgreen url("/images/tile-24.png");
+  background-size: contain; }
+.tile.tile-lightgreen-26 .tile-inner {
+  background: lightgreen url("/images/tile-26.png");
+  background-size: contain; }
+.tile.tile-lightgreen-28 .tile-inner {
+  background: lightgreen url("/images/tile-28.png");
+  background-size: contain; }
+.tile.tile-pink-syringe .tile-inner {
+  background: pink url("/images/tile-syringe.png");
+  background-size: contain; }
+.tile.tile-pink-pack .tile-inner {
+  background: pink url("/images/tile-pack.png");
+  background-size: contain; }
+.tile.tile-lightblue-syringe .tile-inner {
+  background: lightblue url("/images/tile-syringe.png");
+  background-size: contain; }
+.tile.tile-lightblue-pack .tile-inner {
+  background: lightblue url("/images/tile-pack.png");
+  background-size: contain; }
+.tile.tile-yellow-syringe .tile-inner {
+  background: yellow url("/images/tile-syringe.png");
+  background-size: contain; }
+.tile.tile-yellow-pack .tile-inner {
+  background: yellow url("/images/tile-pack.png");
+  background-size: contain; }
+.tile.tile-lightgreen-syringe .tile-inner {
+  background: lightgreen url("/images/tile-syringe.png");
+  background-size: contain; }
+.tile.tile-lightgreen-pack .tile-inner {
+  background: lightgreen url("/images/tile-pack.png");
+  background-size: contain; }
 
 @keyframes appear {
   0% {

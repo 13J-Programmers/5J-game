@@ -41,6 +41,7 @@ class HTMLActuator {
     var positionClass = this.cssPositionClass(position);
 
     // Apply css class to wrapper and inner
+    wrapper.addClass("tile");
     if (tile.syringe) {
       wrapper.addClass("tile-" + tile.cssType + "-syringe");
     } else if (tile.pack) {
@@ -51,22 +52,23 @@ class HTMLActuator {
 
     inner.addClass("tile-inner");
 
-    if (tile.previousPosition) {
-      // Make sure that the tile gets rendered in the previous position first
-      window.requestAnimationFrame(function () {
-        wrapper.addClass(self.cssPositionClass({ x: tile.x, y: tile.y }));
-        // TODO: replace this^ code to dynamic positioning by js
-      });
-    } else if (tile.mergedFrom) {
-      wrapper.addClass("tile-merged");
-
-      // Render the tiles that merged
-      tile.mergedFrom.forEach(function (merged) {
-        self.addTile(merged);
-      });
-    } else {
+    // if (tile.previousPosition) {
+    //   // Make sure that the tile gets rendered in the previous position first
+    //   window.requestAnimationFrame(() => {
+    //     wrapper.addClass(this.cssPositionClass({ x: tile.x, y: tile.y }));
+    //     // TODO: replace this^ code to dynamic positioning by js
+    //   });
+    // } else if (tile.mergedFrom) {
+    //   wrapper.addClass("tile-merged");
+    //
+    //   // Render the tiles that merged
+    //   tile.mergedFrom.forEach((merged) => {
+    //     this.addTile(merged);
+    //   });
+    // } else {
+      wrapper.addClass(this.cssPositionClass({ x: tile.x, y: tile.y }));
       wrapper.addClass("tile-new");
-    }
+    // }
 
     // Add the inner part of the tile to the wrapper
     wrapper.append(inner);

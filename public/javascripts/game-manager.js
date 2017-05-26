@@ -33,6 +33,8 @@ class GameManager {
       this.addRandomTile();
     }
 
+    console.log(this.grid);
+
     // Update the actuator
     this.actuate();
   }
