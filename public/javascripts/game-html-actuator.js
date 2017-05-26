@@ -9,9 +9,28 @@ class HTMLActuator {
   actuate(grid, metadata) {
     window.requestAnimationFrame(() => {
       // clear
+      this.tileContainer.empty();
+
       // add tiles
+      grid.cells.forEach((column) => {
+        column.forEach((cell) => {
+          if (cell) {
+            this.addTile(cell);
+          }
+        });
+      });
+
       // remove tile if tile becomes pack or syringe
+      // TODO:
+
       // show message if game is terminated
+      if (metadata.terminated) {
+        if (metadata.over) {
+          this.message(false);
+        } else if (metadata.won) {
+          this.message(true);
+        }
+      }
     });
   }
 
@@ -22,15 +41,31 @@ class HTMLActuator {
     var positionClass = this.cssPositionClass(position);
 
     // Apply css class to wrapper and inner
+    if (tile.syringe) {
+      wrapper.addClass("tile-" + tile.cssType + "-syringe");
+    } else if (tile.pack) {
+      wrapper.addClass("tile-" + tile.cssType + "-pack");
+    } else {
+      wrapper.addClass("tile-" + tile.cssType + "-" + tile.value);
+    }
+
+    inner.addClass("tile-inner");
 
     if (tile.previousPosition) {
       // Make sure that the tile gets rendered in the previous position first
-      // TODO:
+      window.requestAnimationFrame(function () {
+        wrapper.addClass(self.cssPositionClass({ x: tile.x, y: tile.y }));
+        // TODO: replace this^ code to dynamic positioning by js
+      });
     } else if (tile.mergedFrom) {
+      wrapper.addClass("tile-merged");
+
       // Render the tiles that merged
-      // TODO:
+      tile.mergedFrom.forEach(function (merged) {
+        self.addTile(merged);
+      });
     } else {
-      // TODO:
+      wrapper.addClass("tile-new");
     }
 
     // Add the inner part of the tile to the wrapper

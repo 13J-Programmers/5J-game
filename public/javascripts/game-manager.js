@@ -39,12 +39,22 @@ class GameManager {
 
   // Adds a tile in a random position
   addRandomTile() {
-    // TODO:
+    if (this.grid.hasEmptyCell()) {
+      var value = Math.random() < 0.9 ? 2 : 4;
+      var tile = new Tile(this.grid.randomAvailableCell(), value);
+
+      this.grid.insertTile(tile);
+    }
   }
 
   // Sends the updated grid to the actuator
   actuate() {
-    // TODO:
+    this.actuator.actuate(this.grid, {
+      score:      this.score,
+      over:       this.over,
+      won:        this.won,
+      terminated: this.isGameTerminated()
+    });
   }
 
   // Save all tile positions and remove merger info

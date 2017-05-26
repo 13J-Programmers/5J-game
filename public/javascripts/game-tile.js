@@ -10,8 +10,8 @@ class Tile {
       this.cssType = GameManager.cssColorMap[type];
     } else {
       var num = Utils.rand(3);
-      this.type    = GameManager.getColors[num];
-      this.cssType = GameManager.getCSSColors[num];
+      this.type    = GameManager.colors[num];
+      this.cssType = GameManager.cssColors[num];
     }
 
     this.previousPosition = null;
