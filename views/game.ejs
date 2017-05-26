@@ -4,6 +4,19 @@
     <meta charset="utf-8">
     <title>Pandemic</title>
     <link rel="stylesheet" href="/stylesheets/game-style.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      // websocket test
+      function sendFunction() {
+        socket.emit('new message', $('#new-message').val());
+        $('#new-message').val('');
+      }
+      socket.on('chat message', function(msg){
+        $('#messages-area').append($('<li>').text(msg));
+      });
+    </script>
     <script src="/javascripts/lib/jquery-3.2.1.min.js"></script>
     <script src="/javascripts/lib/event-emitter-5.1.0.min.js"></script>
     <script src="/javascripts/game-utils.js"></script>
@@ -52,5 +65,11 @@
 
       <div class="tile-removed-container"></div>
     </div>
+
+    <!-- websocket test -->
+    <ul id="messages-area"></ul>
+    <form id="form" onsubmit="return false;">
+      <input id="new-message" type="text" /><button onclick="sendFunction()">Send</button>
+    </form>
   </body>
 </html>
