@@ -45,6 +45,30 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// --- game ---
+
+class Utils {
+  /**
+   * Shuffles array in place.
+   * @param {Array} a items - The array containing the items.
+   */
+  static shuffle(array) {
+    var a = array.slice(0); // deep copy
+    var i, j, x;
+    for (i = a.length; i; i--) {
+      j = Math.floor(Math.random() * i);
+      x = a[i - 1];
+      a[i - 1] = a[j];
+      a[j] = x;
+    }
+    return a;
+  }
+}
+
+var Game = {
+  colors: ["red", "blue", "green", "yellow"]
+};
+
 // --- websocket ---
 
 // start listen with socket.io
@@ -63,10 +87,11 @@ app.io.on('connection', function(socket) {
       socket.to('game-room').emit('game-room-player-count', { count: clients.length });
 
       if (clients.length == 4) {
-        // Send to new connector
-        socket.emit('game-start', { color: "red" });
-        // Send to present players
-        socket.to('game-room').emit('game-start', { color: "red" });
+        // Game start
+        var shuffledColors = Utils.shuffle(Game.colors);
+        clients.forEach((socketid, idx) => {
+          app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
+        })
       }
     });
   });

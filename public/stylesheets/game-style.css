@@ -19,6 +19,11 @@ hr {
   margin-bottom: 30px;
 }
 
+.red    { color: red    }
+.blue   { color: blue   }
+.yellow { color: yellow }
+.green  { color: green  }
+
 .modal-game-waiting {
   position: fixed;
   top: 5%;
