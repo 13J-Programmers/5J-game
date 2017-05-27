@@ -45,13 +45,58 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// --- game ---
+
+class Utils {
+  /**
+   * Shuffles array in place.
+   * @param {Array} a items - The array containing the items.
+   */
+  static shuffle(array) {
+    var a = array.slice(0); // deep copy
+    var i, j, x;
+    for (i = a.length; i; i--) {
+      j = Math.floor(Math.random() * i);
+      x = a[i - 1];
+      a[i - 1] = a[j];
+      a[j] = x;
+    }
+    return a;
+  }
+}
+
+var Game = {
+  colors: ["red", "blue", "green", "yellow"]
+};
+
 // --- websocket ---
 
 // start listen with socket.io
-app.io.on('connection', function(socket){
+app.io.on('connection', function(socket) {
   console.log('a player connected');
 
-  socket.on('game-new-event', function(msg){
+  socket.on('game-enter', function (received_data) {
+    socket.join('game-room');
+    app.io.in('game-room').clients(function (err, clients) {
+      if (err) throw err;
+      console.log(clients);
+
+      // Send a player count to new connector
+      socket.emit('game-room-player-count', { count: clients.length });
+      // Send a player count to present players
+      socket.to('game-room').emit('game-room-player-count', { count: clients.length });
+
+      if (clients.length == 4) {
+        // Game start
+        var shuffledColors = Utils.shuffle(Game.colors);
+        clients.forEach((socketid, idx) => {
+          app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
+        })
+      }
+    });
+  });
+
+  socket.on('game-new-event', function(msg) {
     console.log('new message: ' + msg);
     app.io.emit('game-event', msg);
   });
