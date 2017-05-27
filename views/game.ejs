@@ -17,7 +17,13 @@
     <script src="/javascripts/game-main.js"></script>
   </head>
   <body>
-    <h1>Pandemic</h1>
+    <div class="modal-overlay"></div>
+    <div class="modal-game-waiting">
+      <h1>Puzzdemic</h1>
+      ゲーム開始まで <span id="player-count">1</span>/4 人
+      <div class="loader">Loading...</div>
+    </div>
+
     <div class="game-container">
       <div class="game-message">
         <p></p>

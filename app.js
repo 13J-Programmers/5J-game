@@ -48,10 +48,30 @@ app.use(function(err, req, res, next) {
 // --- websocket ---
 
 // start listen with socket.io
-app.io.on('connection', function(socket){
+app.io.on('connection', function(socket) {
   console.log('a player connected');
 
-  socket.on('game-new-event', function(msg){
+  socket.on('game-enter', function (received_data) {
+    socket.join('game-room');
+    app.io.in('game-room').clients(function (err, clients) {
+      if (err) throw err;
+      console.log(clients);
+
+      // Send a player count to new connector
+      socket.emit('game-room-player-count', { count: clients.length });
+      // Send a player count to present players
+      socket.to('game-room').emit('game-room-player-count', { count: clients.length });
+
+      if (clients.length == 4) {
+        // Send to new connector
+        socket.emit('game-start', { color: "red" });
+        // Send to present players
+        socket.to('game-room').emit('game-start', { color: "red" });
+      }
+    });
+  });
+
+  socket.on('game-new-event', function(msg) {
     console.log('new message: ' + msg);
     app.io.emit('game-event', msg);
   });
