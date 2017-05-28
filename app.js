@@ -72,7 +72,7 @@ var Game = {
 // --- websocket ---
 
 // start listen with socket.io
-app.io.on('connection', function(socket) {
+app.io.on('connection', function (socket) {
   console.log('a player connected');
 
   socket.on('game-enter', function (received_data) {
@@ -81,24 +81,23 @@ app.io.on('connection', function(socket) {
       if (err) throw err;
       console.log(clients);
 
-      // Send a player count to new connector
-      socket.emit('game-room-player-count', { count: clients.length });
-      // Send a player count to present players
-      socket.to('game-room').emit('game-room-player-count', { count: clients.length });
+      // Send a player count
+      clients.forEach((socketid, idx) => {
+        app.io.to(socketid).emit('game-room-player-count', { count: clients.length });
+      });
 
       if (clients.length == 4) {
-        // Game start
+        // Send a game start
         var shuffledColors = Utils.shuffle(Game.colors);
         clients.forEach((socketid, idx) => {
           app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
-        })
+        });
       }
     });
   });
 
-  socket.on('game-new-event', function(msg) {
-    console.log('new message: ' + msg);
-    app.io.emit('game-event', msg);
+  socket.on('game-new-event', function (msg) {
+    app.io.to('game-room').emit('game-event', msg);
   });
 });
 
