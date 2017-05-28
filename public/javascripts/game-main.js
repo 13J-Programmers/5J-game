@@ -53,6 +53,5 @@ window.requestAnimationFrame(() => {
       modal_game_waiting.fadeOut();
       new GameManager(received_data.color, InputManager, HTMLActuator, socket);
     });
-
-  })
+  });
 });

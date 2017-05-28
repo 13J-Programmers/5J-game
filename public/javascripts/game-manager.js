@@ -6,10 +6,13 @@ class GameManager {
     this.inputManager = new InputManager;
     this.actuator     = new Actuator(color);
     this.socket       = socket;
-    this.startTiles   = 2;
+    this.startTiles   = 2; // Start tile count
+    this.syringeValue = 30;
+    this.packValue    = 20;
 
     this.inputManager.on("move", this.move.bind(this));
     this.inputManager.on("restart", this.restart.bind(this));
+    this.socket.on("game-event", this.gameEventListener.bind(this));
 
     this.setup();
   }
@@ -25,6 +28,13 @@ class GameManager {
     return this.over || this.won;
   }
 
+  gameEventListener(received_data) {
+    if (received_data.knowledge === this.copeWith) {
+      // It's very helpful
+      console.log('received knowledge: ' + received_data.knowledge);
+    }
+  }
+
   // Set up the game
   setup() {
     var self = this;
@@ -38,13 +48,6 @@ class GameManager {
     for (var i = 0; i < this.startTiles; i++) {
       this.addRandomTile();
     }
-
-    this.socket.on('game-event', function (received_data) {
-      if (received_data.knowledge === self.copeWith) {
-        // It's very helpful
-        console.log('received knowledge: ' + received_data.knowledge);
-      }
-    });
 
     // Update the actuator
     this.actuate();
@@ -143,12 +146,12 @@ class GameManager {
         var tile = self.grid.cellContent(cell);
         if (!tile) return;
 
-        if (tile.value >= 30 && tile.type === self.copeWith) {
+        if (tile.value >= self.syringeValue && tile.type === self.copeWith) {
           tile.syringe = true;
           self.won = true;
           console.log("Finish developing vaccine: " + tile.type);
           send_socket_data.vaccine = tile.type;
-        } else if (tile.value >= 20 && tile.type !== self.copeWith) {
+        } else if (tile.value >= self.packValue && tile.type !== self.copeWith) {
           tile.pack = true;
           console.log("Share knowledge: " + tile.type);
           send_socket_data.knowledge = tile.type;
