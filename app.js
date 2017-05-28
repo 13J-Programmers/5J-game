@@ -75,7 +75,7 @@ var Game = {
 app.io.on('connection', function (socket) {
   console.log('a player connected');
 
-  socket.on('game-enter', function (received_data) {
+  socket.on('game-enter', function (receivedData) {
     socket.join('game-room');
     app.io.in('game-room').clients(function (err, clients) {
       if (err) throw err;

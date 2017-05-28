@@ -28,10 +28,10 @@ class GameManager {
     return this.over || this.won;
   }
 
-  gameEventListener(received_data) {
-    if (received_data.knowledge === this.copeWith) {
+  gameEventListener(receivedData) {
+    if (receivedData.knowledge === this.copeWith) {
       // It's very helpful
-      console.log('received knowledge: ' + received_data.knowledge);
+      console.log('received knowledge: ' + receivedData.knowledge);
     }
   }
 
@@ -94,7 +94,7 @@ class GameManager {
   move(direction) {
     // 0: up, 1: right, 2: down, 3: left
     var self = this;
-    var send_socket_data = {};
+    var sendSocketData = {};
 
     if (this.isGameTerminated()) return; // Don't do anything if the game's over
 
@@ -150,11 +150,11 @@ class GameManager {
           tile.syringe = true;
           self.won = true;
           console.log("Finish developing vaccine: " + tile.type);
-          send_socket_data.vaccine = tile.type;
+          sendSocketData.vaccine = tile.type;
         } else if (tile.value >= self.packValue && tile.type !== self.copeWith) {
           tile.pack = true;
           console.log("Share knowledge: " + tile.type);
-          send_socket_data.knowledge = tile.type;
+          sendSocketData.knowledge = tile.type;
         }
       })
     });
@@ -167,8 +167,8 @@ class GameManager {
         console.log("game over");
       }
 
-      if (Object.keys(send_socket_data).length > 0) {
-        this.socket.emit('game-new-event', send_socket_data);
+      if (Object.keys(sendSocketData).length > 0) {
+        this.socket.emit('game-new-event', sendSocketData);
       }
 
       this.actuate();
