@@ -116,7 +116,7 @@ class GameManager {
           var next      = self.grid.cellContent(positions.next);
 
           // Only one merger per row traversal?
-          if (next && next.type === tile.type && !next.mergedFrom) {
+          if (next && next.type === tile.type/* && !next.mergedFrom */) {
             var merged = new Tile(positions.next, next.value + tile.value, tile.type);
             merged.mergedFrom = [tile, next];
 
