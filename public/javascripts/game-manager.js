@@ -49,15 +49,18 @@ class GameManager {
       this.addRandomTile();
     }
 
+    // Add virus
+    this.addRandomTile("black");
+
     // Update the actuator
     this.actuate();
   }
 
   // Adds a tile in a random position
-  addRandomTile() {
+  addRandomTile(color) {
     if (this.grid.hasEmptyCell()) {
       var value = Math.random() < 0.9 ? 2 : 4;
-      var tile = new Tile(this.grid.randomAvailableCell(), value);
+      var tile = new Tile(this.grid.randomAvailableCell(), value, color);
 
       this.grid.insertTile(tile);
     }
@@ -271,8 +274,8 @@ class GameManager {
 // Class propaties and class methods
 
 // {red: "pink", blue: "lightblue", green: "lightgreen", yellow: "yellow"}
-GameManager.colors    = ["red",  "blue",      "green",      "yellow"];
-GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow"];
+GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black"];
+GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black"];
 GameManager.cssColorMap = (function () {
   var hash = {};
   for (var i = 0; i < GameManager.colors.length; i++) {

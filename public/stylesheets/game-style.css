@@ -445,6 +445,9 @@ hr {
 .tile.tile-lightgreen-pack .tile-inner {
   background: lightgreen url("/images/tile-pack.png");
   background-size: contain; }
+.tile.tile-black .tile-inner {
+  background: white url("/images/virus.png");
+  background-size: contain; }
 
 @keyframes appear {
   0% {

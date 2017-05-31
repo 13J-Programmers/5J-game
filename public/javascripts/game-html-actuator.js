@@ -75,6 +75,8 @@ class HTMLActuator {
       classes.push("tile-" + tile.cssType + "-syringe");
     } else if (tile.pack) {
       classes.push("tile-" + tile.cssType + "-pack");
+    } else if (tile.type === "black") {
+      classes.push("tile-" + tile.cssType);
     } else {
       classes.push("tile-" + tile.cssType + "-" + tile.value);
     }
