@@ -56,3 +56,19 @@ Pandemic + Puzzle = Puzzdemic（パズデミック）
 + 他のプレイヤから「知識」が送られてくるときは、自分の窓に向かってくるアニメーション
 + 右上には完成したワクチンのリスト
 + 右下には各プレイヤのワクチン完成までの進捗状況
+
+
+### Getting Started
+- npm
+
+~~~
+$ npm install
+$ npm start
+~~~
+
+- yarn
+
+~~~
+$ yarn
+$ yarn start
+~~~
