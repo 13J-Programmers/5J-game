@@ -77,12 +77,17 @@ class HTMLActuator {
       classes.push("tile-" + tile.cssType + "-syringe");
     } else if (tile.pack) {
       classes.push("tile-" + tile.cssType + "-pack");
-    } else if (tile.type === "black") {
+    } else if (tile.type === "virus") {
       classes.push("tile-" + GameManager.cssColorMap[this.metadata.copeWith] + "-virus");
+    } else if (tile.type === "virus-cry") {
+      classes.push("tile-" + GameManager.cssColorMap[this.metadata.copeWith] + "-virus-cry");
     } else {
       classes.push("tile-" + tile.cssType + "-" + tile.value);
     }
     classes.push(positionClass);
+    if (tile.willDisappear) {
+      classes.push("tile-will-disappear");
+    }
     this.applyClasses(wrapper, classes);
 
     inner.classList.add("tile-inner");

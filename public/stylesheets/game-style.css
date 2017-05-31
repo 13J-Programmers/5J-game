@@ -214,6 +214,29 @@ hr {
   transition: 100ms ease-in-out;
   transition-property: transform;
 }
+.tile-pink-pack .tile-inner,
+.tile-lightblue-pack .tile-inner,
+.tile-lightgreen-pack .tile-inner,
+.tile-yellow-pack .tile-inner {
+  animation-name: packmove;
+  animation-delay: 0.1s;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes packmove {
+  from { transform: translateY(-0px); }
+  to   { transform: translateY(-1000px); }
+}
+.tile-will-disappear {
+  animation-name: disappear;
+  animation-delay: 0.1s;
+  animation-duration: 0.1s;
+  animation-fill-mode: forwards;
+}
+@keyframes disappear {
+  from { opacity: 1.0; }
+  to   { opacity: 0.0; }
+}
 .tile.tile-position-1-1 {
   transform: translate(0px, 0px); }
 .tile.tile-position-1-2 {
@@ -456,6 +479,18 @@ hr {
   background-size: contain; }
 .tile.tile-lightgreen-virus .tile-inner {
   background: white url("/images/virus-green.png");
+  background-size: contain; }
+.tile.tile-pink-virus-cry .tile-inner {
+  background: white url("/images/virus-cry-red.png");
+  background-size: contain; }
+.tile.tile-lightblue-virus-cry .tile-inner {
+  background: white url("/images/virus-cry-blue.png");
+  background-size: contain; }
+.tile.tile-yellow-virus-cry .tile-inner {
+  background: white url("/images/virus-cry-yellow.png");
+  background-size: contain; }
+.tile.tile-lightgreen-virus-cry .tile-inner {
+  background: white url("/images/virus-cry-green.png");
   background-size: contain; }
 
 @keyframes appear {
