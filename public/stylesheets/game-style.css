@@ -446,16 +446,16 @@ hr {
   background: lightgreen url("/images/tile-pack.png");
   background-size: contain; }
 .tile.tile-pink-virus .tile-inner {
-  background: pink url("/images/virus.png");
+  background: white url("/images/virus-red.png");
   background-size: contain; }
 .tile.tile-lightblue-virus .tile-inner {
-  background: lightblue url("/images/virus.png");
+  background: white url("/images/virus-blue.png");
   background-size: contain; }
 .tile.tile-yellow-virus .tile-inner {
-  background: yellow url("/images/virus.png");
+  background: white url("/images/virus-yellow.png");
   background-size: contain; }
 .tile.tile-lightgreen-virus .tile-inner {
-  background: lightgreen url("/images/virus.png");
+  background: white url("/images/virus-green.png");
   background-size: contain; }
 
 @keyframes appear {
