@@ -12,6 +12,8 @@ class HTMLActuator {
   actuate(grid, metadata) {
     var self = this;
 
+    this.metadata = metadata;
+
     window.requestAnimationFrame(() => {
       // Clear tile container
       // self.tileContainer.empty();
@@ -76,7 +78,7 @@ class HTMLActuator {
     } else if (tile.pack) {
       classes.push("tile-" + tile.cssType + "-pack");
     } else if (tile.type === "black") {
-      classes.push("tile-" + tile.cssType);
+      classes.push("tile-" + GameManager.cssColorMap[this.metadata.copeWith] + "-virus");
     } else {
       classes.push("tile-" + tile.cssType + "-" + tile.value);
     }

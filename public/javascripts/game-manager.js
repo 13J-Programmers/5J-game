@@ -2,7 +2,8 @@
 class GameManager {
   constructor(color, InputManager, Actuator, socket) {
     this.size         = 4; // Size of the grid
-    this.copeWith     = color; // color will be virus color (red, blue, green, yellow)
+    // color will be virus color (red, blue, green, yellow)
+    this.copeWith     = color;
     this.inputManager = new InputManager;
     this.actuator     = new Actuator(color);
     this.socket       = socket;
@@ -72,7 +73,8 @@ class GameManager {
       score:      this.score,
       over:       this.over,
       won:        this.won,
-      terminated: this.isGameTerminated()
+      terminated: this.isGameTerminated(),
+      copeWith:   this.copeWith,
     });
   }
 
