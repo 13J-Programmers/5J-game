@@ -2,7 +2,8 @@
 class GameManager {
   constructor(color, InputManager, Actuator, socket) {
     this.size         = 4; // Size of the grid
-    this.copeWith     = color; // color will be virus color (red, blue, green, yellow)
+    // color will be virus color (red, blue, green, yellow)
+    this.copeWith     = color;
     this.inputManager = new InputManager;
     this.actuator     = new Actuator(color);
     this.socket       = socket;
@@ -49,15 +50,18 @@ class GameManager {
       this.addRandomTile();
     }
 
+    // Add virus
+    this.addRandomTile("virus");
+
     // Update the actuator
     this.actuate();
   }
 
   // Adds a tile in a random position
-  addRandomTile() {
+  addRandomTile(color) {
     if (this.grid.hasEmptyCell()) {
       var value = Math.random() < 0.9 ? 2 : 4;
-      var tile = new Tile(this.grid.randomAvailableCell(), value);
+      var tile = new Tile(this.grid.randomAvailableCell(), value, color);
 
       this.grid.insertTile(tile);
     }
@@ -69,7 +73,8 @@ class GameManager {
       score:      this.score,
       over:       this.over,
       won:        this.won,
-      terminated: this.isGameTerminated()
+      terminated: this.isGameTerminated(),
+      copeWith:   this.copeWith,
     });
   }
 
@@ -115,9 +120,21 @@ class GameManager {
           var positions = self.findFarthestPosition(cell, vector);
           var next      = self.grid.cellContent(positions.next);
 
-          // Only one merger per row traversal?
-          if (next && next.type === tile.type/* && !next.mergedFrom */) {
+          if (next && next.type === "virus" && tile.syringe) {
+            // Inject to virus by syringe
+            var merged = new Tile(positions.next, -1, "virus-cry");
+            tile.willDisappear = next.willDisappear = true;
+            merged.mergedFrom = [tile, next];
+
+            self.grid.insertTile(merged);
+            self.grid.removeTile(tile);
+
+            // Converge the two tiles' positions
+            tile.updatePosition(positions.next);
+          } else if (next && next.type === tile.type/* && !next.mergedFrom */) {
+            // Merge tiles
             var merged = new Tile(positions.next, next.value + tile.value, tile.type);
+            tile.willDisappear = next.willDisappear = true;
             merged.mergedFrom = [tile, next];
 
             self.grid.insertTile(merged);
@@ -148,7 +165,7 @@ class GameManager {
 
         if (tile.value >= self.syringeValue && tile.type === self.copeWith) {
           tile.syringe = true;
-          self.won = true;
+          // self.won = true;
           console.log("Finish developing vaccine: " + tile.type);
           sendSocketData.vaccine = tile.type;
         } else if (tile.value >= self.packValue && tile.type !== self.copeWith) {
@@ -172,15 +189,6 @@ class GameManager {
       }
 
       this.actuate();
-
-      // When tiles are merged, there are some extra tiles under the merged tile,
-      // so we need to remove them but css transition duration is about 200ms (
-      // position movement is about 100ms but pop animation takes 200ms), and so
-      // we should actuate the html renderer after 250ms.
-      setTimeout(function () {
-        self.prepareTiles();
-        self.actuate();
-      }, 250);
     }
   }
 
@@ -271,8 +279,8 @@ class GameManager {
 // Class propaties and class methods
 
 // {red: "pink", blue: "lightblue", green: "lightgreen", yellow: "yellow"}
-GameManager.colors    = ["red",  "blue",      "green",      "yellow"];
-GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow"];
+GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black"];
+GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black"];
 GameManager.cssColorMap = (function () {
   var hash = {};
   for (var i = 0; i < GameManager.colors.length; i++) {
