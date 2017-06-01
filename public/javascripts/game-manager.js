@@ -8,8 +8,8 @@ class GameManager {
     this.actuator     = new Actuator(color);
     this.socket       = socket;
     this.startTiles   = 2; // Start tile count
-    this.syringeValue = 30;
-    this.packValue    = 20;
+    this.syringeValue = window.urlParams.get('syringeValue') || 30;
+    this.packValue    = window.urlParams.get('packValue') || 20;
 
     this.inputManager.on("move", this.move.bind(this));
     this.inputManager.on("restart", this.restart.bind(this));

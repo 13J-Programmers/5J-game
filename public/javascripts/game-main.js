@@ -1,4 +1,6 @@
 
+window.urlParams = new URLParams(location);
+
 window.requestAnimationFrame(() => {
   var mainEvent = new EventEmitter();
   var socket = io();
@@ -8,7 +10,7 @@ window.requestAnimationFrame(() => {
   var gameStartInfo  = $('.game-start-info');
   var gameStartInfo2 = $('.game-start-info2');
   var gameStartInfo3 = $('.game-start-info3');
-  var startCountdown = 3;
+  var startCountdown = window.urlParams.get('startCountdown') || 3;
   var loader = $('.loader');
 
   socket.emit('game-enter', 'A new player is entered');
