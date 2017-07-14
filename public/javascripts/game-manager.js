@@ -51,7 +51,7 @@ class GameManager {
     }
 
     // Add virus
-    this.addRandomTile("virus");
+    //this.addRandomTile("virus");
 
     // Update the actuator
     this.actuate();
@@ -120,18 +120,19 @@ class GameManager {
           var positions = self.findFarthestPosition(cell, vector);
           var next      = self.grid.cellContent(positions.next);
 
-          if (next && next.type === "virus" && tile.syringe) {
-            // Inject to virus by syringe
-            var merged = new Tile(positions.next, -1, "virus-cry");
-            tile.willDisappear = next.willDisappear = true;
-            merged.mergedFrom = [tile, next];
-
-            self.grid.insertTile(merged);
-            self.grid.removeTile(tile);
-
-            // Converge the two tiles' positions
-            tile.updatePosition(positions.next);
-          } else if (next && next.type === tile.type/* && !next.mergedFrom */) {
+          // if (next && next.type === "virus" && tile.syringe) {
+          //   // Inject to virus by syringe
+          //   var merged = new Tile(positions.next, -1, "virus-cry");
+          //   tile.willDisappear = next.willDisappear = true;
+          //   merged.mergedFrom = [tile, next];
+          //
+          //   self.grid.insertTile(merged);
+          //   self.grid.removeTile(tile);
+          //
+          //   // Converge the two tiles' positions
+          //   tile.updatePosition(positions.next);
+          // } else
+          if (next && next.type === tile.type/* && !next.mergedFrom */) {
             // Merge tiles
             var merged = new Tile(positions.next, next.value + tile.value, tile.type);
             tile.willDisappear = next.willDisappear = true;
