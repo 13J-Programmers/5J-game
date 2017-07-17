@@ -1,4 +1,63 @@
 
+body {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), url("/images/global.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.65;
+}
+
+a {
+  color: #776E65;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #d8d4d0;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* --- Utils ---------------------------------------------------------------- */
+.red    { color: red    }
+.blue   { color: blue   }
+.yellow { color: yellow }
+.green  { color: green  }
+.hidden { display: none }
+
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.progress-bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: black;
+  text-align: center;
+  background-color: #337ab7;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+  -webkit-transition: width .6s ease;
+       -o-transition: width .6s ease;
+          transition: width .6s ease;
+}
+.progress-bar-red { background-color: pink; }
+.progress-bar-blue { background-color: lightblue; }
+.progress-bar-yellow { background-color: yellow; }
+.progress-bar-green { background-color: lightgreen; }
+
+/* --- Keyframes ------------------------------------------------------------ */
 @keyframes move-up {
   0% {
     top: 25px;
@@ -37,31 +96,7 @@
   100% { transform: scale(1); }
 }
 
-p {
-  margin-top: 0;
-  margin-bottom: 10px;
-  line-height: 1.65;
-}
-
-a {
-  color: #776E65;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-hr {
-  border: none;
-  border-bottom: 1px solid #d8d4d0;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-.red    { color: red    }
-.blue   { color: blue   }
-.yellow { color: yellow }
-.green  { color: green  }
-
+/* --- Modal ---------------------------------------------------------------- */
 .modal-game-waiting {
   position: fixed;
   top: 5%;
@@ -85,7 +120,7 @@ hr {
   z-index: 1000;
 }
 
-/* Loader to Wait Player */
+/* --- Loader to Wait Player ------------------------------------------------ */
 .loader,
 .loader:before,
 .loader:after {
@@ -130,8 +165,51 @@ hr {
   40%  { box-shadow: 0 2.5em 0 0; }
 }
 
+/* --- Game ----------------------------------------------------------------- */
+.game-panel {
+  color: white;
+  background-color: #cdc1b3;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #bbad9f;
+  border-radius: 5px;
+  height: 100px;
+  width: 250px;
+}
+
+.game-outbreaks {
+  position: absolute;
+  top: 150px;
+  height: 400px;
+  width: 100px;
+}
+
+.icon-contingency-planner {
+  width: 50px;
+  height: 50px;
+  background: url("/images/pd_contingency_planner.png");
+}
+.icon-medic {
+  width: 50px;
+  height: 50px;
+  background: url("/images/pd_medic.png");
+  background-size: contain;
+}
+.icon-researcher {
+  width: 50px;
+  height: 50px;
+  background: url("/images/pd_researcher.png");
+  background-size: contain;
+}
+.icon-scientist {
+  width: 50px;
+  height: 50px;
+  background: url("/images/pd_scientist.png");
+  background-size: contain;
+}
+
 .game-container {
-  margin: 40px auto;
+  margin: 20px auto;
   position: relative;
   padding: 15px;
   cursor: default;
@@ -493,4 +571,26 @@ hr {
 .tile-new .tile-inner {
   animation: appear 200ms ease 100ms;
   animation-fill-mode: backwards;
+}
+
+.syring {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+.syring.red-syring {
+  background: pink url("/images/tile-syringe.png");
+  background-size: contain;
+}
+.syring.blue-syring {
+  background: lightblue url("/images/tile-syringe.png");
+  background-size: contain;
+}
+.syring.yellow-syring {
+  background: yellow url("/images/tile-syringe.png");
+  background-size: contain;
+}
+.syring.green-syring {
+  background: lightgreen url("/images/tile-syringe.png");
+  background-size: contain;
 }
