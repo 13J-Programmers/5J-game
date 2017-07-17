@@ -180,6 +180,15 @@ progress {
 .game-outbreaks {
   position: absolute;
   top: 150px;
+  left: 10px;
+  height: 400px;
+  width: 100px;
+}
+
+.game-infection-rate {
+  position: absolute;
+  top: 150px;
+  right: 10px;
   height: 400px;
   width: 100px;
 }
