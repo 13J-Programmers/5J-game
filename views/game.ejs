@@ -29,39 +29,50 @@
     </div>
 
     <table style="margin: 0 auto">
-      <tr>
-        <td>
-          <div class="game-panel game-assigned-color">
-            <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
-            <span>Officer</span>
-            <div class="progress">
-              <div class="progress-bar progress-bar-red" role="progressbar"
-              aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                100%
-              </div>
+      <td>
+        <div class="game-panel game-assigned-color">
+          <table>
+            <td>
+              <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
+              <span>Officer</span>
+            </td>
+            <td>
+              <div class="pack red-pack right-block"></div>
+            </td>
+            <td>
+              <div class="text-center"> x <span id="pack_num">0</span></div>
+            </td>
+          </table>
+          <div class="progress">
+            <div class="progress-bar progress-bar-red" role="progressbar"
+            aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              100%
             </div>
           </div>
-        </td>
-        <td>
-          <div class="game-panel game-cured-disease">
-            <table>
-              <tr>
-                <td><img src="" alt="Virus1"></td>
-                <td><img src="" alt="Virus2"></td>
-                <td><img src="" alt="Virus3"></td>
-                <td><img src="" alt="Virus4"></td>
-              </tr>
-              <tr>
-                <td><div class="syring red-syring"></div></td>
-                <td><div class="syring blue-syring"></div></td>
-                <td><div class="syring yellow-syring"></div></td>
-                <td><div class="syring green-syring"></div></td>
-              </tr>
-            </table>
-
-          </div>
-        </td>
-      </tr>
+        </div>
+      </td>
+      <td>
+        <div class="game-panel game-cured-disease">
+          <table>
+            <td>
+              <img src="/images/icon-virus-red.png" alt="Virus1" width="50px">
+              <div class="syringe red-syringe margin-top--15px hidden"></div>
+            </td>
+            <td>
+              <img src="/images/icon-virus-blue.png" alt="Virus2" width="50px">
+              <div class="syringe blue-syringe margin-top--15px hidden"></div>
+            </td>
+            <td>
+              <img src="/images/icon-virus-yellow.png" alt="Virus3" width="50px">
+              <div class="syringe yellow-syringe margin-top--15px hidden"></div>
+            </td>
+            <td>
+              <img src="/images/icon-virus-green.png" alt="Virus4" width="50px">
+              <div class="syringe green-syringe margin-top--15px hidden"></div>
+            </td>
+          </table>
+        </div>
+      </td>
     </table>
 
     <div class="game-panel game-outbreaks">
@@ -71,6 +82,7 @@
 
     <div class="game-panel game-infection-rate">
       <p>INFECTION RATE</p>
+      <img src="/images/infection-rate.png" alt="" height="50px" width="50px">
     </div>
 
     <div class="game-container">
@@ -111,56 +123,94 @@
     </div>
 
     <table style="margin: 0 auto">
-      <tr>
-        <td class="hidden">
-          <div class="game-panel game-red-player">
-            <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
-            <span>Officer</span>
-            <div class="progress">
-              <div class="progress-bar progress-bar-red" role="progressbar"
-              aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                100%
-              </div>
+      <td class="hidden">
+        <div class="game-panel game-red-player">
+          <table>
+            <td>
+              <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
+              <span>Officer</span>
+            </td>
+            <td>
+              <div class="pack red-pack right-block"></div>
+            </td>
+            <td>
+              <div class="text-center"> x <span id="player1_pack_num">0</span></div>
+            </td>
+          </table>
+          <div class="progress">
+            <div class="progress-bar progress-bar-red" role="progressbar"
+            aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              100%
             </div>
           </div>
-        </td>
-        <td>
-          <div class="game-panel game-blue-player">
-            <img src="/images/CoolClips_doctor.png" alt="Player role" height="50px">
-            <span>Doctor</span>
-            <div class="progress">
-              <div class="progress-bar progress-bar-blue" role="progressbar"
-              aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                100%
-              </div>
+        </div>
+      </td>
+      <td>
+        <div class="game-panel game-blue-player">
+          <table>
+            <td>
+              <img src="/images/CoolClips_doctor.png" alt="Player role" height="50px">
+              <span>Doctor</span>
+            </td>
+            <td>
+              <div class="pack blue-pack right-block"></div>
+            </td>
+            <td>
+              <div class="text-center"> x <span id="player2_pack_num">0</span></div>
+            </td>
+          </table>
+          <div class="progress">
+            <div class="progress-bar progress-bar-blue" role="progressbar"
+            aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              100%
             </div>
           </div>
-        </td>
-        <td>
-          <div class="game-panel game-yello-player">
-            <img src="/images/CoolClips_researcher.png" alt="Player role" height="50px">
-            <span>Researcher</span>
-            <div class="progress">
-              <div class="progress-bar progress-bar-yellow" role="progressbar"
-              aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                100%
-              </div>
+        </div>
+      </td>
+      <td>
+        <div class="game-panel game-yello-player">
+          <table>
+            <td>
+              <img src="/images/CoolClips_researcher.png" alt="Player role" height="50px">
+              <span>Researcher</span>
+            </td>
+            <td>
+              <div class="pack yellow-pack right-block"></div>
+            </td>
+            <td>
+              <div class="text-center"> x <span id="player3_pack_num">0</span></div>
+            </td>
+          </table>
+          <div class="progress">
+            <div class="progress-bar progress-bar-yellow" role="progressbar"
+            aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              100%
             </div>
           </div>
-        </td>
-        <td>
-          <div class="game-panel game-green-player">
-            <img src="/images/CoolClips_scientist.png" alt="Player role" height="50px">
-            <span>Scientist</span>
-            <div class="progress">
-              <div class="progress-bar progress-bar-green" role="progressbar"
-              aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                100%
-              </div>
+        </div>
+      </td>
+      <td>
+        <div class="game-panel game-green-player">
+          <table>
+            <td>
+              <img src="/images/CoolClips_scientist.png" alt="Player role" height="50px">
+              <span>Scientist</span>
+            </td>
+            <td>
+              <div class="pack green-pack right-block"></div>
+            </td>
+            <td>
+              <div class="text-center"> x <span id="player4_pack_num">0</span></div>
+            </td>
+          </table>
+          <div class="progress">
+            <div class="progress-bar progress-bar-green" role="progressbar"
+            aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              100%
             </div>
           </div>
-        </td>
-      </tr>
+        </div>
+      </td>
     </table>
   </body>
 </html>

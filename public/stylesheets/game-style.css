@@ -32,6 +32,22 @@ hr {
 .yellow { color: yellow }
 .green  { color: green  }
 .hidden { display: none }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+.text-center { text-align: center; }
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.right-block {
+  display: block;
+  margin-right: 0;
+  margin-left: auto;
+}
+.margin-top--15px {
+  margin-top: -15px;
+}
 
 progress {
   display: inline-block;
@@ -174,6 +190,9 @@ progress {
   border-color: #bbad9f;
   border-radius: 5px;
   height: 100px;
+  width: 250px;
+}
+.game-panel table {
   width: 250px;
 }
 
@@ -582,24 +601,45 @@ progress {
   animation-fill-mode: backwards;
 }
 
-.syring {
+.pack {
   width: 50px;
   height: 50px;
   border-radius: 5px;
 }
-.syring.red-syring {
+.pack.red-pack {
+  background: pink url("/images/tile-pack.png");
+  background-size: contain;
+}
+.pack.blue-pack {
+  background: lightblue url("/images/tile-pack.png");
+  background-size: contain;
+}
+.pack.yellow-pack {
+  background: yellow url("/images/tile-pack.png");
+  background-size: contain;
+}
+.pack.green-pack {
+  background: lightgreen url("/images/tile-pack.png");
+  background-size: contain;
+}
+.syringe {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+.syringe.red-syringe {
   background: pink url("/images/tile-syringe.png");
   background-size: contain;
 }
-.syring.blue-syring {
+.syringe.blue-syringe {
   background: lightblue url("/images/tile-syringe.png");
   background-size: contain;
 }
-.syring.yellow-syring {
+.syringe.yellow-syringe {
   background: yellow url("/images/tile-syringe.png");
   background-size: contain;
 }
-.syring.green-syring {
+.syringe.green-syringe {
   background: lightgreen url("/images/tile-syringe.png");
   background-size: contain;
 }
