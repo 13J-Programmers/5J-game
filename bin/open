@@ -1,0 +1,6 @@
+#!/bin/bash
+
+OPEN=open
+which xdg-open &>/dev/null && OPEN=xdg-open
+
+for run in {1..4}; do $OPEN http://localhost:3000/; done
