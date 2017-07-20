@@ -13,6 +13,7 @@
     <script src="/javascripts/game-grid.js"></script>
     <script src="/javascripts/game-tile.js"></script>
     <script src="/javascripts/game-html-actuator.js"></script>
+    <script src="/javascripts/game-html-gadget.js"></script>
     <script src="/javascripts/game-input-manager.js"></script>
     <script src="/javascripts/game-manager.js"></script>
     <script src="/javascripts/game-main.js"></script>
@@ -30,7 +31,7 @@
 
     <table style="margin: 0 auto">
       <td>
-        <div class="game-panel game-assigned-color">
+        <div id="myGamePanel" class="game-panel">
           <table>
             <td>
               <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
@@ -40,7 +41,7 @@
               <div class="pack red-pack right-block"></div>
             </td>
             <td>
-              <div class="text-center"> x <span id="pack_num">0</span></div>
+              <div class="text-center"> x <span id="myPackNum">0</span></div>
             </td>
           </table>
           <div class="progress">
@@ -124,7 +125,7 @@
 
     <table style="margin: 0 auto">
       <td class="hidden">
-        <div class="game-panel game-red-player">
+        <div id="redGamePanel" class="game-panel">
           <table>
             <td>
               <img src="/images/CoolClips_officer.png" alt="Player role" height="50px">
@@ -134,7 +135,7 @@
               <div class="pack red-pack right-block"></div>
             </td>
             <td>
-              <div class="text-center"> x <span id="player1_pack_num">0</span></div>
+              <div class="text-center"> x <span id="redPackNum">0</span></div>
             </td>
           </table>
           <div class="progress">
@@ -146,7 +147,7 @@
         </div>
       </td>
       <td>
-        <div class="game-panel game-blue-player">
+        <div id="blueGamePanel" class="game-panel">
           <table>
             <td>
               <img src="/images/CoolClips_doctor.png" alt="Player role" height="50px">
@@ -156,7 +157,7 @@
               <div class="pack blue-pack right-block"></div>
             </td>
             <td>
-              <div class="text-center"> x <span id="player2_pack_num">0</span></div>
+              <div class="text-center"> x <span id="bluePackNum">0</span></div>
             </td>
           </table>
           <div class="progress">
@@ -168,7 +169,7 @@
         </div>
       </td>
       <td>
-        <div class="game-panel game-yello-player">
+        <div id="yellowGamePanel" class="game-panel">
           <table>
             <td>
               <img src="/images/CoolClips_researcher.png" alt="Player role" height="50px">
@@ -178,7 +179,7 @@
               <div class="pack yellow-pack right-block"></div>
             </td>
             <td>
-              <div class="text-center"> x <span id="player3_pack_num">0</span></div>
+              <div class="text-center"> x <span id="yellowPackNum">0</span></div>
             </td>
           </table>
           <div class="progress">
@@ -190,7 +191,7 @@
         </div>
       </td>
       <td>
-        <div class="game-panel game-green-player">
+        <div id="greenGamePanel" class="game-panel">
           <table>
             <td>
               <img src="/images/CoolClips_scientist.png" alt="Player role" height="50px">
@@ -200,7 +201,7 @@
               <div class="pack green-pack right-block"></div>
             </td>
             <td>
-              <div class="text-center"> x <span id="player4_pack_num">0</span></div>
+              <div class="text-center"> x <span id="GreenPackNum">0</span></div>
             </td>
           </table>
           <div class="progress">

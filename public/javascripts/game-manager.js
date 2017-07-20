@@ -1,6 +1,6 @@
 
 class GameManager {
-  constructor(color, InputManager, Actuator, socket) {
+  constructor(color, InputManager, Actuator, Gadget, socket) {
     this.size         = 4; // Size of the grid
     // color will be virus color (red, blue, green, yellow)
     this.copeWith     = color;
@@ -30,9 +30,15 @@ class GameManager {
   }
 
   gameEventListener(receivedData) {
-    if (receivedData.knowledge === this.copeWith) {
-      // It's very helpful
-      console.log('received knowledge: ' + receivedData.knowledge);
+    // knowledge
+    if (receivedData.knowledge) {
+      // if (receivedData.knowledge === this.copeWith) {
+      //   console.log('received knowledge: ' + receivedData.knowledge);
+    }
+
+    // vaccine
+    if (receivedData.vaccine) {
+      //
     }
   }
 
