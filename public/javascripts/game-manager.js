@@ -6,6 +6,7 @@ class GameManager {
     this.copeWith     = color;
     this.inputManager = new InputManager;
     this.actuator     = new Actuator(color);
+    this.gadget       = new Gadget(color);
     this.socket       = socket;
     this.startTiles   = 2; // Start tile count
     this.syringeValue = window.urlParams.get('syringeValue') || 30;
@@ -34,6 +35,8 @@ class GameManager {
     if (receivedData.knowledge) {
       // if (receivedData.knowledge === this.copeWith) {
       //   console.log('received knowledge: ' + receivedData.knowledge);
+
+      this.gadget.incrementPackNum(receivedData.knowledge);
     }
 
     // vaccine
