@@ -195,6 +195,7 @@ class GameManager {
       }
 
       if (Object.keys(sendSocketData).length > 0) {
+        sendSocketData.from = this.copeWith;
         this.socket.emit('game-new-event', sendSocketData);
       }
 
