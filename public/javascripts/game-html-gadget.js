@@ -28,11 +28,8 @@ class HTMLGadget {
   }
 
   init() {
-    // console.log("init!");
-    var originalGamePanel = this.gamePanels[this.myType];
-    var myGamePanel = originalGamePanel.cloneNode(true);
-    originalGamePanel.classList.add("hidden");
-    this.myGamePanel.replaceChild(myGamePanel, this.myGamePanel.firstChild);
+    var target = this.gamePanels[this.myType];
+    this.myGamePanel.appendChild(target);
   }
 
   incrementPackNum(type) {
