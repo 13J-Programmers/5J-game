@@ -56,4 +56,8 @@ window.requestAnimationFrame(() => {
       new GameManager(receivedData.color, InputManager, HTMLActuator, HTMLGadget, socket);
     });
   });
+
+  socket.on('quit', function (receivedData) {
+    location.reload();
+  });
 });

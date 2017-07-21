@@ -99,6 +99,21 @@ app.io.on('connection', function (socket) {
   socket.on('game-new-event', function (msg) {
     app.io.to('game-room').emit('game-event', msg);
   });
+
+  // When someone leaves from the game, all player will reload page.
+
+  socket.on('disconnect', function () {
+    // Send "quit" to all players
+    app.io.in('game-room').clients(function (err, clients) {
+      clients.forEach((socketid, idx) => {
+        app.io.to(socketid).emit('quit');
+      });
+    });
+  });
+
+  socket.on('quit', function () {
+    socket.leave('game-room');
+  });
 });
 
 module.exports = app;
