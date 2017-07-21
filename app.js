@@ -76,7 +76,13 @@ app.io.on('connection', function (socket) {
   console.log('a player connected');
 
   socket.on('game-enter', function (receivedData) {
+    if (app.io.sockets.adapter.rooms['game-room'] &&
+        app.io.sockets.adapter.rooms['game-room'].length >= 4) {
+      //app.io.to(socket.id).emit('message', "The game is already started!");
+      return;
+    }
     socket.join('game-room');
+    socket.enteredGameRoom = true;
     app.io.in('game-room').clients(function (err, clients) {
       if (err) throw err;
       console.log(clients);
@@ -103,12 +109,14 @@ app.io.on('connection', function (socket) {
   // When someone leaves from the game, all player will reload page.
 
   socket.on('disconnect', function () {
-    // Send "quit" to all players
-    app.io.in('game-room').clients(function (err, clients) {
-      clients.forEach((socketid, idx) => {
-        app.io.to(socketid).emit('quit');
+    if (socket.enteredGameRoom) {
+      // Send "quit" to all players
+      app.io.in('game-room').clients(function (err, clients) {
+        clients.forEach((socketid, idx) => {
+          app.io.to(socketid).emit('quit');
+        });
       });
-    });
+    }
   });
 
   socket.on('quit', function () {
