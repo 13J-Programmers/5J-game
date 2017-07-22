@@ -4,6 +4,7 @@ class HTMLGadget {
     this.types = ["red", "blue", "yellow", "green"];
     this._isValidType(myType);
     this.myType = myType;
+    // game panels
     this.myGamePanel = document.getElementById('myGamePanel');
     this.gamePanels = {
       red:    document.getElementById('redGamePanel'),
@@ -11,6 +12,7 @@ class HTMLGadget {
       yellow: document.getElementById('yellowGamePanel'),
       green:  document.getElementById('greenGamePanel'),
     };
+    // pack
     this.packNums = {
       red:    0,
       blue:   0,
@@ -23,14 +25,19 @@ class HTMLGadget {
       yellow: document.getElementById('yellowPackNum'),
       green:  document.getElementById('greenPackNum'),
     };
+    // syringe
     this.syringeElements = {
       red:    document.getElementById('redSyringe'),
       blue:   document.getElementById('blueSyringe'),
       yellow: document.getElementById('yellowSyringe'),
       green:  document.getElementById('greenSyringe'),
     }
+    // outbreak
     this.outbreakStep = 0;
     this.outbreakMarker = document.getElementById('outbreakMarker');
+    // infection rate
+    this.infectionRate = 0;
+    this.infectionRateMarker = document.getElementById('infectionRateMarker');
 
     this.init();
   }
@@ -56,6 +63,13 @@ class HTMLGadget {
     this.outbreakMarker.classList.remove('outbreak-marker-step' + this.outbreakStep);
     this.outbreakStep++;
     this.outbreakMarker.classList.add('outbreak-marker-step' + this.outbreakStep);
+  }
+
+  incrementInfectionRate() {
+    if (this.infectionRate >= 6) return;
+    this.infectionRateMarker.classList.remove('infection-rate-marker-step' + this.infectionRate);
+    this.infectionRate++;
+    this.infectionRateMarker.classList.add('infection-rate-marker-step' + this.infectionRate);
   }
 
   _isValidType(type) {

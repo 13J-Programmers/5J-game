@@ -45,6 +45,11 @@ class GameManager {
     if (receivedData.outbreak) {
       this.gadget.incrementOutbreak();
     }
+
+    // infection rate
+    if (receivedData.time) {
+      this.gadget.incrementInfectionRate();
+    }
   }
 
   // Set up the game

@@ -101,6 +101,17 @@ app.io.on('connection', function (socket) {
       clients.forEach((socketid, idx) => {
         app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
       });
+      // Start timer
+      function send(room, eventName, msg) {
+        console.log(msg);
+        app.io.to('game-room').emit('game-event', msg);
+      }
+      setTimeout(send, 1000 *  30, 'game-room', 'game-event', { time: '0:30' });
+      setTimeout(send, 1000 *  60, 'game-room', 'game-event', { time: '1:00' });
+      setTimeout(send, 1000 *  90, 'game-room', 'game-event', { time: '1:30' });
+      setTimeout(send, 1000 * 120, 'game-room', 'game-event', { time: '2:00' });
+      setTimeout(send, 1000 * 150, 'game-room', 'game-event', { time: '2:30' });
+      setTimeout(send, 1000 * 180, 'game-room', 'game-event', { time: '3:00' });
     }
   });
 
