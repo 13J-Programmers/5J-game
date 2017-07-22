@@ -35,13 +35,15 @@ class GameManager {
     if (receivedData.knowledge) {
       // if (receivedData.knowledge === this.copeWith) {
       //   console.log('received knowledge: ' + receivedData.knowledge);
+      //   // do animation
+      // }
 
       this.gadget.incrementPackNum(receivedData.knowledge);
     }
 
     // vaccine
     if (receivedData.vaccine) {
-      //
+      this.gadget.addSyringe(receivedData.vaccine);
     }
   }
 

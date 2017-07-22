@@ -23,6 +23,12 @@ class HTMLGadget {
       yellow: document.getElementById('yellowPackNum'),
       green:  document.getElementById('greenPackNum'),
     };
+    this.syringeElements = {
+      red:    document.getElementById('redSyringe'),
+      blue:   document.getElementById('blueSyringe'),
+      yellow: document.getElementById('yellowSyringe'),
+      green:  document.getElementById('greenSyringe'),
+    }
 
     this.init();
   }
@@ -36,6 +42,11 @@ class HTMLGadget {
     if (!this._isValidType(type)) return;
     this.packNums[type]++;
     this.packNumElements[type].innerText = this.packNums[type];
+  }
+
+  addSyringe(type) {
+    if (!this._isValidType(type)) return;
+    this.syringeElements[type].classList.remove('hidden');
   }
 
   _isValidType(type) {
