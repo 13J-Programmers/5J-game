@@ -199,17 +199,7 @@ hr {
   height: 400px;
   width: 100px;
 }
-.game-infection-rate {
-  position: absolute;
-  top: 150px;
-  right: 10px;
-  height: 400px;
-  width: 100px;
-}
-.game-infection-rate p {
-  line-height: 1.3;
-}
-.game-panel .diamond {
+.game-outbreaks .diamond {
   position: relative;
   left: 0;
   right: 0;
@@ -220,9 +210,9 @@ hr {
   opacity: 0.3;
   transform: rotate(45deg);
 }
-.game-panel .diamond:nth-child(2n+1) { left: -17.5px; }
-.game-panel .diamond:nth-child(2n)   { left:  17.5px; }
-.game-panel .diamond-inner {
+.game-outbreaks .diamond:nth-child(2n+1) { left: -17.5px; }
+.game-outbreaks .diamond:nth-child(2n)   { left:  17.5px; }
+.game-outbreaks .diamond-inner {
   text-align: center;
   position: absolute;
   top: 1px;
@@ -235,28 +225,49 @@ hr {
   background: transparent;
   transform: rotate(-45deg);
 }
-.outbreak-marker,
-.infection-rate-marker {
+.game-outbreaks .outbreak-marker {
   position: absolute;
   z-index: 100;
   width: 100px;
   text-align: center;
+  transition: 200ms ease-in-out;
+  transition-property: transform;
 }
-.game-panel .outbreak-marker-step0 { top: calc(40px + 35px * 0); left: -17.5px; }
-.game-panel .outbreak-marker-step1 { top: calc(40px + 35px * 1); left:  17.5px; }
-.game-panel .outbreak-marker-step2 { top: calc(40px + 35px * 2); left: -17.5px; }
-.game-panel .outbreak-marker-step3 { top: calc(40px + 35px * 3); left:  17.5px; }
-.game-panel .outbreak-marker-step4 { top: calc(40px + 35px * 4); left: -17.5px; }
-.game-panel .outbreak-marker-step5 { top: calc(40px + 35px * 5); left:  17.5px; }
-.game-panel .outbreak-marker-step6 { top: calc(40px + 35px * 6); left: -17.5px; }
-.game-panel .outbreak-marker-step7 { top: calc(40px + 35px * 7); left:  17.5px; }
-.game-panel .outbreak-marker-step8 { top: calc(40px + 35px * 8); left: -17.5px; }
-.game-panel .outbreak-steps {
+.game-outbreaks .outbreak-marker-step0 {
+  transform: translate(-17.5px, calc(5px + 35px * 0)); }
+.game-outbreaks .outbreak-marker-step1 {
+  transform: translate( 17.5px, calc(5px + 35px * 1)); }
+.game-outbreaks .outbreak-marker-step2 {
+  transform: translate(-17.5px, calc(5px + 35px * 2)); }
+.game-outbreaks .outbreak-marker-step3 {
+  transform: translate( 17.5px, calc(5px + 35px * 3)); }
+.game-outbreaks .outbreak-marker-step4 {
+  transform: translate(-17.5px, calc(5px + 35px * 4)); }
+.game-outbreaks .outbreak-marker-step5 {
+  transform: translate( 17.5px, calc(5px + 35px * 5)); }
+.game-outbreaks .outbreak-marker-step6 {
+  transform: translate(-17.5px, calc(5px + 35px * 6)); }
+.game-outbreaks .outbreak-marker-step7 {
+  transform: translate( 17.5px, calc(5px + 35px * 7)); }
+.game-outbreaks .outbreak-marker-step8 {
+  transform: translate(-17.5px, calc(5px + 35px * 8)); }
+.game-outbreaks .outbreak-steps {
   position: absolute;
   top: 50px;
   width: 100px;
 }
-.game-panel .circle {
+
+.game-infection-rate {
+  position: absolute;
+  top: 150px;
+  right: 10px;
+  height: 400px;
+  width: 100px;
+}
+.game-infection-rate p {
+  line-height: 1.3;
+}
+.game-infection-rate .circle {
   position: relative;
   width: 50px;
   height: 50px;
@@ -268,16 +279,31 @@ hr {
   line-height: 50px;
   border-radius: 25px;
 }
-.game-panel .circle:nth-child(2n+1) { left: -17.5px; }
-.game-panel .circle:nth-child(2n)   { left:  17.5px; }
-.game-panel .infection-rate-marker-step0 { top: calc(45px + 45px * 0); left: -17.5px; }
-.game-panel .infection-rate-marker-step1 { top: calc(45px + 45px * 1); left:  17.5px; }
-.game-panel .infection-rate-marker-step2 { top: calc(45px + 45px * 2); left: -17.5px; }
-.game-panel .infection-rate-marker-step3 { top: calc(45px + 45px * 3); left:  17.5px; }
-.game-panel .infection-rate-marker-step4 { top: calc(45px + 45px * 4); left: -17.5px; }
-.game-panel .infection-rate-marker-step5 { top: calc(45px + 45px * 5); left:  17.5px; }
-.game-panel .infection-rate-marker-step6 { top: calc(45px + 45px * 6); left: -17.5px; }
-.game-panel .infection-rate-steps {
+.game-infection-rate .infection-rate-marker {
+  position: absolute;
+  z-index: 100;
+  width: 100px;
+  text-align: center;
+  transition: 200ms ease-in-out;
+  transition-property: transform;
+}
+.game-infection-rate .circle:nth-child(2n+1) { left: -17.5px; }
+.game-infection-rate .circle:nth-child(2n)   { left:  17.5px; }
+.game-infection-rate .infection-rate-marker-step0 {
+  transform: translate(-17.5px, calc(-5px + 45px * 0)); }
+.game-infection-rate .infection-rate-marker-step1 {
+  transform: translate( 17.5px, calc(-5px + 45px * 1)); }
+.game-infection-rate .infection-rate-marker-step2 {
+  transform: translate(-17.5px, calc(-5px + 45px * 2)); }
+.game-infection-rate .infection-rate-marker-step3 {
+  transform: translate( 17.5px, calc(-5px + 45px * 3)); }
+.game-infection-rate .infection-rate-marker-step4 {
+  transform: translate(-17.5px, calc(-5px + 45px * 4)); }
+.game-infection-rate .infection-rate-marker-step5 {
+  transform: translate( 17.5px, calc(-5px + 45px * 5)); }
+.game-infection-rate .infection-rate-marker-step6 {
+  transform: translate(-17.5px, calc(-5px + 45px * 6)); }
+.game-infection-rate .infection-rate-steps {
   position: absolute;
   top: 50px;
   width: 100px;
