@@ -27,7 +27,7 @@ class HTMLActuator {
 
       grid.cells.forEach((column) => {
         column.forEach((tile) => {
-          if (tile && tile.pack) {
+          if (tile && (tile.pack || tile.syringe)) {
             grid.removeTile(tile); // update grid
           }
         });
