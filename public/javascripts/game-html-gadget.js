@@ -63,6 +63,7 @@ class HTMLGadget {
     this.outbreakMarker.classList.remove('outbreak-marker-step' + this.outbreakStep);
     this.outbreakStep++;
     this.outbreakMarker.classList.add('outbreak-marker-step' + this.outbreakStep);
+    return this.outbreakStep;
   }
 
   incrementInfectionRate() {
@@ -70,6 +71,7 @@ class HTMLGadget {
     this.infectionRateMarker.classList.remove('infection-rate-marker-step' + this.infectionRate);
     this.infectionRate++;
     this.infectionRateMarker.classList.add('infection-rate-marker-step' + this.infectionRate);
+    return this.infectionRate;
   }
 
   _isValidType(type) {
