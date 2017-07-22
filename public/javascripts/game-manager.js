@@ -61,9 +61,6 @@ class GameManager {
       this.addRandomTile();
     }
 
-    // Add virus
-    //this.addRandomTile("virus");
-
     // Update the actuator
     this.actuate();
   }
@@ -131,18 +128,6 @@ class GameManager {
           var positions = self.findFarthestPosition(cell, vector);
           var next      = self.grid.cellContent(positions.next);
 
-          // if (next && next.type === "virus" && tile.syringe) {
-          //   // Inject to virus by syringe
-          //   var merged = new Tile(positions.next, -1, "virus-cry");
-          //   tile.willDisappear = next.willDisappear = true;
-          //   merged.mergedFrom = [tile, next];
-          //
-          //   self.grid.insertTile(merged);
-          //   self.grid.removeTile(tile);
-          //
-          //   // Converge the two tiles' positions
-          //   tile.updatePosition(positions.next);
-          // } else
           if (next && next.type === tile.type/* && !next.mergedFrom */) {
             // Merge tiles
             var merged = new Tile(positions.next, next.value + tile.value, tile.type);
@@ -292,8 +277,8 @@ class GameManager {
 // Class propaties and class methods
 
 // {red: "pink", blue: "lightblue", green: "lightgreen", yellow: "yellow"}
-GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black"];
-GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black"];
+GameManager.colors    = ["red",  "blue",      "green",      "yellow"];
+GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow"];
 GameManager.cssColorMap = (function () {
   var hash = {};
   for (var i = 0; i < GameManager.colors.length; i++) {

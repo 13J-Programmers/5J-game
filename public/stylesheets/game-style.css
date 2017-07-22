@@ -571,30 +571,6 @@ progress {
 .tile.tile-lightgreen-pack .tile-inner {
   background: lightgreen url("/images/tile-pack.png");
   background-size: contain; }
-.tile.tile-pink-virus .tile-inner {
-  background: white url("/images/virus-red.png");
-  background-size: contain; }
-.tile.tile-lightblue-virus .tile-inner {
-  background: white url("/images/virus-blue.png");
-  background-size: contain; }
-.tile.tile-yellow-virus .tile-inner {
-  background: white url("/images/virus-yellow.png");
-  background-size: contain; }
-.tile.tile-lightgreen-virus .tile-inner {
-  background: white url("/images/virus-green.png");
-  background-size: contain; }
-.tile.tile-pink-virus-cry .tile-inner {
-  background: white url("/images/virus-cry-red.png");
-  background-size: contain; }
-.tile.tile-lightblue-virus-cry .tile-inner {
-  background: white url("/images/virus-cry-blue.png");
-  background-size: contain; }
-.tile.tile-yellow-virus-cry .tile-inner {
-  background: white url("/images/virus-cry-yellow.png");
-  background-size: contain; }
-.tile.tile-lightgreen-virus-cry .tile-inner {
-  background: white url("/images/virus-cry-green.png");
-  background-size: contain; }
 
 .tile-new .tile-inner {
   animation: appear 200ms ease 100ms;
