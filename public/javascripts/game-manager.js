@@ -22,6 +22,7 @@ class GameManager {
       yellow: false,
       green:  false,
     };
+    this.receivedKnowledge = 0;
 
     this.inputManager.on("move", this.move.bind(this));
     this.inputManager.on("restart", this.restart.bind(this));
@@ -39,11 +40,9 @@ class GameManager {
   gameEventListener(receivedData) {
     // knowledge
     if (receivedData.knowledge) {
-      // if (receivedData.knowledge === this.copeWith) {
-      //   console.log('received knowledge: ' + receivedData.knowledge);
-      //   // do animation
-      // }
-
+      if (receivedData.knowledge === this.copeWith) {
+        this.receivedKnowledge++;
+      }
       this.gadget.incrementPackNum(receivedData.knowledge);
     }
 
@@ -102,7 +101,7 @@ class GameManager {
   // Adds a tile in a random position
   addRandomTile(color) {
     if (this.grid.hasEmptyCell()) {
-      var value = Math.random() < 0.9 ? 2 : 4;
+      var value = Math.random() < this.receivedKnowledge * 0.05 ? 4 : 2;
       var tile = new Tile(this.grid.randomAvailableCell(), value, color);
 
       this.grid.insertTile(tile);
