@@ -71,35 +71,37 @@ var Game = {
 
 // --- websocket ---
 
-// start listen with socket.io
+// Start listen with socket.io
 app.io.on('connection', function (socket) {
   console.log('a player connected');
 
   socket.on('game-enter', function (receivedData) {
-    if (app.io.sockets.adapter.rooms['game-room'] &&
-        app.io.sockets.adapter.rooms['game-room'].length >= 4) {
+    var rooms = app.io.sockets.adapter.rooms;
+
+    // Join game-room until 4 player gather
+    if (rooms['game-room'] && rooms['game-room'].length >= 4) {
       //app.io.to(socket.id).emit('message', "The game is already started!");
       return;
     }
     socket.join('game-room');
     socket.enteredGameRoom = true;
-    app.io.in('game-room').clients(function (err, clients) {
-      if (err) throw err;
-      console.log(clients);
 
-      // Send a player count
-      clients.forEach((socketid, idx) => {
-        app.io.to(socketid).emit('game-room-player-count', { count: clients.length });
-      });
+    // Get clients in game-room
+    var clients = Object.keys(rooms['game-room'].sockets);
+    console.log(clients);
 
-      if (clients.length == 4) {
-        // Send a game start
-        var shuffledColors = Utils.shuffle(Game.colors);
-        clients.forEach((socketid, idx) => {
-          app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
-        });
-      }
+    // Send a player count
+    clients.forEach((socketid, idx) => {
+      app.io.to(socketid).emit('game-room-player-count', { count: clients.length });
     });
+
+    if (clients.length === 4) {
+      // Send a game start
+      var shuffledColors = Utils.shuffle(Game.colors);
+      clients.forEach((socketid, idx) => {
+        app.io.to(socketid).emit('game-start', { color: shuffledColors[idx] });
+      });
+    }
   });
 
   socket.on('game-new-event', function (msg) {
@@ -107,7 +109,6 @@ app.io.on('connection', function (socket) {
   });
 
   // When someone leaves from the game, all player will reload page.
-
   socket.on('disconnect', function () {
     if (socket.enteredGameRoom) {
       // Send "quit" to all players
