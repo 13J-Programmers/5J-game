@@ -29,6 +29,8 @@ class HTMLGadget {
       yellow: document.getElementById('yellowSyringe'),
       green:  document.getElementById('greenSyringe'),
     }
+    this.outbreakStep = 0;
+    this.outbreakMarker = document.getElementById('outbreakMarker');
 
     this.init();
   }
@@ -47,6 +49,13 @@ class HTMLGadget {
   addSyringe(type) {
     if (!this._isValidType(type)) return;
     this.syringeElements[type].classList.remove('hidden');
+  }
+
+  incrementOutbreak() {
+    if (this.outbreakStep >= 8) return;
+    this.outbreakMarker.classList.remove('outbreak-marker-step' + this.outbreakStep);
+    this.outbreakStep++;
+    this.outbreakMarker.classList.add('outbreak-marker-step' + this.outbreakStep);
   }
 
   _isValidType(type) {

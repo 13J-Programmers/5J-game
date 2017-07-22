@@ -25,11 +25,6 @@ class GameManager {
     this.setup();
   }
 
-  // Return true if the game is lost, or has won
-  isGameTerminated() {
-    return this.over || this.won;
-  }
-
   gameEventListener(receivedData) {
     // knowledge
     if (receivedData.knowledge) {
@@ -44,6 +39,11 @@ class GameManager {
     // vaccine
     if (receivedData.vaccine) {
       this.gadget.addSyringe(receivedData.vaccine);
+    }
+
+    // outbreak
+    if (receivedData.outbreak) {
+      this.gadget.incrementOutbreak();
     }
   }
 
@@ -81,7 +81,6 @@ class GameManager {
       score:      this.score,
       over:       this.over,
       won:        this.won,
-      terminated: this.isGameTerminated(),
       copeWith:   this.copeWith,
     });
   }
@@ -108,8 +107,6 @@ class GameManager {
     // 0: up, 1: right, 2: down, 3: left
     var self = this;
     var sendSocketData = {};
-
-    //if (this.isGameTerminated()) return; // Don't do anything if the game is over
 
     var vector     = this.getVector(direction);
     var traversals = this.buildTraversals(vector);
@@ -179,6 +176,7 @@ class GameManager {
       if (!this.movesAvailable()) {
         this.over = true; // Game over!
         console.log("game over");
+        sendSocketData.outbreak = true;
       }
 
       if (Object.keys(sendSocketData).length > 0) {
