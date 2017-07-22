@@ -109,7 +109,7 @@ class GameManager {
     var self = this;
     var sendSocketData = {};
 
-    if (this.isGameTerminated()) return; // Don't do anything if the game's over
+    //if (this.isGameTerminated()) return; // Don't do anything if the game is over
 
     var vector     = this.getVector(direction);
     var traversals = this.buildTraversals(vector);
@@ -242,7 +242,19 @@ class GameManager {
   }
 
   movesAvailable() {
-    return this.grid.hasEmptyCell() || this.tileMatchesAvailable();
+    return this.grid.hasEmptyCell() || this.hasPackOrSyringe() || this.tileMatchesAvailable();
+  }
+
+  hasPackOrSyringe() {
+    for (var x = 0; x < this.size; x++) {
+      for (var y = 0; y < this.size; y++) {
+        var tile = this.grid.cellContent({ x: x, y: y });
+        if (tile && (tile.pack || tile.syringe)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // Check for available matches between tiles (more expensive check)
