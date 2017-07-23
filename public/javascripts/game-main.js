@@ -53,7 +53,11 @@ window.requestAnimationFrame(() => {
     mainEvent.on('puzzle-start', function () {
       modalOverlay.fadeOut();
       modalGameWaiting.fadeOut();
-      new GameManager(receivedData.color, InputManager, HTMLActuator, HTMLGadget, socket);
+      var _gameManager = new GameManager(receivedData.color,
+        InputManager, HTMLActuator, HTMLGadget, socket);
+      if (window.location.hostname === "localhost") { // debug mode
+        window.gameManager = _gameManager;
+      }
     });
   });
 

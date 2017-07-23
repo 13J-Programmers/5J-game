@@ -368,14 +368,49 @@ hr {
   animation-fill-mode: both;
 }
 .game-message p {
+  padding-top: 200px;
   font-size: 60px;
   font-weight: bold;
   height: 60px;
   line-height: 60px;
 }
 .game-message.game-won {
+  display: block;
   background: rgba(237, 194, 46, 0.5);
   color: #f9f6f2;
+}
+.game-message.game-over {
+  display: block;
+}
+
+.game-termination-message {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  margin: auto;
+  text-align: center;
+  opacity: 0;
+  line-height: 60px;
+}
+.game-termination-message.game-all-won {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: appear 800ms ease 1200ms;
+  animation-fill-mode: forwards;
+}
+.game-termination-message.game-all-over {
+  display: block;
+  background-color: rgba(50, 50, 50, 0.3);
+  animation: appear 800ms ease 1200ms;
+  animation-fill-mode: forwards;
+}
+.game-termination-message .game-termination-message-inner {
+  margin-top: 300px;
+  font-size: 150%;
 }
 
 .grid-container {

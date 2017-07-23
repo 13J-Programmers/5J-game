@@ -22,6 +22,8 @@ class GameManager {
       yellow: false,
       green:  false,
     };
+    this.receivedKnowledge = 0;
+    this.myProgress = 0;
 
     this.inputManager.on("move", this.move.bind(this));
     this.inputManager.on("restart", this.restart.bind(this));
@@ -30,20 +32,26 @@ class GameManager {
     this.setup();
   }
 
+  isTerminated() {
+    return this.allOver || this.allWon;
+  }
+
   // Restart the game
   restart() {
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
     this.actuator.clearMessage(); // Clear the game won/lost message
     this.setup();
   }
 
   gameEventListener(receivedData) {
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
     // knowledge
     if (receivedData.knowledge) {
-      // if (receivedData.knowledge === this.copeWith) {
-      //   console.log('received knowledge: ' + receivedData.knowledge);
-      //   // do animation
-      // }
-
+      if (receivedData.knowledge === this.copeWith) {
+        this.receivedKnowledge++;
+      }
       this.gadget.incrementPackNum(receivedData.knowledge);
     }
 
@@ -58,6 +66,10 @@ class GameManager {
         this.allWon = true;
         // TODO: all players won!
         console.log("game clear!!");
+        this.actuator.terminateGame({
+          allWon: true,
+          reason: "Congratulations, you saved the world!"
+        });
       }
     }
 
@@ -68,6 +80,10 @@ class GameManager {
         this.allOver = true;
         // TODO: all players will be game over!
         console.log("game over!!");
+        this.actuator.terminateGame({
+          allOver: true,
+          reason: "Too many outbreak has occurred."
+        });
       }
     }
 
@@ -78,7 +94,17 @@ class GameManager {
         this.allOver = true;
         // TODO: all players will be game over!
         console.log("game over!!");
+        this.actuator.terminateGame({
+          over: true,
+          reason: "Infection rate is up to limit."
+        });
       }
+    }
+
+    // progress
+    if (receivedData.progress) {
+      var color = receivedData.from;
+      this.gadget.setProgress(color, receivedData.progress);
     }
   }
 
@@ -102,7 +128,7 @@ class GameManager {
   // Adds a tile in a random position
   addRandomTile(color) {
     if (this.grid.hasEmptyCell()) {
-      var value = Math.random() < 0.9 ? 2 : 4;
+      var value = Math.random() < this.receivedKnowledge * 0.05 ? 4 : 2;
       var tile = new Tile(this.grid.randomAvailableCell(), value, color);
 
       this.grid.insertTile(tile);
@@ -145,6 +171,8 @@ class GameManager {
     var vector     = this.getVector(direction);
     var traversals = this.buildTraversals(vector);
     var moved      = false;
+
+    if (this.isTerminated()) return; // do nothing when game is terminated.
 
     // Save the current tile positions and remove merger information
     this.prepareTiles();
@@ -213,6 +241,16 @@ class GameManager {
         console.log("game over");
         sendSocketData.outbreak = true;
         // TODO: show message and restart soon.
+        this.actuator.message({ over: true });
+      }
+
+      // Share progress
+      var progress = this.estimateProgress();
+      console.log(progress, this.myProgress);
+      if (progress > this.myProgress) {
+        console.log(progress);
+        this.myProgress = progress;
+        sendSocketData.progress = progress;
       }
 
       if (Object.keys(sendSocketData).length > 0) {
@@ -317,6 +355,23 @@ class GameManager {
 
   positionsEqual(a, b) {
     return a.x === b.x && a.y === b.y;
+  }
+
+  // Return process between 0 and 100.
+  estimateProgress() {
+    if (this.won) return 100;
+
+    var maxMyColorValue = 0;
+    for (var x = 0; x < this.size; x++) {
+      for (var y = 0; y < this.size; y++) {
+        var tile = this.grid.cellContent({ x: x, y: y });
+        if (tile && tile.type === this.copeWith && tile.value > maxMyColorValue) {
+          maxMyColorValue = tile.value;
+        }
+      }
+    }
+    var progress = maxMyColorValue * 100 / this.syringeValue;
+    return Math.floor(progress);
   }
 }
 

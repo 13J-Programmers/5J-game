@@ -74,6 +74,11 @@ class HTMLGadget {
     return this.infectionRate;
   }
 
+  setProgress(type, num) {
+    this.gamePanels[type].querySelector(".progress-bar").textContent = num + "%";
+    this.gamePanels[type].querySelector(".progress-bar").style.width = num + "%";
+  }
+
   _isValidType(type) {
     if (this.types.indexOf(type) == -1) {
       console.error("unknown type: " + type);
