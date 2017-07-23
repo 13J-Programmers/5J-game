@@ -71,6 +71,13 @@ var Game = {
 
 // --- websocket ---
 
+var timers = [];
+function clearTimers(timers) {
+  for (let timer of timers) {
+    clearTimeout(timer);
+  }
+}
+
 // Start listen with socket.io
 app.io.on('connection', function (socket) {
   console.log('a player connected');
@@ -106,12 +113,14 @@ app.io.on('connection', function (socket) {
         console.log(msg);
         app.io.to('game-room').emit('game-event', msg);
       }
-      setTimeout(send, 1000 *  30, 'game-room', 'game-event', { time: '0:30' });
-      setTimeout(send, 1000 *  60, 'game-room', 'game-event', { time: '1:00' });
-      setTimeout(send, 1000 *  90, 'game-room', 'game-event', { time: '1:30' });
-      setTimeout(send, 1000 * 120, 'game-room', 'game-event', { time: '2:00' });
-      setTimeout(send, 1000 * 150, 'game-room', 'game-event', { time: '2:30' });
-      setTimeout(send, 1000 * 180, 'game-room', 'game-event', { time: '3:00' });
+      timers = [
+        setTimeout(send, 1000 *  30, 'game-room', 'game-event', { time: '0:30' }),
+        setTimeout(send, 1000 *  60, 'game-room', 'game-event', { time: '1:00' }),
+        setTimeout(send, 1000 *  90, 'game-room', 'game-event', { time: '1:30' }),
+        setTimeout(send, 1000 * 120, 'game-room', 'game-event', { time: '2:00' }),
+        setTimeout(send, 1000 * 150, 'game-room', 'game-event', { time: '2:30' }),
+        setTimeout(send, 1000 * 180, 'game-room', 'game-event', { time: '3:00' }),
+      ];
     }
   });
 
@@ -122,6 +131,8 @@ app.io.on('connection', function (socket) {
   // When someone leaves from the game, all player will reload page.
   socket.on('disconnect', function () {
     if (socket.enteredGameRoom) {
+      // Reset timer
+      clearTimers(timers);
       // Send "quit" to all players
       app.io.in('game-room').clients(function (err, clients) {
         clients.forEach((socketid, idx) => {
