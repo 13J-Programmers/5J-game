@@ -1,7 +1,3 @@
-<!-- Do you want to request a feature or report a bug? Check one with "x". -->
-- [ ] Bug report
-- [ ] Feature request
-- [ ] Support request
 
 ## Outline
 <!-- What is the current behavior? and what is the expected behavior? -->
