@@ -32,14 +32,16 @@ class GameManager {
     this.setup();
   }
 
-  // Restart the game
-  restart() {
-    this.actuator.clearMessage(); // Clear the game won/lost message
-    this.setup();
-  }
-
   isTerminated() {
     return this.allOver || this.allWon;
+  }
+
+  // Restart the game
+  restart() {
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
+    this.actuator.clearMessage(); // Clear the game won/lost message
+    this.setup();
   }
 
   gameEventListener(receivedData) {
