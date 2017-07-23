@@ -309,7 +309,8 @@ hr {
   width: 100px;
 }
 
-.game-clear {
+.game-clear,
+.game-over {
   display: none;
   position: absolute;
   top: 0;
@@ -328,11 +329,20 @@ hr {
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
-.game-clear .game-clear-inner {
+.game-over.game-over-pop {
+  display: inherit;
+  background-color: rgba(50, 50, 50, 0.3);
+  animation-name: appear;
+  animation-delay: 0.0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.game-clear .game-clear-inner,
+.game-over .game-over-inner {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -150%);
 }
 
 .icon-contingency-planner {
