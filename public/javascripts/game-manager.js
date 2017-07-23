@@ -23,6 +23,7 @@ class GameManager {
       green:  false,
     };
     this.receivedKnowledge = 0;
+    this.myProgress = 0;
 
     this.inputManager.on("move", this.move.bind(this));
     this.inputManager.on("restart", this.restart.bind(this));
@@ -96,6 +97,12 @@ class GameManager {
           reason: "Infection rate is up to limit."
         });
       }
+    }
+
+    // progress
+    if (receivedData.progress) {
+      var color = receivedData.from;
+      this.gadget.setProgress(color, receivedData.progress);
     }
   }
 
@@ -235,6 +242,15 @@ class GameManager {
         this.actuator.message({ over: true });
       }
 
+      // Share progress
+      var progress = this.estimateProgress();
+      console.log(progress, this.myProgress);
+      if (progress > this.myProgress) {
+        console.log(progress);
+        this.myProgress = progress;
+        sendSocketData.progress = progress;
+      }
+
       if (Object.keys(sendSocketData).length > 0) {
         sendSocketData.from = this.copeWith;
         this.socket.emit('game-new-event', sendSocketData);
@@ -337,6 +353,23 @@ class GameManager {
 
   positionsEqual(a, b) {
     return a.x === b.x && a.y === b.y;
+  }
+
+  // Return process between 0 and 100.
+  estimateProgress() {
+    if (this.won) return 100;
+
+    var maxMyColorValue = 0;
+    for (var x = 0; x < this.size; x++) {
+      for (var y = 0; y < this.size; y++) {
+        var tile = this.grid.cellContent({ x: x, y: y });
+        if (tile && tile.type === this.copeWith && tile.value > maxMyColorValue) {
+          maxMyColorValue = tile.value;
+        }
+      }
+    }
+    var progress = maxMyColorValue * 100 / this.syringeValue;
+    return Math.floor(progress);
   }
 }
 
