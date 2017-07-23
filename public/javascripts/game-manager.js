@@ -37,7 +37,13 @@ class GameManager {
     this.setup();
   }
 
+  isTerminated() {
+    return this.allOver || this.allWon;
+  }
+
   gameEventListener(receivedData) {
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
     // knowledge
     if (receivedData.knowledge) {
       if (receivedData.knowledge === this.copeWith) {
@@ -57,6 +63,10 @@ class GameManager {
         this.allWon = true;
         // TODO: all players won!
         console.log("game clear!!");
+        this.actuator.terminateGame({
+          allWon: true,
+          reason: "Congratulations, you saved the world!"
+        });
       }
     }
 
@@ -67,6 +77,10 @@ class GameManager {
         this.allOver = true;
         // TODO: all players will be game over!
         console.log("game over!!");
+        this.actuator.terminateGame({
+          allOver: true,
+          reason: "Too many outbreak has occurred."
+        });
       }
     }
 
@@ -77,6 +91,10 @@ class GameManager {
         this.allOver = true;
         // TODO: all players will be game over!
         console.log("game over!!");
+        this.actuator.terminateGame({
+          over: true,
+          reason: "Infection rate is up to limit."
+        });
       }
     }
   }
@@ -145,6 +163,8 @@ class GameManager {
     var traversals = this.buildTraversals(vector);
     var moved      = false;
 
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
     // Save the current tile positions and remove merger information
     this.prepareTiles();
 
@@ -212,6 +232,7 @@ class GameManager {
         console.log("game over");
         sendSocketData.outbreak = true;
         // TODO: show message and restart soon.
+        this.actuator.message({ over: true });
       }
 
       if (Object.keys(sendSocketData).length > 0) {

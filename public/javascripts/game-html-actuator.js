@@ -4,6 +4,7 @@ class HTMLActuator {
     this.tileContainer        = document.querySelector(".tile-container");
     this.messageContainer     = document.querySelector(".game-message");
     this.tileRemovedContainer = document.querySelector(".tile-removed-container");
+    this.terminationMessage   = document.querySelector(".game-termination-message");
   }
 
   actuate(grid, metadata) {
@@ -102,13 +103,29 @@ class HTMLActuator {
     return "tile-position-" + pos.x + "-" + pos.y;
   }
 
-  message(won) {
-    var type    = won ? "game-won" : "game-over";
-    var message = won ? "You win!" : "Game over!";
+  message(args) {
+    if (typeof args === undefined) args.won = true;
+    var type    = args.won ? "game-won" : "game-over";
+    var message = args.won ? "You win!" : "Game over!";
 
     this.messageContainer.classList.add(type);
     this.messageContainer.getElementsByTagName("p")[0].textContent = message;
   }
 
-  clearMessage() {}
+  clearMessage() {
+    this.messageContainer.classList.remove("game-won");
+    this.messageContainer.classList.remove("game-over");
+  }
+
+  terminateGame(args) {
+    if (typeof args === undefined) args.won = true;
+    var type    = args.allWon ? "game-all-won" : "game-all-over";
+    var message = args.allWon ? "VICTORY" : "GAME OVER";
+    var reason  = args.reason || "";
+
+    this.clearMessage();
+    this.terminationMessage.classList.add(type);
+    this.terminationMessage.querySelector('h3').textContent = message;
+    this.terminationMessage.querySelector('p').textContent  = reason;
+  }
 }
