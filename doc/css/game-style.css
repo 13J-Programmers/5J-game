@@ -176,24 +176,39 @@ hr {
   background-color: #cdc1b3;
   border: solid 5px #bbad9f;
   border-radius: 5px;
-  height: 100px;
   width: 300px;
+  height: 100px;
 }
 .game-panel table {
   width: 300px;
 }
-
-.icon-researcher {
-  width: 50px;
-  height: 50px;
-  background: url("../img/pd_researcher.png");
-  background-size: contain;
+.game-panel.player1 {
+  background-image: url('../img/CoolClips_researcher.png');
+  background-size: 220px 220px;
+  background-repeat: no-repeat;
+  background-position: left center;
 }
-.icon-scientist {
-  width: 50px;
-  height: 50px;
-  background: url("../img/pd_scientist.png");
-  background-size: contain;
+.game-panel.player2 {
+  background-image: url('../img/CoolClips_scientist.png');
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.game-virus-panel {
+  width: 100px;
+  height: 100px;
+}
+.game-virus-panel.virus-red {
+  background-image: url('../img/icon-virus-red.png');
+}
+.game-virus-panel.virus-yellow {
+  background-image: url('../img/icon-virus-yellow.png');
+}
+.game-virus-panel.virus-green {
+  background-image: url('../img/icon-virus-green.png');
+}
+.game-virus-panel.virus-blue {
+  background-image: url('../img/icon-virus-blue.png');
 }
 
 #game-background {

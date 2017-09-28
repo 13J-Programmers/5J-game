@@ -21,7 +21,20 @@
     <script src="js/game-earth-globe.js"></script>
   </head>
   <body>
-
+    <table class="center-block">
+      <td>
+        <div class="game-panel game-virus-panel virus-red"></div>
+      </td>
+      <td>
+        <div class="game-panel game-virus-panel virus-yellow"></div>
+      </td>
+      <td>
+        <div class="game-panel game-virus-panel virus-green"></div>
+      </td>
+      <td>
+        <div class="game-panel game-virus-panel virus-blue"></div>
+      </td>
+    </table>
 
     <table class="center-block">
       <td>
@@ -61,6 +74,10 @@
 
           <div class="tile-removed-container"></div>
         </div>
+      </td>
+
+      <td>
+        <div style="width: 100px"></div>
       </td>
 
       <td>
@@ -105,47 +122,16 @@
 
     <table class="center-block">
       <td>
-        <div id="yellowGamePanel" class="game-panel">
-          <table>
-            <td>
-              <img src="img/CoolClips_researcher.png" alt="Player role" height="50px">
-              <span>Researcher</span>
-            </td>
-            <td>
-              <div class="pack yellow-pack right-block"></div>
-            </td>
-            <td>
-              <div class="text-center"> x <span id="yellowPackNum">0</span></div>
-            </td>
-          </table>
-          <div class="progress">
-            <div class="progress-bar progress-bar-yellow" role="progressbar"
-            aria-valuemin="0" aria-valuemax="100" style="width:0%">
-              0%
-            </div>
-          </div>
+        <div class="game-panel player1">
         </div>
       </td>
+
       <td>
-        <div id="greenGamePanel" class="game-panel">
-          <table>
-            <td>
-              <img src="img/CoolClips_scientist.png" alt="Player role" height="50px">
-              <span>Scientist</span>
-            </td>
-            <td>
-              <div class="pack green-pack right-block"></div>
-            </td>
-            <td>
-              <div class="text-center"> x <span id="greenPackNum">0</span></div>
-            </td>
-          </table>
-          <div class="progress">
-            <div class="progress-bar progress-bar-green" role="progressbar"
-            aria-valuemin="0" aria-valuemax="100" style="width:0%">
-              0%
-            </div>
-          </div>
+        <div style="width: 100px"></div>
+      </td>
+
+      <td>
+        <div class="game-panel player2">
         </div>
       </td>
     </table>
