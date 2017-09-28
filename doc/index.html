@@ -16,164 +16,94 @@
     <script src="js/game-html-actuator.js"></script>
     <script src="js/game-html-gadget.js"></script>
     <script src="js/game-input-manager.js"></script>
-    <script src="js/game-earth-globe.js"></script>
     <script src="js/game-manager.js"></script>
     <script src="js/game-main.js"></script>
+    <script src="js/game-earth-globe.js"></script>
   </head>
   <body>
 
-    <!-- <div class="modal-overlay"></div>
-    <div class="modal-game-waiting hidden">
 
-    </div> -->
-
-    <div class="game-background" style="position: fixed; z-index: -10000; left: 0; top: 0;">
-    </div>
-
-    <table style="margin: 0 auto">
+    <table class="center-block">
       <td>
-        <div id="myGamePanel"></div>
+        <div class="game-container player1">
+          <div class="game-message">
+            <p></p>
+          </div>
+
+          <div class="grid-container">
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+          </div>
+
+          <div class="tile-container"></div>
+
+          <div class="tile-removed-container"></div>
+        </div>
       </td>
+
       <td>
-        <div class="game-panel game-cured-disease">
-          <table>
-            <td>
-              <img src="img/icon-virus-red.png" alt="Virus1" width="50px">
-              <div id="redSyringe" class="syringe red-syringe margin-top--15px hidden"></div>
-            </td>
-            <td>
-              <img src="img/icon-virus-blue.png" alt="Virus2" width="50px">
-              <div id="blueSyringe" class="syringe blue-syringe margin-top--15px hidden"></div>
-            </td>
-            <td>
-              <img src="img/icon-virus-yellow.png" alt="Virus3" width="50px">
-              <div id="yellowSyringe" class="syringe yellow-syringe margin-top--15px hidden"></div>
-            </td>
-            <td>
-              <img src="img/icon-virus-green.png" alt="Virus4" width="50px">
-              <div id="greenSyringe" class="syringe green-syringe margin-top--15px hidden"></div>
-            </td>
-          </table>
+        <div class="game-container player2">
+          <div class="game-message">
+            <p></p>
+          </div>
+
+          <div class="grid-container">
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+          </div>
+
+          <div class="tile-container"></div>
+
+          <div class="tile-removed-container"></div>
         </div>
       </td>
     </table>
 
-    <!-- <div class="game-panel game-outbreaks">
-      <p>OUTBREAKS</p>
-      <div id="outbreakMarker" class="outbreak-marker outbreak-marker-step0">
-        <img src="img/outbreak.png" alt="" height="50px" width="50px">
-      </div>
-      <div class="outbreak-steps">
-        <div class="diamond"><span class="diamond-inner">0</span></div>
-        <div class="diamond"><span class="diamond-inner">1</span></div>
-        <div class="diamond"><span class="diamond-inner">2</span></div>
-        <div class="diamond"><span class="diamond-inner">3</span></div>
-        <div class="diamond"><span class="diamond-inner">4</span></div>
-        <div class="diamond"><span class="diamond-inner">5</span></div>
-        <div class="diamond"><span class="diamond-inner">6</span></div>
-        <div class="diamond"><span class="diamond-inner">7</span></div>
-        <div class="diamond"><span class="diamond-inner">8</span></div>
-      </div>
-    </div> -->
-
-    <!-- <div class="game-panel game-infection-rate">
-      <p>INFECTION RATE</p>
-      <div id="infectionRateMarker" class="infection-rate-marker infection-rate-marker-step0">
-        <img src="img/infection-rate.png" alt="" height="50px" width="50px">
-      </div>
-      <div class="infection-rate-steps">
-        <div class="circle">0</div>
-        <div class="circle">1</div>
-        <div class="circle">2</div>
-        <div class="circle">3</div>
-        <div class="circle">4</div>
-        <div class="circle">5</div>
-        <div class="circle">6</div>
-      </div>
-    </div> -->
-
-    <div class="game-container">
-      <div class="game-message">
-        <p></p>
-      </div>
-
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-      </div>
-
-      <div class="tile-container"></div>
-
-      <div class="tile-removed-container"></div>
-    </div>
-
-    <table style="margin: 0 auto">
-      <td>
-        <div id="redGamePanel" class="game-panel">
-          <table>
-            <td>
-              <img src="img/CoolClips_officer.png" alt="Player role" height="50px">
-              <span>Officer</span>
-            </td>
-            <td>
-              <div class="pack red-pack right-block"></div>
-            </td>
-            <td>
-              <div class="text-center"> x <span id="redPackNum">0</span></div>
-            </td>
-          </table>
-          <div class="progress">
-            <div class="progress-bar progress-bar-red" role="progressbar"
-            aria-valuemin="0" aria-valuemax="100" style="width:0%">
-              0%
-            </div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div id="blueGamePanel" class="game-panel">
-          <table>
-            <td>
-              <img src="img/CoolClips_doctor.png" alt="Player role" height="50px">
-              <span>Doctor</span>
-            </td>
-            <td>
-              <div class="pack blue-pack right-block"></div>
-            </td>
-            <td>
-              <div class="text-center"> x <span id="bluePackNum">0</span></div>
-            </td>
-          </table>
-          <div class="progress">
-            <div class="progress-bar progress-bar-blue" role="progressbar"
-            aria-valuemin="0" aria-valuemax="100" style="width:0%">
-              0%
-            </div>
-          </div>
-        </div>
-      </td>
+    <table class="center-block">
       <td>
         <div id="yellowGamePanel" class="game-panel">
           <table>
@@ -226,6 +156,8 @@
         <p></p>
       </div>
     </div>
+
+    <div id="game-background"></div>
 
   </body>
 </html>
