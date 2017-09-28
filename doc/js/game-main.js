@@ -2,11 +2,12 @@
 window.urlParams = new URLParams(location);
 
 window.requestAnimationFrame(() => {
-  var color = "red";
-  var _gameManager = new GameManager(
-    color, InputManager, HTMLActuator, HTMLGadget);
-  if (window.location.hostname === "localhost") { // debug mode
-    window.gameManager = _gameManager;
+  var gameManager1 = new GameManager(1, InputManager, HTMLActuator, HTMLGadget);
+  var gameManager2 = new GameManager(2, InputManager, HTMLActuator, HTMLGadget);
+  if (window.location.hostname === "localhost") {
+    // debug mode
+    window.gameManager1 = gameManager1;
+    window.gameManager2 = gameManager2;
   }
 
   var earthGlobe = new EarthGlobe(".game-background");

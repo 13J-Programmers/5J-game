@@ -1,13 +1,13 @@
 
 class GameManager {
-  constructor(color, InputManager, Actuator, Gadget) {
+  constructor(playerID, InputManager, Actuator, Gadget) {
     this.types        = ["red", "blue", "green", "yellow"];
     this.size         = 4; // Size of the grid
     // color will be virus color (red, blue, green, yellow)
-    this.copeWith     = color;
-    this.inputManager = new InputManager();
-    this.actuator     = new Actuator(color);
-    this.gadget       = new Gadget(color);
+    this.copeWith     = (playerID === 1) ? ["green", "blue"] : ["yellow", "red"];
+    this.inputManager = new InputManager(playerID);
+    this.actuator     = new Actuator(playerID);
+    this.gadget       = new Gadget(playerID);
     this.startTiles   = 2; // Start tile count
     this.syringeValue = window.urlParams.get('syringeValue') || 30;
     this.packValue    = window.urlParams.get('packValue') || 20;
@@ -47,10 +47,9 @@ class GameManager {
 
     // knowledge
     if (receivedData.knowledge) {
-      if (receivedData.knowledge === this.copeWith) {
+      if (this.copeWith.indexOf(receivedData.knowledge) >= 0) {
         this.receivedKnowledge++;
       }
-      this.gadget.incrementPackNum(receivedData.knowledge);
     }
 
     // vaccine
@@ -218,15 +217,13 @@ class GameManager {
         if (!tile) return;
 
         if (self.won && tile.value >= self.packValue ||
-            tile.type !== self.copeWith && tile.value >= self.packValue) {
+            self.copeWith.indexOf(tile.type) === -1 && tile.value >= self.packValue) {
           tile.pack = true;
           console.log("Share knowledge: " + tile.type);
-          sendSocketData.knowledge = tile.type;
-        } else if (tile.value >= self.syringeValue && tile.type === self.copeWith) {
+        } else if (tile.value >= self.syringeValue && self.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
           self.won = true;
           console.log("Finish developing vaccine: " + tile.type);
-          sendSocketData.vaccine = tile.type;
         }
       })
     });
@@ -237,23 +234,8 @@ class GameManager {
       if (!this.movesAvailable()) {
         this.over = true;
         console.log("game over");
-        sendSocketData.outbreak = true;
         // TODO: show message and restart soon.
         this.actuator.message({ over: true });
-      }
-
-      // Share progress
-      var progress = this.estimateProgress();
-      console.log(progress, this.myProgress);
-      if (progress > this.myProgress) {
-        console.log(progress);
-        this.myProgress = progress;
-        sendSocketData.progress = progress;
-      }
-
-      if (Object.keys(sendSocketData).length > 0) {
-        sendSocketData.from = this.copeWith;
-        this.socket.emit('game-new-event', sendSocketData);
       }
 
       this.actuate();
@@ -353,23 +335,6 @@ class GameManager {
 
   positionsEqual(a, b) {
     return a.x === b.x && a.y === b.y;
-  }
-
-  // Return process between 0 and 100.
-  estimateProgress() {
-    if (this.won) return 100;
-
-    var maxMyColorValue = 0;
-    for (var x = 0; x < this.size; x++) {
-      for (var y = 0; y < this.size; y++) {
-        var tile = this.grid.cellContent({ x: x, y: y });
-        if (tile && tile.type === this.copeWith && tile.value > maxMyColorValue) {
-          maxMyColorValue = tile.value;
-        }
-      }
-    }
-    var progress = maxMyColorValue * 100 / this.syringeValue;
-    return Math.floor(progress);
   }
 }
 

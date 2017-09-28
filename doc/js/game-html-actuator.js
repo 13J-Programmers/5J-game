@@ -1,16 +1,14 @@
 
 class HTMLActuator {
-  constructor() {
-    this.tileContainer        = document.querySelector(".tile-container");
-    this.messageContainer     = document.querySelector(".game-message");
-    this.tileRemovedContainer = document.querySelector(".tile-removed-container");
-    this.terminationMessage   = document.querySelector(".game-termination-message");
+  constructor(playerID) {
+    this.tileContainer        = document.querySelector(".player" + playerID + " .tile-container");
+    this.messageContainer     = document.querySelector(".player" + playerID + " .game-message");
+    this.tileRemovedContainer = document.querySelector(".player" + playerID + ".tile-removed-container");
+    this.terminationMessage   = document.querySelector(".player" + playerID + ".game-termination-message");
   }
 
-  actuate(grid, metadata) {
+  actuate(grid) {
     var self = this;
-
-    this.metadata = metadata;
 
     window.requestAnimationFrame(() => {
       // Clear tile container
@@ -33,12 +31,6 @@ class HTMLActuator {
           }
         });
       });
-
-      // if (metadata.over) {
-      //   self.message(false); // You lose
-      // } else if (metadata.won) {
-      //   self.message(true); // You win!
-      // }
     });
   }
 
