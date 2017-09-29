@@ -184,13 +184,50 @@ hr {
   background-size: 220px 220px;
   background-repeat: no-repeat;
   background-position: left center;
+  text-align: right;
 }
 .game-panel.player2 {
   background-image: url('../img/CoolClips_scientist.png');
   background-size: 195px 200px;
   background-repeat: no-repeat;
   background-position: right center;
+  text-align: left;
 }
+.game-panel.player1 .syringe {
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+}
+.game-panel.player2 .syringe {
+  width: 100px;
+  height: 100px;
+  margin-right: auto;
+}
+.game-panel.player1 .syringe .background {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 50px 50px 50px;
+  border-color: rgba(255,255,0,0.5) rgba(255,192,203,0.5) rgba(255,192,203,0.5) rgba(255,255,0,0.5);
+  border-radius: 5px;
+}
+.game-panel.player2 .syringe .background {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 50px 50px 50px;
+  border-color: rgba(173,216,230,0.5) rgba(144,238,144,0.5) rgba(144,238,144,0.5) rgba(173,216,230,0.5);
+  border-radius: 5px;
+}
+.game-panel .syringe .syringe-image {
+  position: relative;
+  top: -100px;
+  width: 100px;
+  height: 100px;
+  background: url("../img/tile-syringe.png");
+  background-size: contain;
+}
+
 .game-virus-panel {
   width: 100px;
   height: 100px;
