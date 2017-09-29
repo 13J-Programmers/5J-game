@@ -1,9 +1,14 @@
 
 class HTMLActuator {
-  constructor(playerID) {
-    this.tileContainer        = document.querySelector(".player" + playerID + " .tile-container");
-    this.messageContainer     = document.querySelector(".player" + playerID + " .game-message");
-    this.terminationMessage   = document.querySelector(".player" + playerID + " .game-termination-message");
+  constructor(playerID, gameEvent) {
+    this.tileContainer      = document.querySelector(".player" + playerID + " .tile-container");
+    this.messageContainer   = document.querySelector(".player" + playerID + " .game-message");
+    this.terminationMessage = document.querySelector(".player" + playerID + " .game-termination-message");
+    this.gameEvent = gameEvent;
+
+    this.gameEvent.on('game-clear', () => {
+      this.message({ won: true });
+    })
   }
 
   actuate(grid) {

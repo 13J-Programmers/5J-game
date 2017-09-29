@@ -1,15 +1,26 @@
 
 class HTMLGadget {
   constructor(gameEvent) {
-
-    // --- Virus and Vaccine ---
+    this.gameEvent = gameEvent;
     this.createdVaccines = {
       red:    false,
       blue:   false,
       yellow: false,
       green:  false,
     };
-    gameEvent.on('create-vaccine', (type) => {
+
+    // Restart Game
+    this.gameEvent.on('game-restart', () => {
+      this.createdVaccines = {
+        red:    false,
+        blue:   false,
+        yellow: false,
+        green:  false,
+      };
+    });
+
+    // When developed vaccine
+    this.gameEvent.on('create-vaccine', (type) => {
       var types = ['red', 'yellow', 'green', 'blue'];
       for (var i = 0; i < types.length; i++) {
         var type_i = types[i];
@@ -23,14 +34,22 @@ class HTMLGadget {
       var isCreatedAllVaccines = Utils.hash2array(this.createdVaccines).every(x => x);
       if (isCreatedAllVaccines) {
         console.log("game clear!!");
-        gameManager1.actuator.message({ won: true });
-        gameManager2.actuator.message({ won: true });
+        this.gameEvent.emit('game-clear')
       }
     });
 
-    // --- Knowledge ---
-    gameEvent.on('create-knowledge', function (type) {
+    // When developed Knowledge ---
+    this.gameEvent.on('create-knowledge', function (type) {
       // TODO: Additional Time
     })
+  }
+
+  reset() {
+    var types = ['red', 'yellow', 'green', 'blue'];
+    for (var i = 0; i < types.length; i++) {
+      var type_i = types[i];
+      var virus = document.querySelector('.game-virus-panel.virus-' + type);
+      virus.style.opacity = 1;
+    }
   }
 }

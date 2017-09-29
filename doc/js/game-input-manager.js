@@ -1,7 +1,9 @@
 
 class InputManager extends EventEmitter {
-  constructor(playerID) {
+  constructor(playerID, gameEvent) {
     super();
+    this.gameEvent = gameEvent;
+
     this.listenKey(playerID);
 
     this.gamepadPressed = false; // Avoid that player keeps button pressing.
@@ -14,6 +16,7 @@ class InputManager extends EventEmitter {
     var self = this;
 
     var mapping;
+    var restartButton;
     if (playerID === 1) {
       mapping = {
         87: 0, // W
@@ -21,6 +24,7 @@ class InputManager extends EventEmitter {
         83: 2, // S
         65: 3, // A
       };
+      restartButton = 82;
     } else if (playerID === 2) {
       mapping = {
         38: 0, // Up
@@ -28,6 +32,7 @@ class InputManager extends EventEmitter {
         40: 2, // Down
         37: 3, // Left
       }
+      restartButton = 84;
     } else {
       throw 'Unexpected playerID';
     }
@@ -45,7 +50,7 @@ class InputManager extends EventEmitter {
       }
 
       // R key restarts the game
-      if (!modifiers && event.which === 82) {
+      if (!modifiers && event.which === restartButton) {
         self.restart.call(self, event);
       }
     });
@@ -121,6 +126,6 @@ class InputManager extends EventEmitter {
 
   restart(event) {
     event.preventDefault();
-    this.emit("restart");
+    this.emit("restart"); // Emit to current puzzle manager, not to global
   }
 }
