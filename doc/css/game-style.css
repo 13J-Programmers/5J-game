@@ -208,7 +208,7 @@ hr {
   height: 0;
   border-style: solid;
   border-width: 50px 50px 50px 50px;
-  border-color: rgba(255,255,0,0.5) rgba(255,192,203,0.5) rgba(255,192,203,0.5) rgba(255,255,0,0.5);
+  border-color: rgba(255,192,203,0.3) rgba(255,255,0,0.3) rgba(255,255,0,0.3) rgba(255,192,203,0.3);
   border-radius: 5px;
 }
 .game-panel.player2 .syringe .background {
@@ -216,7 +216,7 @@ hr {
   height: 0;
   border-style: solid;
   border-width: 50px 50px 50px 50px;
-  border-color: rgba(173,216,230,0.5) rgba(144,238,144,0.5) rgba(144,238,144,0.5) rgba(173,216,230,0.5);
+  border-color: rgba(144,238,144,0.3) rgba(173,216,230,0.3) rgba(173,216,230,0.3) rgba(144,238,144,0.3);
   border-radius: 5px;
 }
 .game-panel .syringe .syringe-image {
