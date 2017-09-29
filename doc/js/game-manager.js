@@ -1,13 +1,12 @@
 
 class GameManager {
-  constructor(playerID, InputManager, Actuator, Gadget) {
+  constructor(playerID, InputManager, Actuator) {
     this.types        = ["red", "blue", "green", "yellow"];
     this.size         = 4; // Size of the grid
     // color will be virus color (red, blue, green, yellow)
     this.copeWith     = (playerID === 1) ? ["green", "blue"] : ["yellow", "red"];
     this.inputManager = new InputManager(playerID);
     this.actuator     = new Actuator(playerID);
-    this.gadget       = new Gadget(playerID);
     this.startTiles   = 2; // Start tile count
     this.syringeValue = window.urlParams.get('syringeValue') || 30;
     this.packValue    = window.urlParams.get('packValue') || 20;
@@ -15,12 +14,6 @@ class GameManager {
     this.won          = false; // won:  This player successfully created a vaccine.
     this.allOver      = false; // allOver: All players failed this game (ex. time's up).
     this.allWon       = false; // allWon:  All players successfully created a vaccine.
-    this.createdVaccines = {
-      red:    false,
-      blue:   false,
-      yellow: false,
-      green:  false,
-    };
     this.receivedKnowledge = 0;
     this.myProgress = 0;
 
@@ -42,68 +35,57 @@ class GameManager {
     this.setup();
   }
 
-  gameEventListener(receivedData) {
-    if (this.isTerminated()) return; // do nothing when game is terminated.
-
-    // knowledge
-    if (receivedData.knowledge) {
-      if (this.copeWith.indexOf(receivedData.knowledge) >= 0) {
-        this.receivedKnowledge++;
-      }
-    }
-
-    // vaccine
-    if (receivedData.vaccine) {
-      this.createdVaccines[receivedData.vaccine] = true;
-      this.gadget.addSyringe(receivedData.vaccine);
-
-      var isCreatedAllVaccines =
-        Utils.hashValues(this.createdVaccines).every(x => x);
-      if (isCreatedAllVaccines) {
-        this.allWon = true;
-        // TODO: all players won!
-        console.log("game clear!!");
-        this.actuator.terminateGame({
-          allWon: true,
-          reason: "Congratulations, you saved the world!"
-        });
-      }
-    }
-
-    // outbreak
-    if (receivedData.outbreak) {
-      var outbreakStep = this.gadget.incrementOutbreak();
-      if (outbreakStep === 8) {
-        this.allOver = true;
-        // TODO: all players will be game over!
-        console.log("game over!!");
-        this.actuator.terminateGame({
-          allOver: true,
-          reason: "Too many outbreak has occurred."
-        });
-      }
-    }
-
-    // infection rate
-    if (receivedData.time) {
-      var infectionRate = this.gadget.incrementInfectionRate();
-      if (infectionRate === 6) {
-        this.allOver = true;
-        // TODO: all players will be game over!
-        console.log("game over!!");
-        this.actuator.terminateGame({
-          over: true,
-          reason: "Infection rate is up to limit."
-        });
-      }
-    }
-
-    // progress
-    if (receivedData.progress) {
-      var color = receivedData.from;
-      this.gadget.setProgress(color, receivedData.progress);
-    }
-  }
+  // gameEventListener(receivedData) {
+  //   if (this.isTerminated()) return; // do nothing when game is terminated.
+  //
+  //   // knowledge
+  //   if (receivedData.knowledge) {
+  //     if (this.copeWith.indexOf(receivedData.knowledge) >= 0) {
+  //       this.receivedKnowledge++;
+  //     }
+  //   }
+  //
+  //   // vaccine
+  //   if (receivedData.vaccine) {
+  //     this.createdVaccines[receivedData.vaccine] = true;
+  //     var isCreatedAllVaccines = Utils.hash2array(this.createdVaccines).every(x => x);
+  //     if (isCreatedAllVaccines) {
+  //       this.allWon = true;
+  //       // TODO: all players won!
+  //       console.log("game clear!!");
+  //       this.actuator.terminateGame({
+  //         allWon: true,
+  //         reason: "Congratulations, you saved the world!"
+  //       });
+  //     }
+  //   }
+  //
+  //   // outbreak
+  //   if (receivedData.outbreak) {
+  //     if (outbreakStep === 8) {
+  //       this.allOver = true;
+  //       // TODO: all players will be game over!
+  //       console.log("game over!!");
+  //       this.actuator.terminateGame({
+  //         allOver: true,
+  //         reason: "Too many outbreak has occurred."
+  //       });
+  //     }
+  //   }
+  //
+  //   // infection rate
+  //   if (receivedData.time) {
+  //     if (infectionRate === 6) {
+  //       this.allOver = true;
+  //       // TODO: all players will be game over!
+  //       console.log("game over!!");
+  //       this.actuator.terminateGame({
+  //         over: true,
+  //         reason: "Infection rate is up to limit."
+  //       });
+  //     }
+  //   }
+  // }
 
   // Set up the game
   setup() {
@@ -219,11 +201,13 @@ class GameManager {
         if (self.won && tile.value >= self.packValue ||
             self.copeWith.indexOf(tile.type) === -1 && tile.value >= self.packValue) {
           tile.pack = true;
-          console.log("Share knowledge: " + tile.type);
+          console.log("Developed knowledge: " + tile.type);
+          window.gameEvent.emit('create-knowledge', tile.type);
         } else if (tile.value >= self.syringeValue && self.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
-          self.won = true;
-          console.log("Finish developing vaccine: " + tile.type);
+          // self.won = true;
+          console.log("Developed vaccine: " + tile.type);
+          window.gameEvent.emit('create-vaccine', tile.type);
         }
       })
     });

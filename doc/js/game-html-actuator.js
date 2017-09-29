@@ -3,8 +3,7 @@ class HTMLActuator {
   constructor(playerID) {
     this.tileContainer        = document.querySelector(".player" + playerID + " .tile-container");
     this.messageContainer     = document.querySelector(".player" + playerID + " .game-message");
-    this.tileRemovedContainer = document.querySelector(".player" + playerID + ".tile-removed-container");
-    this.terminationMessage   = document.querySelector(".player" + playerID + ".game-termination-message");
+    this.terminationMessage   = document.querySelector(".player" + playerID + " .game-termination-message");
   }
 
   actuate(grid) {

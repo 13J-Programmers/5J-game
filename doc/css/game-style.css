@@ -176,11 +176,8 @@ hr {
   background-color: #cdc1b3;
   border: solid 5px #bbad9f;
   border-radius: 5px;
-  width: 300px;
+  width: 400px;
   height: 100px;
-}
-.game-panel table {
-  width: 300px;
 }
 .game-panel.player1 {
   background-image: url('../img/CoolClips_researcher.png');
@@ -190,7 +187,7 @@ hr {
 }
 .game-panel.player2 {
   background-image: url('../img/CoolClips_scientist.png');
-  background-size: 200px 200px;
+  background-size: 195px 200px;
   background-repeat: no-repeat;
   background-position: right center;
 }
@@ -348,7 +345,7 @@ hr {
 .tile-lightgreen-pack .tile-inner,
 .tile-yellow-pack .tile-inner {
   animation-name: packmove;
-  animation-delay: 0.1s;
+  animation-delay: 0.5s;
   animation-duration: 3s;
   animation-fill-mode: forwards;
 }
@@ -357,7 +354,7 @@ hr {
 .tile-lightgreen-syringe .tile-inner,
 .tile-yellow-syringe .tile-inner {
   animation-name: packmove;
-  animation-delay: 0.1s;
+  animation-delay: 0.5s;
   animation-duration: 3s;
   animation-fill-mode: forwards;
 }
