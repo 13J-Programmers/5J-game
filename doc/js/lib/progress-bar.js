@@ -132,8 +132,10 @@ class ProgressBar {
       checkpoints[currentStageIndex].classList.remove('current');
       for (i = currentStageIndex; i >= nextStageIndex; i--) {
         setTimeout((checkpoints, i) => {
-          checkpoints[i].classList.remove('visited');
-          if (i === nextStageIndex) {
+          if (i !== nextStageIndex) {
+            checkpoints[i].classList.remove('visited');
+          } else {
+            checkpoints[i].classList.add('visited');
             checkpoints[nextStageIndex].classList.add('current');
           }
         }, animationDelay, checkpoints, i);
