@@ -1,18 +1,5 @@
 'use strict';
 
-window.addEventListener('load', function () {
-  var earthGlobe = new EarthGlobe("#game-background");
-  earthGlobe.loop();
-
-  window.setDisasterRandom = function () {
-    earthGlobe.setDisasterRandom();
-  }
-
-  window.setDisasterZero = function () {
-    earthGlobe.setDisasterZero();
-  }
-})
-
 class EarthGlobe {
   constructor(htmlSelector) {
     this.countries = [];  // Country data (coordinate, polygon)
@@ -137,5 +124,60 @@ class EarthGlobe {
     for (var i = 0; i < this.countries.length; i++) {
       this.countries[i].disaster = 0;
     }
+  }
+
+  setDisasterPhase(level) {
+    if (level === 0) {
+      this.setDisasterZero();
+    }
+    else if (level === 1) {
+      for (var i = 0; i < this.infectedCountryIndex1.length; i++) {
+        this.countries[this.infectedCountryIndex1[i]].disaster = 0.5 + Math.random() * 0.5;
+      }
+    }
+    else if (level === 2) {
+      for (var i = 0; i < this.infectedCountryIndex2.length; i++) {
+        this.countries[this.infectedCountryIndex2[i]].disaster = 0.5 + Math.random() * 0.5;
+      }
+    }
+    else if (level === 3) {
+      for (var i = 0; i < this.infectedCountryIndex3.length; i++) {
+        this.countries[this.infectedCountryIndex3[i]].disaster = 0.5 + Math.random() * 0.5;
+      }
+    }
+    else if (level === 4) {
+      for (var i = 0; i < this.infectedCountryIndex4.length; i++) {
+        this.countries[this.infectedCountryIndex4[i]].disaster = 0.5 + Math.random() * 0.5;
+      }
+    }
+    else if (level === 5) {
+      for (var i = 0; i < this.countries.length; i++) {
+        this.countries[i].disaster *= 2;
+      }
+      for (var i = 0; i < this.infectedCountryIndex5.length; i++) {
+        this.countries[this.infectedCountryIndex5[i]].disaster = 0.5 + Math.random() * 0.5;
+      }
+    }
+    else if (level === 6) {
+      for (var i = 0; i < this.countries.length; i++) {
+        this.countries[i].disaster = 2.0;
+      }
+    }
+    else {
+      this.setDisasterZero();
+    }
+  }
+
+  setDisasterPhaseConfig() {
+    var indices = [];
+    for (var i = 0; i < this.countries.length; i++) {
+      indices.push(i);
+    }
+    var shuffleIndices = Utils.shuffle(indices);
+    this.infectedCountryIndex1 = shuffleIndices.slice(0, 10);
+    this.infectedCountryIndex2 = shuffleIndices.slice(10, 30);
+    this.infectedCountryIndex3 = shuffleIndices.slice(30, 70);
+    this.infectedCountryIndex4 = shuffleIndices.slice(70, 150);
+    this.infectedCountryIndex5 = shuffleIndices.slice(150);
   }
 }

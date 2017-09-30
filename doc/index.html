@@ -152,29 +152,5 @@
     </div>
 
     <div id="game-background"></div>
-
-    <script>
-      var stages = ['PHASE 1', 'PHASE 2', 'PHASE 3', 'PHASE 4', 'PHASE 5', 'PHASE 6']
-      var progress = new ProgressBar(stages, 'PHASE 1', 'progress-bar-wrapper');
-      var additonalTime = 0; // [ms]
-      setTimeout((progress) => {
-        progress.incrementStage();
-        setTimeout((progress) => {
-          progress.incrementStage();
-          setTimeout((progress) => {
-            progress.incrementStage();
-            setTimeout((progress) => {
-              progress.incrementStage();
-              setTimeout((progress) => {
-                progress.incrementStage();
-                setTimeout((progress) => {
-                  progress.incrementStage();
-                }, 3000 + additonalTime, progress);
-              }, 3000 + additonalTime, progress);
-            }, 3000 + additonalTime, progress);
-          }, 3000 + additonalTime, progress);
-        }, 3000 + additonalTime, progress);
-      }, 3000 + additonalTime, progress);
-    </script>
   </body>
 </html>
