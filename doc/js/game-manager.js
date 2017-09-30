@@ -13,18 +13,24 @@ class GameManager {
     this.packValue    = window.urlParams.get('packValue') || 20;
     this.over         = false; // over: Only this player failed this puzzle.
     this.won          = false; // won:  This player successfully created a vaccine.
-    this.allOver      = false; // allOver: All players failed this game (ex. time's up).
-    this.allWon       = false; // allWon:  All players successfully created a vaccine.
     this.receivedKnowledge = 0;
 
-    this.inputManager.on("move", this.move.bind(this));
-    this.inputManager.on("restart", this.restart.bind(this));
+    this.inputManager.on('move', this.move.bind(this));
+    this.inputManager.on('restart', this.restart.bind(this));
+
+    this.terminated = false;
+    this.gameEvent.on('game-clear', () => {
+      this.terminated = true;
+    });
+    this.gameEvent.on('game-over', () => {
+      this.terminated = true;
+    });
 
     this.setup();
   }
 
   isTerminated() {
-    return this.allOver || this.allWon;
+    return this.terminated;
   }
 
   // Restart the game

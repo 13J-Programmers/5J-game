@@ -8,7 +8,11 @@ class HTMLActuator {
 
     this.gameEvent.on('game-clear', () => {
       this.message({ won: true });
-    })
+    });
+
+    this.gameEvent.on('game-over', () => {
+      this.message({ won: false });
+    });
   }
 
   actuate(grid) {
