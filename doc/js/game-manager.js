@@ -25,6 +25,10 @@ class GameManager {
     this.gameEvent.on('game-over', () => {
       this.terminated = true;
     });
+    this.gameEvent.on('game-reset', () => {
+      this.terminated = false;
+      this.restart();
+    })
 
     this.setup();
   }
