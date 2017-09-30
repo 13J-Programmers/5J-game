@@ -4,11 +4,16 @@
     <meta charset="utf-8">
     <title>Puzzdemic</title>
     <link rel="stylesheet" href="css/game-style.css">
+    <link rel="stylesheet" href="css/progress-bar.css">
+    <link rel="stylesheet" href="css/introjs.css">
 
     <script src="js/lib/jquery-3.2.1.min.js"></script>
     <script src="js/lib/event-emitter-5.1.0.min.js"></script>
+    <script src="js/lib/progress-bar.js"></script>
+    <script src="js/lib/intro-2.6.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
     <script src="js/url-params.js"></script>
     <script src="js/game-utils.js"></script>
     <script src="js/game-grid.js"></script>
@@ -19,16 +24,19 @@
     <script src="js/game-manager.js"></script>
     <script src="js/game-main.js"></script>
     <script src="js/game-earth-globe.js"></script>
+    <script src="js/intro.js"></script>
   </head>
   <body>
-    <table class="center-block">
+    <br>
+
+    <table class="center-block virus-list">
       <td><div class="game-panel game-virus-panel virus-red"></div></td>
       <td><div class="game-panel game-virus-panel virus-yellow"></div></td>
       <td><div class="game-panel game-virus-panel virus-green"></div></td>
       <td><div class="game-panel game-virus-panel virus-blue"></div></td>
     </table>
 
-    <table class="center-block">
+    <table class="center-block puzzle-list">
       <td>
         <div class="game-container player1">
           <div class="game-message">
@@ -111,7 +119,7 @@
       </td>
     </table>
 
-    <table class="center-block">
+    <table class="center-block player-info-list">
       <td>
         <div class="game-panel player1">
           <div class="syringe">
@@ -132,6 +140,10 @@
       </td>
     </table>
 
+    <br><br>
+
+    <div class="progress-bar-wrapper"></div>
+
     <div class="game-termination-message">
       <div class="game-termination-message-inner">
         <h3></h3>
@@ -141,5 +153,28 @@
 
     <div id="game-background"></div>
 
+    <script>
+      var stages = ['PHASE 1', 'PHASE 2', 'PHASE 3', 'PHASE 4', 'PHASE 5', 'PHASE 6']
+      var progress = new ProgressBar(stages, 'PHASE 1', 'progress-bar-wrapper');
+      var additonalTime = 0; // [ms]
+      setTimeout((progress) => {
+        progress.incrementStage();
+        setTimeout((progress) => {
+          progress.incrementStage();
+          setTimeout((progress) => {
+            progress.incrementStage();
+            setTimeout((progress) => {
+              progress.incrementStage();
+              setTimeout((progress) => {
+                progress.incrementStage();
+                setTimeout((progress) => {
+                  progress.incrementStage();
+                }, 3000 + additonalTime, progress);
+              }, 3000 + additonalTime, progress);
+            }, 3000 + additonalTime, progress);
+          }, 3000 + additonalTime, progress);
+        }, 3000 + additonalTime, progress);
+      }, 3000 + additonalTime, progress);
+    </script>
   </body>
 </html>
