@@ -8,7 +8,7 @@ class Utils {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  static hash2array(obj) {
+  static values(obj) {
     var keys = Object.keys(obj);
     var length = keys.length;
     var values = Array(length);
