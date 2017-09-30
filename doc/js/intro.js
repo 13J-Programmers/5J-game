@@ -1,5 +1,5 @@
 
-function startIntro() {
+function gameIntro() {
   var intro = introJs();
   intro.setOptions({
     steps: [
@@ -10,5 +10,5 @@ function startIntro() {
     ]
   });
 
-  intro.start();
+  return intro;
 }
