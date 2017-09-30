@@ -74,6 +74,7 @@ class InputManager extends EventEmitter {
     //
 
     var gp = gamepads[gamepadID];
+    if (!gp) return;
     // console.log(gp);
     var xAxis = gp.axes[0].toFixed(4);
     var yAxis = gp.axes[1].toFixed(4);
