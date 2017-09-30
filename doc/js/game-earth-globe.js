@@ -21,25 +21,25 @@ class EarthGlobe {
         "opacity": 0.3,
       });
 
-    this.projection_scale = 550;
-    this.projection_rotate = [220, 0, 0];
-    this.projection_position = [width/2, height*3/5];
+    this.projectionScale = 550;
+    this.projectionRotate = [220, 0, 0];
+    this.projectionPosition = [width/2, height*3/5];
 
     // Configure projection
     this.projection = d3.geo.orthographic()
-      .scale(this.projection_scale)
-      .translate(this.projection_position)
-      .rotate(this.projection_rotate)
+      .scale(this.projectionScale)
+      .translate(this.projectionPosition)
+      .rotate(this.projectionRotate)
       .clipAngle(90); // Display angle
-    this.projection_back = d3.geo.orthographic()
-      .scale(this.projection_scale)
-      .translate(this.projection_position)
-      .rotate(this.projection_rotate)
+    this.projectionBack = d3.geo.orthographic()
+      .scale(this.projectionScale)
+      .translate(this.projectionPosition)
+      .rotate(this.projectionRotate)
       .clipAngle(180); // Display angle
 
     // Create path generator
     this.path = d3.geo.path().projection(this.projection);
-    this.path_back = d3.geo.path().projection(this.projection_back);
+    this.pathBack = d3.geo.path().projection(this.projectionBack);
 
     this.country_color = d3.scale.linear()
       .domain([0, 1, 2])
@@ -54,16 +54,17 @@ class EarthGlobe {
         this.countries[i].disaster = 0;
       }
 
-      this.plot_countries();
-      this.update_rotation();
+      this.setDisasterPhaseConfig();
+      this.plotCountries();
+      this.updateRotation();
     });
   }
 
-  plot_countries() {
-    this.world_map_back = this.stage.selectAll("path.back_country")
+  plotCountries() {
+    this.worldMapBack = this.stage.selectAll("path.back_country")
       .data(this.countries)
-    this.world_map_back.exit().remove()
-    this.world_map_back.enter()
+    this.worldMapBack.exit().remove()
+    this.worldMapBack.enter()
       .append("svg:path")
       .attr({
         "class": "back_country",
@@ -73,14 +74,14 @@ class EarthGlobe {
         "fill": (d) => this.country_color(d.disaster),
         "data-tip": (d) => d.properties.sovereignt,
       })
-    this.world_map_back.transition()
+    this.worldMapBack.transition()
       .duration(500)
       .attr('fill', (d) => this.country_color(d.disaster))
 
-    this.world_map = this.stage.selectAll("path.country")
+    this.worldMap = this.stage.selectAll("path.country")
       .data(this.countries)
-    this.world_map.exit().remove()
-    this.world_map.enter()
+    this.worldMap.exit().remove()
+    this.worldMap.enter()
       .append("svg:path")
       .attr({
         "class": "country",
@@ -89,28 +90,28 @@ class EarthGlobe {
         "fill": (d) => this.country_color(d.disaster),
         "data-tip": (d) => d.properties.sovereignt,
       })
-    this.world_map.transition()
+    this.worldMap.transition()
       .duration(500)
       .attr('fill', (d) => this.country_color(d.disaster))
   }
 
   // Rotate projection
-  update_rotation() {
-    this.projection_rotate[0] += 0.05; // x_axis
-    this.projection_back.rotate(this.projection_rotate);
-    this.projection.rotate(this.projection_rotate);
+  updateRotation() {
+    this.projectionRotate[0] += 0.05; // x_axis
+    this.projectionBack.rotate(this.projectionRotate);
+    this.projection.rotate(this.projectionRotate);
     // update path function
-    this.path_back = d3.geo.path().projection(this.projection_back);
-    this.path      = d3.geo.path().projection(this.projection);
+    this.pathBack = d3.geo.path().projection(this.projectionBack);
+    this.path     = d3.geo.path().projection(this.projection);
     // apply path function to map object
-    this.world_map_back.attr("d", this.path_back);
-    this.world_map.attr("d", this.path);
+    this.worldMapBack.attr("d", this.pathBack);
+    this.worldMap.attr("d", this.path);
   }
 
   loop() {
     setInterval(() => {
-      this.plot_countries();
-      this.update_rotation();
+      this.plotCountries();
+      this.updateRotation();
     }, 200);
   }
 
