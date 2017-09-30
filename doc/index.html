@@ -13,6 +13,7 @@
     <script src="js/lib/intro-2.6.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="js/lib/circle-progress.js"></script>
 
     <script src="js/url-params.js"></script>
     <script src="js/game-utils.js"></script>
@@ -22,8 +23,8 @@
     <script src="js/game-html-gadget.js"></script>
     <script src="js/game-input-manager.js"></script>
     <script src="js/game-manager.js"></script>
-    <script src="js/game-main.js"></script>
     <script src="js/game-earth-globe.js"></script>
+    <script src="js/game-main.js"></script>
     <script src="js/intro.js"></script>
   </head>
   <body>
@@ -152,5 +153,21 @@
     </div>
 
     <div id="game-background"></div>
+
+    <div class="game-loading-wrapper" style="opacity: 0;">
+      <div class="game-loading"></div>
+    </div>
+
+    <div class="game-title" style="opacity: 0;">
+      <div class="space"></div>
+      <h1>Puzzdemic</h1>
+      <p>Press → key to start</p>
+    </div>
+
+    <div class="game-countdown" style="opacity: 0;">
+      <h1 class="count">
+        5
+      </h1>
+    </div>
   </body>
 </html>
