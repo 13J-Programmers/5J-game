@@ -39,6 +39,7 @@ class GameManager {
     this.freesed = true;
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
+      this.receivedKnowledge = 0;
     });
     this.gameEvent.on('game-reset', () => {
       this.freesed = true;
@@ -83,7 +84,7 @@ class GameManager {
   // Adds a tile in a random position
   addRandomTile(color) {
     if (this.grid.hasEmptyCell()) {
-      var value = Math.random() < this.receivedKnowledge * 0.05 ? 4 : 2;
+      var value = Math.random() < this.receivedKnowledge * 0.1 ? 4 : 2;
       var tile = new Tile(this.grid.randomAvailableCell(), value, color);
 
       this.grid.insertTile(tile);
@@ -92,12 +93,7 @@ class GameManager {
 
   // Sends the updated grid to the actuator
   actuate() {
-    this.actuator.actuate(this.grid, {
-      score:      this.score,
-      over:       this.over,
-      won:        this.won,
-      copeWith:   this.copeWith,
-    });
+    this.actuator.actuate(this.grid);
   }
 
   // Save all tile positions and remove merger info
@@ -179,12 +175,12 @@ class GameManager {
             self.copeWith.indexOf(tile.type) === -1 && tile.value >= self.packValue) {
           tile.pack = true;
           console.log("Developed knowledge: " + tile.type);
-          window.gameEvent.emit('create-knowledge', tile.type);
+          self.gameEvent.emit('create-knowledge', tile.type);
         } else if (tile.value >= self.syringeValue && self.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
           // self.won = true;
           console.log("Developed vaccine: " + tile.type);
-          window.gameEvent.emit('create-vaccine', tile.type);
+          self.gameEvent.emit('create-vaccine', tile.type);
         }
       })
     });
@@ -194,9 +190,11 @@ class GameManager {
 
       if (!this.movesAvailable()) {
         this.over = true;
-        console.log("game over");
+        console.log("failed!");
         // TODO: show message and restart soon.
-        this.actuator.message({ over: true });
+        this.actuator.message({ failed: true }, () => {
+          this.restart();
+        });
       }
 
       this.actuate();

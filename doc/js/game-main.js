@@ -47,32 +47,31 @@ window.addEventListener('load', () => {
   var timeout;
   gameEvent.on('game-start', () => {
     earthGlobe.setDisasterPhase(0);
-    timeout = setTimeout((progress) => {
+    timeout = setTimeout(() => {
       progress.incrementStage();
       earthGlobe.setDisasterPhase(1);
-      timeout = setTimeout((progress) => {
+      timeout = setTimeout(() => {
         progress.incrementStage();
         earthGlobe.setDisasterPhase(2);
-        timeout = setTimeout((progress) => {
+        timeout = setTimeout(() => {
           progress.incrementStage();
           earthGlobe.setDisasterPhase(3);
-          timeout = setTimeout((progress) => {
+          timeout = setTimeout(() => {
             progress.incrementStage();
             earthGlobe.setDisasterPhase(4);
-            timeout = setTimeout((progress) => {
+            timeout = setTimeout(() => {
               progress.incrementStage();
               earthGlobe.setDisasterPhase(5);
-              timeout = setTimeout((progress) => {
+              timeout = setTimeout(() => {
                 earthGlobe.setDisasterPhase(6);
                 gameEvent.emit('game-over');
-              }, 30000, progress);
-            }, 30000, progress);
-          }, 30000, progress);
-        }, 20000, progress);
-      }, 20000, progress);
-    }, 10000, progress);
+              }, 20000);
+            }, 40000);
+          }, 30000);
+        }, 25000);
+      }, 20000);
+    }, 15000);
   });
-
   gameEvent.on('game-clear', () => { clearTimeout(timeout); });
   gameEvent.on('game-over',  () => { clearTimeout(timeout); });
   gameEvent.on('game-reset', () => {
@@ -87,31 +86,31 @@ window.addEventListener('load', () => {
 
 
   // --- Vaccines ---
-  var createdVaccines = {
-    red:    false,
-    blue:   false,
-    yellow: false,
-    green:  false,
-  };
+  var createdVaccines = { red: 0, blue: 0, yellow: 0, green: 0 };
   gameEvent.on('create-vaccine', (type) => {
     if (['red', 'blue', 'yellow', 'green'].indexOf(type) == -1) {
       throw 'Unexpected type';
     }
-    createdVaccines[type] = true;
+    createdVaccines[type] += 1;
     // Emit game-clear if all vaccine are created.
-    var isCreatedAllVaccines = Utils.values(createdVaccines).every(x => x);
+    var isCreatedAllVaccines = Utils.values(createdVaccines).every(x => x > 0);
     if (isCreatedAllVaccines) {
       console.log("game clear!!");
       this.gameEvent.emit('game-clear')
     }
   });
   gameEvent.on('game-reset', () => {
-    createdVaccines = {
-      red:    false,
-      blue:   false,
-      yellow: false,
-      green:  false,
-    };
+    createdVaccines = { red: 0, blue: 0, yellow: 0, green: 0 };
+  });
+
+
+  // --- Knowledge ---
+  var createdKnowledge = { red: 0, blue: 0, yellow: 0, green: 0 };
+  gameEvent.on('create-knowledge', (type) => {
+    createdKnowledge[type] += 1;
+  });
+  gameEvent.on('game-reset', () => {
+    createdKnowledge = { red: 0, blue: 0, yellow: 0, green: 0 };
   });
 
 
@@ -123,6 +122,7 @@ window.addEventListener('load', () => {
   });
 
 
+  // --- Game Title ---
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
@@ -131,7 +131,8 @@ window.addEventListener('load', () => {
     document.addEventListener('keyup', listener);
 
     function listener(event) {
-      if (event.which === 39) { // Right arrow
+      // Right arrow or A
+      if (event.which === 39 || event.which === 65) {
         gameTitle.style.opacity = 0;
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro');
@@ -146,7 +147,7 @@ window.addEventListener('load', () => {
     }
   });
 
-
+  // --- Game Introduction ---
   gameEvent.on('game-intro', () => {
     intro.start()
     intro.oncomplete(() => {
@@ -157,6 +158,7 @@ window.addEventListener('load', () => {
     intro.exit();
   });
 
+  // --- Game Countdown until Start ---
   var timeout;
   var gameCountdown = document.querySelector('.game-countdown');
   var gameCountdownText = document.querySelector('.game-countdown .count');
@@ -193,14 +195,13 @@ window.addEventListener('load', () => {
     }, 1000);
   });
 
-
+  // --- Game Reset Transition ---
   gameEvent.on('game-reset-transition', () => {
+    // Reset game parameters
     setTimeout(() => {
       gameEvent.emit('game-reset');
     }, 1000);
-  });
 
-  gameEvent.on('game-reset-transition', () => {
     // Transition Animation
     var gameLoadingWrapper = document.querySelector('.game-loading-wrapper');
     gameLoadingWrapper.style.opacity = 1;
@@ -209,7 +210,7 @@ window.addEventListener('load', () => {
       size: 200,
       startAngle: -Math.PI / 2,
       value: 1.0,
-      animation: { duration: 4000, easing: "circleProgressEasing" },
+      animation: { duration: 3000, easing: "circleProgressEasing" },
     }).on('circle-animation-end', function () {
       // console.log('emit: game-title');
       gameEvent.emit('game-title');
