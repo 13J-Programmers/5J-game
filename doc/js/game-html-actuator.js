@@ -8,10 +8,16 @@ class HTMLActuator {
 
     this.gameEvent.on('game-clear', () => {
       this.message({ won: true });
+      // Break countdown for restart puzzle
+      clearTimeout(this.countdownTimeout);
+      this.messageContainer.querySelector('span').textContent = "";
     });
 
     this.gameEvent.on('game-over', () => {
       this.message({ won: false });
+      // Break countdown for restart puzzle
+      clearTimeout(this.countdownTimeout);
+      this.messageContainer.querySelector('span').textContent = "";
     });
   }
 
@@ -103,13 +109,39 @@ class HTMLActuator {
     return "tile-position-" + pos.x + "-" + pos.y;
   }
 
-  message(args) {
-    if (typeof args === undefined) args.won = true;
-    var type    = args.won ? "game-won" : "game-over";
-    var message = args.won ? "You win!" : "Game over!";
+  message(args, callback) {
+    if (typeof args === undefined) throw 'Unexpected argument';
+    var type    = args.won ? "game-won"
+                : args.failed ? "game-over"
+                : "game-over";
+    var message = args.won ? "Mission Complete!"
+                : args.failed ? "Oops!"
+                : "Game over!";
 
     this.messageContainer.classList.add(type);
-    this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+    this.messageContainer.querySelector('p').textContent = message;
+
+    if (args.failed) {
+      this.countdownTimeout = setTimeout(() => {
+        this.messageContainer.querySelector('span').textContent = 5;
+        this.countdownTimeout = setTimeout(() => {
+          this.messageContainer.querySelector('span').textContent = 4;
+          this.countdownTimeout = setTimeout(() => {
+            this.messageContainer.querySelector('span').textContent = 3;
+            this.countdownTimeout = setTimeout(() => {
+              this.messageContainer.querySelector('span').textContent = 2;
+              this.countdownTimeout = setTimeout(() => {
+                this.messageContainer.querySelector('span').textContent = 1;
+                this.countdownTimeout = setTimeout(() => {
+                  this.messageContainer.querySelector('span').textContent = "";
+                  callback();
+                }, 1000);
+              }, 1000);
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }
   }
 
   clearMessage() {
