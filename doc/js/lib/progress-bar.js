@@ -93,22 +93,24 @@ class ProgressBar {
     return true;
   }
 
-  updateStatusBar(nextStage) {
+  updateStatusBar(nextStage, immediately) {
     var stages = this.stages;
     var stageWidth = 100 / stages.length;
     var nextStageIndex = stages.indexOf(nextStage);
     var diff = Math.round(Math.abs(this.currentStageIndex - nextStageIndex));
     setTimeout(() => {
       this.currentStatus.style.width = (100 * nextStageIndex) / (stages.length - 1) + '%';
-      this.currentStatus.style.transition = 'width ' + (diff * ProgressBar.singleStepAnimation) + 'ms linear';
+      this.currentStatus.style.transition = (immediately)
+        ? 'width ' + (diff * 100) + 'ms linear'
+        : 'width ' + (diff * ProgressBar.singleStepAnimation) + 'ms linear';
     }, this.renderingWaitDelay);
   }
 
-  updateCheckPoints(nextStage) {
+  updateCheckPoints(nextStage, immediately) {
     var stages = this.stages;
     var currentStageIndex = this.currentStageIndex;
     var nextStageIndex = stages.indexOf(nextStage);
-    var animationDelay = this.renderingWaitDelay;
+    var animationDelay = (immediately) ? 100 : this.renderingWaitDelay;
     var checkpoints = document.querySelectorAll('.progress-bar-wrapper li');
 
     if (currentStageIndex === nextStageIndex) return;
@@ -123,7 +125,7 @@ class ProgressBar {
             checkpoints[nextStageIndex].classList.add('current');
           }
         }, animationDelay, checkpoints, i);
-        animationDelay += ProgressBar.singleStepAnimation;
+        animationDelay += (immediately) ? 100 : ProgressBar.singleStepAnimation;
       }
     }
 
@@ -139,16 +141,16 @@ class ProgressBar {
             checkpoints[nextStageIndex].classList.add('current');
           }
         }, animationDelay, checkpoints, i);
-        animationDelay += ProgressBar.singleStepAnimation;
+        animationDelay += (immediately) ? 100 : ProgressBar.singleStepAnimation;
       }
     }
 
     this.currentStageIndex = nextStageIndex;
   }
 
-  updateStage(nextStage) {
-    this.updateStatusBar(nextStage);
-    this.updateCheckPoints(nextStage);
+  updateStage(nextStage, immediately) {
+    this.updateStatusBar(nextStage, immediately);
+    this.updateCheckPoints(nextStage, immediately);
     return true;
   }
 

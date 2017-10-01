@@ -77,7 +77,7 @@ window.addEventListener('load', () => {
   gameEvent.on('game-over',  () => { clearTimeout(timeout); });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeout);
-    progress.updateStage('PHASE 1');
+    progress.updateStage('PHASE 1', true);
   });
 
   if (window.location.hostname === 'localhost') {
