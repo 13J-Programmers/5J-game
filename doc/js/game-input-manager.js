@@ -79,28 +79,37 @@ class InputManager extends EventEmitter {
     var xAxis = gp.axes[0].toFixed(4);
     var yAxis = gp.axes[1].toFixed(4);
 
-    if (this.gamepadPressed) {
-      if (this.gamepadNokeyPressed(gp)) {
-        this.gamepadPressed = false;
-      }
-      return;
-    }
-
-    if (yAxis <= -1 || this.gamepadButtonPressed(gp.buttons[1])) {
+    if (!this.gamepadPressed &&
+        (yAxis <= -1 || this.gamepadButtonPressed(gp.buttons[1]))) {
       this.emit("move", 0);
       this.gamepadPressed = true;
+      setTimeout(() => {
+        this.gamepadPressed = false;
+      }, 200);
     }
-    else if (xAxis >= 1 || this.gamepadButtonPressed(gp.buttons[3])) {
+    else if (!this.gamepadPressed &&
+        (xAxis >= 1 || this.gamepadButtonPressed(gp.buttons[3]))) {
       this.emit("move", 1);
       this.gamepadPressed = true;
+      setTimeout(() => {
+        this.gamepadPressed = false;
+      }, 200);
     }
-    else if (yAxis >= 1 || this.gamepadButtonPressed(gp.buttons[2])) {
+    else if (!this.gamepadPressed &&
+        (yAxis >= 1 || this.gamepadButtonPressed(gp.buttons[2]))) {
       this.emit("move", 2);
       this.gamepadPressed = true;
+      setTimeout(() => {
+        this.gamepadPressed = false;
+      }, 200);
     }
-    else if (xAxis <= -1 || this.gamepadButtonPressed(gp.buttons[0])) {
+    else if (!this.gamepadPressed &&
+        (xAxis <= -1 || this.gamepadButtonPressed(gp.buttons[0]))) {
       this.emit("move", 3);
       this.gamepadPressed = true;
+      setTimeout(() => {
+        this.gamepadPressed = false;
+      }, 200);
     }
 
   }
