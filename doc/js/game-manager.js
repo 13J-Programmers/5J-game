@@ -26,9 +26,15 @@ class GameManager {
       this.terminated = true;
     });
     this.gameEvent.on('game-reset', () => {
-      this.terminated = false;
-      this.restart();
+      setTimeout(() => {
+        this.terminated = false;
+        this.restart();
+      }, 1000);
     })
+
+    this.gameEvent.on('create-knowledge', (type) => {
+      this.receivedKnowledge += 1;
+    });
 
     this.setup();
   }
