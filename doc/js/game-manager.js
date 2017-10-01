@@ -36,11 +36,23 @@ class GameManager {
       this.receivedKnowledge += 1;
     });
 
+    this.freesed = true;
+    this.gameEvent.on('game-start', () => {
+      this.freesed = false;
+    });
+    this.gameEvent.on('game-reset', () => {
+      this.freesed = true;
+    });
+
     this.setup();
   }
 
   isTerminated() {
     return this.terminated;
+  }
+
+  isFreezed() {
+    return this.freesed;
   }
 
   // Restart the game
@@ -107,6 +119,9 @@ class GameManager {
 
   // Move tiles on the grid in the specified direction
   move(direction) {
+    if (this.isFreezed()) return;
+    if (this.isTerminated()) return; // do nothing when game is terminated.
+
     // 0: up, 1: right, 2: down, 3: left
     var self = this;
     var sendSocketData = {};
@@ -114,8 +129,6 @@ class GameManager {
     var vector     = this.getVector(direction);
     var traversals = this.buildTraversals(vector);
     var moved      = false;
-
-    if (this.isTerminated()) return; // do nothing when game is terminated.
 
     // Save the current tile positions and remove merger information
     this.prepareTiles();
