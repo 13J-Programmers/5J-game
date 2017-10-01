@@ -24,6 +24,7 @@ class EarthGlobe {
     this.projectionScale = 550;
     this.projectionRotate = [220, 0, 0];
     this.projectionPosition = [width/2, height*3/5];
+    this.colorUpdateDuration = 1000;
 
     // Configure projection
     this.projection = d3.geo.orthographic()
@@ -75,7 +76,7 @@ class EarthGlobe {
         "data-tip": (d) => d.properties.sovereignt,
       })
     this.worldMapBack.transition()
-      .duration(500)
+      .duration(this.colorUpdateDuration)
       .attr('fill', (d) => this.country_color(d.disaster))
 
     this.worldMap = this.stage.selectAll("path.country")
@@ -91,7 +92,7 @@ class EarthGlobe {
         "data-tip": (d) => d.properties.sovereignt,
       })
     this.worldMap.transition()
-      .duration(500)
+      .duration(this.colorUpdateDuration)
       .attr('fill', (d) => this.country_color(d.disaster))
   }
 
@@ -109,8 +110,8 @@ class EarthGlobe {
   }
 
   loop() {
+    this.colorUpdateDuration = 1000;
     setInterval(() => {
-      this.plotCountries();
       this.updateRotation();
     }, 200);
   }
@@ -119,12 +120,14 @@ class EarthGlobe {
     for (var i = 0; i < this.countries.length; i++) {
       this.countries[i].disaster = Math.random();
     }
+    this.plotCountries();
   }
 
   setDisasterZero() {
     for (var i = 0; i < this.countries.length; i++) {
       this.countries[i].disaster = 0;
     }
+    this.plotCountries();
   }
 
   setDisasterPhase(level) {
@@ -167,6 +170,7 @@ class EarthGlobe {
     else {
       this.setDisasterZero();
     }
+    this.plotCountries();
   }
 
   setDisasterPhaseConfig() {
