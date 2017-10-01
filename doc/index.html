@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Puzzdemic</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Joti+One">
     <link rel="stylesheet" href="css/game-style.css">
     <link rel="stylesheet" href="css/progress-bar.css">
     <link rel="stylesheet" href="css/introjs.css">
@@ -42,6 +43,7 @@
         <div class="game-container player1">
           <div class="game-message">
             <p></p>
+            <span></span>
           </div>
 
           <div class="grid-container">
@@ -78,13 +80,14 @@
       </td>
 
       <td>
-        <div style="width: 100px"></div>
+        <div style="width: 200px"></div>
       </td>
 
       <td>
         <div class="game-container player2">
           <div class="game-message">
             <p></p>
+            <span></span>
           </div>
 
           <div class="grid-container">
@@ -129,7 +132,7 @@
           </div>
         </div>
       </td>
-      <td><div style="width: 100px"></div></td>
+      <td><div style="width: 340px"></div></td>
       <td>
         <div class="game-panel player2">
           <div class="syringe">
@@ -160,14 +163,14 @@
 
     <div class="game-title" style="opacity: 0;">
       <div class="space"></div>
-      <h1>Puzzdemic</h1>
-      <p>Press → key to start</p>
+      <h1 class="game-font">Puzzdemic</h1>
+      <small class="game-title-desc">Aボタンを押して開始</small>
     </div>
 
     <div class="game-countdown" style="opacity: 0;">
-      <h1 class="count">
+      <div class="count">
         5
-      </h1>
+      </div>
     </div>
   </body>
 </html>

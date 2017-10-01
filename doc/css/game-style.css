@@ -40,6 +40,12 @@ hr {
 .margin-top--15px {
   margin-top: -15px;
 }
+.game-font {
+  font-family: 'Joti One', cursive;
+  color: fireBrick;
+  text-shadow: white 1px 1px 0px, white -1px 1px 0px,
+               white 1px -1px 0px, white -1px -1px 0px;
+}
 
 /* --- Keyframes ------------------------------------------------------------ */
 @keyframes move-up {
@@ -215,9 +221,15 @@ hr {
   top: 0px;
   left: 0px;
   text-align: center;
+  font-size: 40pt;
 }
 .game-title .space {
   height: 30%;
+}
+.game-title-desc {
+  font-weight: bold;
+  text-shadow: white 1px 1px 0px, white -1px 1px 0px,
+               white 1px -1px 0px, white -1px -1px 0px;
 }
 
 .game-countdown {
@@ -232,8 +244,9 @@ hr {
   transition: background 300ms ease;
 }
 .game-countdown .count {
-  margin-top: 30%;
-  font-size: 32pt;
+  margin-top: 35%;
+  font-size: 40pt;
+  font-weight: bold;
 }
 
 .game-loading-wrapper {
@@ -291,15 +304,20 @@ hr {
 }
 .game-message p {
   padding-top: 200px;
+  padding-bottom: 50px;
   font-size: 60px;
   font-weight: bold;
   height: 60px;
   line-height: 60px;
 }
+.game-message span {
+  font-size: 40px;
+  font-weight: bold;
+}
 .game-message.game-won {
   display: block;
   background: rgba(237, 194, 46, 0.5);
-  color: #f9f6f2;
+  color: black;
 }
 .game-message.game-over {
   display: block;
