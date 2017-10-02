@@ -5,7 +5,7 @@ function gameIntro() {
     steps: [
       {
         element: document.querySelector('.virus-list'),
-        intro: "This is a virus."
+        intro: "人類を脅かす4種類のウイルス"
       },
     ]
   });

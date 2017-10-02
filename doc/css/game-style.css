@@ -132,6 +132,15 @@ hr {
 }
 
 /* --- Game ----------------------------------------------------------------- */
+.top-space {
+  margin-top: 10%;
+}
+
+.introjs-tooltip {
+  width: 500px;
+  font-size: 32pt;
+}
+
 .game-panel {
   color: white;
   background-color: #cdc1b3;

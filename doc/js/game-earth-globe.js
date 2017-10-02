@@ -21,7 +21,7 @@ class EarthGlobe {
         "opacity": 0.3,
       });
 
-    this.projectionScale = 550;
+    this.projectionScale = 650;
     this.projectionRotate = [220, 0, 0];
     this.projectionPosition = [width/2, height*3/5];
     this.colorUpdateDuration = 1000;
