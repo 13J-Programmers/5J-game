@@ -1,5 +1,5 @@
 .introjs-helperNumberLayer {
-  font-family: tahoma, Arial, verdana, sans-serif;
+  /*font-family: tahoma, Arial, verdana, sans-serif;*/
   font-size: 14px;
   text-shadow: none;
   width: 22px;
@@ -18,9 +18,9 @@
 }
 
 .introjs-tooltip {
-  letter-spacing: .1em;
+  /*letter-spacing: .1em;*/
   color: #2c3e50;
-  font-family: tahoma, Arial, verdana, sans-serif;
+  /*font-family: tahoma, Arial, verdana, sans-serif;*/
   border-radius: 2px;
 }
 
@@ -29,7 +29,7 @@
   text-shadow: none;
   font-weight: bold;
   color: #2c3e50;
-  font-family: tahoma, Arial, verdana, sans-serif;
+  /*font-family: tahoma, Arial, verdana, sans-serif;*/
   background: #ecf0f1;
   background-image: none;
   -webkit-border-radius: .2em;
