@@ -19,5 +19,6 @@ open http://localhost:8000
 6. create-knowledge
 7. game-clear
 8. game-over
+9. game-result
 9. game-reset-transition
 0. game-reset
