@@ -195,6 +195,38 @@ window.addEventListener('load', () => {
     }, 1000);
   });
 
+  // --- Game Clear and Game Over ---
+  gameEvent.on('game-clear', () => { gameEvent.emit('game-result'); });
+  gameEvent.on('game-over',  () => { gameEvent.emit('game-result'); });
+
+  // --- Game Result ---
+  var gameResult = new GameResult(gameEvent);
+  var startTime;
+  var timeoutGameResult;
+  gameEvent.on('game-start', () => {
+    startTime = Date.now();
+  });
+  gameEvent.on('game-result', () => {
+    var elapsedTime = Date.now() - startTime;
+    timeoutGameResult = setTimeout(() => {
+      gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
+
+      document.addEventListener('keyup', resetListener);
+
+      function resetListener(event) {
+        // Right arrow or A
+        if (event.which === 39 || event.which === 65) {
+          console.log('emit: game-reset-transition');
+          gameEvent.emit('game-reset-transition');
+          document.removeEventListener('keyup', resetListener);
+        }
+      }
+    }, 5000);
+  });
+  gameEvent.on('game-reset', () => {
+    clearTimeout(timeoutGameResult);
+  });
+
   // --- Game Reset Transition ---
   gameEvent.on('game-reset-transition', () => {
     // Reset game parameters
@@ -220,5 +252,5 @@ window.addEventListener('load', () => {
   });
 
 
-  gameEvent.emit('game-title');
+  gameEvent.emit('game-title'); // important!
 });
