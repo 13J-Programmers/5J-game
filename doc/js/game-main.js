@@ -85,6 +85,7 @@ window.addEventListener('load', () => {
   });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeout);
+    progress.stopAnimation();
     progress.updateStage('PHASE 1', 100);
   });
 
