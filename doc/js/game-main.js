@@ -264,6 +264,32 @@ window.addEventListener('load', () => {
     });
   });
 
+  // --- Audio ---
+  var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
+  audioPuzzle.volume = 0.6;
+  var audioFadeout = function (audio) {
+    setTimeout(() => { audio.volume = 0.5; }, 100);
+    setTimeout(() => { audio.volume = 0.4; }, 200);
+    setTimeout(() => { audio.volume = 0.3; }, 300);
+    setTimeout(() => { audio.volume = 0.2; }, 400);
+    setTimeout(() => { audio.volume = 0.1; }, 500);
+    setTimeout(() => {
+      audio.volume = 0.0;
+      audio.pause();
+      audio.currentTime = 0;
+    }, 600);
+  }
+  gameEvent.on('game-start', () => {
+    audioPuzzle.volume = 0.6;
+    audioPuzzle.play();
+  });
+  gameEvent.on('game-result', () => {
+    audioFadeout(audioPuzzle);
+  });
+  gameEvent.on('game-reset', () => {
+    audioFadeout(audioPuzzle);
+  });
+
 
   gameEvent.emit('game-title'); // important!
 });
