@@ -8,6 +8,8 @@ class ProgressBar {
 
     this.container = container;
     this.stages = stages;
+    this.timeouts = [];
+    this.freezed = false; // To stop animation
 
     if (this.validateParameters(stages, currentStage, container)) {
       var wrapper = document.getElementsByClassName(container);
@@ -119,7 +121,7 @@ class ProgressBar {
     if (nextStageIndex > currentStageIndex) {
       checkpoints[currentStageIndex].classList.remove('current');
       for (var i = currentStageIndex; i <= nextStageIndex; i++) {
-        setTimeout((checkpoints, i) => {
+        this.timeouts[i] = setTimeout((checkpoints, i) => {
           checkpoints[i].classList.add('visited');
           if (i === nextStageIndex) {
             checkpoints[nextStageIndex].classList.add('current');
@@ -133,7 +135,7 @@ class ProgressBar {
       var i;
       checkpoints[currentStageIndex].classList.remove('current');
       for (i = currentStageIndex; i >= nextStageIndex; i--) {
-        setTimeout((checkpoints, i) => {
+        this.timeouts[i] = setTimeout((checkpoints, i) => {
           if (i !== nextStageIndex) {
             checkpoints[i].classList.remove('visited');
           } else {
@@ -164,5 +166,16 @@ class ProgressBar {
     if (this.currentStageIndex - 1 < 0) return false;
     var nextStage = this.stages[this.currentStageIndex - 1];
     return this.updateStage(nextStage, duration);
+  }
+
+  stopAnimation() {
+    this.freezed = true;
+    var statusBarWidth = getComputedStyle(this.currentStatus).width;
+    this.currentStatus.style.width = statusBarWidth;
+    this.currentStatus.style.transition = 'width 0ms linear';
+
+    for (var timeout of this.timeouts) {
+      clearTimeout(timeout);
+    }
   }
 }

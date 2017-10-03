@@ -76,8 +76,13 @@ window.addEventListener('load', () => {
       }, intervals[1]);
     }, intervals[0]);
   });
-  gameEvent.on('game-clear', () => { clearTimeout(timeout); });
-  gameEvent.on('game-over',  () => { clearTimeout(timeout); });
+  gameEvent.on('game-clear', () => {
+    clearTimeout(timeout);
+    progress.stopAnimation();
+  });
+  gameEvent.on('game-over', () => {
+    clearTimeout(timeout);
+  });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeout);
     progress.updateStage('PHASE 1', 100);
