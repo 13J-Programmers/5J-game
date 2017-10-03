@@ -37,6 +37,9 @@ class GameManager {
     });
 
     this.freesed = true;
+    this.gameEvent.on('game-title', () => {
+      this.receivedKnowledge = 0;
+    })
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
       this.receivedKnowledge = 0;
