@@ -44,7 +44,9 @@
   margin: 0 auto;
 }
 .progress-bar-wrapper .current-status {
-  height: 2px;
+  position: relative;
+  top: -2px;
+  height: 6px;
   width: 0;
   border-radius: 1px;
   background: firebrick;

@@ -4,8 +4,9 @@ class ProgressBar {
     ProgressBar.singleStepAnimation = 1000; // default value
     // this delay is required as browser will need some time in rendering
     // and then processing css animations.
-    this.renderingWaitDelay = 200;
+    this.renderingWaitDelay = 0; // 200
 
+    this.container = container;
     this.stages = stages;
 
     if (this.validateParameters(stages, currentStage, container)) {
@@ -93,39 +94,38 @@ class ProgressBar {
     return true;
   }
 
-  updateStatusBar(nextStage, immediately) {
+  updateStatusBar(nextStage, duration) {
+    duration = duration || ProgressBar.singleStepAnimation;
     var stages = this.stages;
     var stageWidth = 100 / stages.length;
     var nextStageIndex = stages.indexOf(nextStage);
     var diff = Math.round(Math.abs(this.currentStageIndex - nextStageIndex));
     setTimeout(() => {
       this.currentStatus.style.width = (100 * nextStageIndex) / (stages.length - 1) + '%';
-      this.currentStatus.style.transition = (immediately)
-        ? 'width ' + (diff * 100) + 'ms linear'
-        : 'width ' + (diff * ProgressBar.singleStepAnimation) + 'ms linear';
+      this.currentStatus.style.transition = 'width ' + (diff * duration) + 'ms linear';
     }, this.renderingWaitDelay);
   }
 
-  updateCheckPoints(nextStage, immediately) {
+  updateCheckPoints(nextStage, duration) {
+    duration = duration || ProgressBar.singleStepAnimation;
     var stages = this.stages;
     var currentStageIndex = this.currentStageIndex;
     var nextStageIndex = stages.indexOf(nextStage);
-    var animationDelay = (immediately) ? 100 : this.renderingWaitDelay;
-    var checkpoints = document.querySelectorAll('.progress-bar-wrapper li');
+    var animationDelay = this.renderingWaitDelay;
+    var checkpoints = document.querySelectorAll('.' + this.container + ' li');
 
     if (currentStageIndex === nextStageIndex) return;
 
     if (nextStageIndex > currentStageIndex) {
-      var i;
       checkpoints[currentStageIndex].classList.remove('current');
-      for (i = currentStageIndex; i <= nextStageIndex; i++) {
+      for (var i = currentStageIndex; i <= nextStageIndex; i++) {
         setTimeout((checkpoints, i) => {
           checkpoints[i].classList.add('visited');
           if (i === nextStageIndex) {
             checkpoints[nextStageIndex].classList.add('current');
           }
         }, animationDelay, checkpoints, i);
-        animationDelay += (immediately) ? 100 : ProgressBar.singleStepAnimation;
+        animationDelay += duration;
       }
     }
 
@@ -141,28 +141,28 @@ class ProgressBar {
             checkpoints[nextStageIndex].classList.add('current');
           }
         }, animationDelay, checkpoints, i);
-        animationDelay += (immediately) ? 100 : ProgressBar.singleStepAnimation;
+        animationDelay += duration;
       }
     }
 
     this.currentStageIndex = nextStageIndex;
   }
 
-  updateStage(nextStage, immediately) {
-    this.updateStatusBar(nextStage, immediately);
-    this.updateCheckPoints(nextStage, immediately);
+  updateStage(nextStage, duration) {
+    this.updateStatusBar(nextStage, duration);
+    this.updateCheckPoints(nextStage, duration);
     return true;
   }
 
-  incrementStage() {
+  incrementStage(duration) {
     if (this.currentStageIndex + 1 >= this.stages.length) return false;
     var nextStage = this.stages[this.currentStageIndex + 1];
-    return this.updateStage(nextStage);
+    return this.updateStage(nextStage, duration);
   }
 
-  decrementStage() {
+  decrementStage(duration) {
     if (this.currentStageIndex - 1 < 0) return false;
     var nextStage = this.stages[this.currentStageIndex - 1];
-    return this.updateStage(nextStage);
+    return this.updateStage(nextStage, duration);
   }
 }

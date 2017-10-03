@@ -44,39 +44,43 @@ window.addEventListener('load', () => {
   // --- Progress Bar ---
   var stages = ['PHASE 1', 'PHASE 2', 'PHASE 3', 'PHASE 4', 'PHASE 5', 'PHASE 6'];
   var progress = new ProgressBar(stages, 'PHASE 1', 'progress-bar-wrapper');
+
+  // --- Progress ---
   var timeout;
+  var interval = window.urlParams.get('phaseInterval') || 30000;
+  var intervals = [interval, interval, interval, interval, interval, 5000];
   gameEvent.on('game-start', () => {
     earthGlobe.setDisasterPhase(0);
+    progress.incrementStage(intervals[0]);
     timeout = setTimeout(() => {
-      progress.incrementStage();
       earthGlobe.setDisasterPhase(1);
+      progress.incrementStage(intervals[1]);
       timeout = setTimeout(() => {
-        progress.incrementStage();
         earthGlobe.setDisasterPhase(2);
+        progress.incrementStage(intervals[2]);
         timeout = setTimeout(() => {
-          progress.incrementStage();
           earthGlobe.setDisasterPhase(3);
+          progress.incrementStage(intervals[3]);
           timeout = setTimeout(() => {
-            progress.incrementStage();
             earthGlobe.setDisasterPhase(4);
+            progress.incrementStage(intervals[4]);
             timeout = setTimeout(() => {
-              progress.incrementStage();
               earthGlobe.setDisasterPhase(5);
               timeout = setTimeout(() => {
                 earthGlobe.setDisasterPhase(6);
                 gameEvent.emit('game-over');
-              }, 20000);
-            }, 40000);
-          }, 30000);
-        }, 25000);
-      }, 20000);
-    }, 15000);
+              }, intervals[5]);
+            }, intervals[4]);
+          }, intervals[3]);
+        }, intervals[2]);
+      }, intervals[1]);
+    }, intervals[0]);
   });
   gameEvent.on('game-clear', () => { clearTimeout(timeout); });
   gameEvent.on('game-over',  () => { clearTimeout(timeout); });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeout);
-    progress.updateStage('PHASE 1', true);
+    progress.updateStage('PHASE 1', 100);
   });
 
   if (window.location.hostname === 'localhost') {
@@ -203,6 +207,13 @@ window.addEventListener('load', () => {
   var gameResult = new GameResult(gameEvent);
   var startTime;
   var timeoutGameResult;
+  var resetListener = function (event) {
+    // Right arrow or A
+    if (event.which === 39 || event.which === 65) {
+      console.log('emit: game-reset-transition');
+      gameEvent.emit('game-reset-transition');
+    }
+  }
   gameEvent.on('game-start', () => {
     startTime = Date.now();
   });
@@ -212,19 +223,15 @@ window.addEventListener('load', () => {
       gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
 
       document.addEventListener('keyup', resetListener);
-
-      function resetListener(event) {
-        // Right arrow or A
-        if (event.which === 39 || event.which === 65) {
-          console.log('emit: game-reset-transition');
-          gameEvent.emit('game-reset-transition');
-          document.removeEventListener('keyup', resetListener);
-        }
-      }
     }, 5000);
   });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeoutGameResult);
+    document.removeEventListener('keyup', resetListener);
+  });
+  gameEvent.on('game-reset-transition', () => {
+    clearTimeout(timeoutGameResult);
+    document.removeEventListener('keyup', resetListener);
   });
 
   // --- Game Reset Transition ---
