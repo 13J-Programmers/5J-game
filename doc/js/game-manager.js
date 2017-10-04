@@ -69,8 +69,6 @@ class GameManager {
 
   // Set up the game
   setup() {
-    var self = this;
-
     this.grid  = new Grid(this.size);
     this.score = 0;
     this.over  = false;
@@ -81,7 +79,7 @@ class GameManager {
     }
 
     // Update the actuator
-    this.actuate();
+    this.actuator.actuate(this.grid);
   }
 
   // Adds a tile in a random position
@@ -101,11 +99,6 @@ class GameManager {
 
       this.grid.insertTile(tile);
     }
-  }
-
-  // Sends the updated grid to the actuator
-  actuate() {
-    this.actuator.actuate(this.grid);
   }
 
   // Save all tile positions and remove merger info
@@ -131,9 +124,6 @@ class GameManager {
     if (this.isTerminated()) return; // do nothing when game is terminated.
 
     // 0: up, 1: right, 2: down, 3: left
-    var self = this;
-    var sendSocketData = {};
-
     var vector     = this.getVector(direction);
     var traversals = this.buildTraversals(vector);
     var moved      = false;
@@ -142,14 +132,14 @@ class GameManager {
     this.prepareTiles();
 
     // Traverse the grid in the right direction and move tiles
-    traversals.x.forEach(function (x) {
-      traversals.y.forEach(function (y) {
+    traversals.x.forEach((x) => {
+      traversals.y.forEach((y) => {
         var cell = { x: x, y: y };
-        var tile = self.grid.cellContent(cell);
+        var tile = this.grid.cellContent(cell);
 
         if (tile) {
-          var positions = self.findFarthestPosition(cell, vector);
-          var next      = self.grid.cellContent(positions.next);
+          var positions = this.findFarthestPosition(cell, vector);
+          var next      = this.grid.cellContent(positions.next);
 
           if (next && next.type === tile.type/* && !next.mergedFrom */) {
             // Merge tiles
@@ -157,19 +147,19 @@ class GameManager {
             tile.willDisappear = next.willDisappear = true;
             merged.mergedFrom = [tile, next];
 
-            self.grid.insertTile(merged);
-            self.grid.removeTile(tile);
+            this.grid.insertTile(merged);
+            this.grid.removeTile(tile);
 
             // Converge the two tiles' positions
             tile.updatePosition(positions.next);
 
             // Update the score
-            //self.score += merged.value;
+            //this.score += merged.value;
           } else {
-            self.moveTile(tile, positions.farthest);
+            this.moveTile(tile, positions.farthest);
           }
 
-          if (!self.positionsEqual(cell, tile)) {
+          if (!this.positionsEqual(cell, tile)) {
             moved = true; // The tile moved from its original cell!
           }
         }
@@ -177,22 +167,23 @@ class GameManager {
     });
 
     // Extract a packed knowledge and a vaccine
-    traversals.x.forEach(function (x) {
-      traversals.y.forEach(function (y) {
+    traversals.x.forEach((x) => {
+      traversals.y.forEach((y) => {
         var cell = { x: x, y: y };
-        var tile = self.grid.cellContent(cell);
+        var tile = this.grid.cellContent(cell);
         if (!tile) return;
 
-        if (self.won && tile.value >= self.packValue ||
-            self.copeWith.indexOf(tile.type) === -1 && tile.value >= self.packValue) {
+        // TODO: this.won will be replace to array. won = ["red", "yellow"]
+        if (this.won && tile.value >= this.packValue ||
+            this.copeWith.indexOf(tile.type) === -1 && tile.value >= this.packValue) {
           tile.pack = true;
           console.log("Developed knowledge: " + tile.type);
-          self.gameEvent.emit('create-knowledge', tile.type);
-        } else if (tile.value >= self.syringeValue && self.copeWith.indexOf(tile.type) >= 0) {
+          this.gameEvent.emit('create-knowledge', tile.type);
+        } else if (tile.value >= this.syringeValue && this.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
-          // self.won = true;
+          // this.won = true;
           console.log("Developed vaccine: " + tile.type);
-          self.gameEvent.emit('create-vaccine', tile.type);
+          this.gameEvent.emit('create-vaccine', tile.type);
         }
       })
     });
@@ -203,13 +194,12 @@ class GameManager {
       if (!this.movesAvailable()) {
         this.over = true;
         console.log("failed!");
-        // TODO: show message and restart soon.
         this.actuator.message({ failed: true }, () => {
           this.restart();
         });
       }
 
-      this.actuate();
+      this.actuator.actuate(this.grid);
     }
   }
 
@@ -282,17 +272,15 @@ class GameManager {
 
   // Check for available matches between tiles (more expensive check)
   tileMatchesAvailable() {
-    var self = this;
-
     for (var x = 0; x < this.size; x++) {
       for (var y = 0; y < this.size; y++) {
         var tile = this.grid.cellContent({ x: x, y: y });
 
         if (tile) {
           for (var direction = 0; direction < 4; direction++) {
-            var vector = self.getVector(direction);
+            var vector = this.getVector(direction);
             var cell   = { x: x + vector.x, y: y + vector.y };
-            var other  = self.grid.cellContent(cell);
+            var other  = this.grid.cellContent(cell);
 
             if (other && other.type === tile.type) {
               return true; // These two tiles can be merged

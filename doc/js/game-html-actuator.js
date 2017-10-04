@@ -2,8 +2,8 @@
 class HTMLActuator {
   constructor(playerID, gameEvent) {
     this.tileContainer      = document.querySelector(".player" + playerID + " .tile-container");
+    this.animationContainer = document.querySelector(".player" + playerID + " .tile-animation-container");
     this.messageContainer   = document.querySelector(".player" + playerID + " .game-message");
-    this.terminationMessage = document.querySelector(".player" + playerID + " .game-termination-message");
     this.gameEvent = gameEvent;
 
     this.gameEvent.on('game-clear', () => {
@@ -22,18 +22,16 @@ class HTMLActuator {
   }
 
   actuate(grid) {
-    var self = this;
-
     window.requestAnimationFrame(() => {
       // Clear tile container
-      while (self.tileContainer.firstChild) {
-        self.tileContainer.removeChild(self.tileContainer.firstChild);
+      while (this.tileContainer.firstChild) {
+        this.tileContainer.removeChild(this.tileContainer.firstChild);
       }
 
       grid.cells.forEach((column) => {
         column.forEach((cell) => {
           if (cell) {
-            self.addTile(cell);
+            this.addTile(cell);
           }
         });
       });
@@ -49,8 +47,6 @@ class HTMLActuator {
   }
 
   addTile(tile) {
-    var self = this;
-
     var wrapper   = document.createElement("div");
     var inner     = document.createElement("div");
     var position  = tile.previousPosition || { x: tile.x, y: tile.y };
@@ -76,17 +72,17 @@ class HTMLActuator {
 
     if (tile.previousPosition) {
       // Make sure that the tile gets rendered in the previous position first
-      window.requestAnimationFrame(function () {
-        classes[2] = self.cssPositionClass({ x: tile.x, y: tile.y });
-        self.applyClasses(wrapper, classes); // Update the position
+      window.requestAnimationFrame(() => {
+        classes[2] = this.cssPositionClass({ x: tile.x, y: tile.y });
+        this.applyClasses(wrapper, classes); // Update the position
       });
     } else if (tile.mergedFrom) {
       classes.push("tile-merged");
       this.applyClasses(wrapper, classes);
 
       // Render the tiles that merged
-      tile.mergedFrom.forEach(function (merged) {
-        self.addTile(merged);
+      tile.mergedFrom.forEach((merged) => {
+        this.addTile(merged);
       });
     } else {
       classes.push("tile-new");
@@ -147,17 +143,5 @@ class HTMLActuator {
   clearMessage() {
     this.messageContainer.classList.remove("game-won");
     this.messageContainer.classList.remove("game-over");
-  }
-
-  terminateGame(args) {
-    if (typeof args === undefined) args.won = true;
-    var type    = args.allWon ? "game-all-won" : "game-all-over";
-    var message = args.allWon ? "VICTORY" : "GAME OVER";
-    var reason  = args.reason || "";
-
-    this.clearMessage();
-    this.terminationMessage.classList.add(type);
-    this.terminationMessage.querySelector('h3').textContent = message;
-    this.terminationMessage.querySelector('p').textContent  = reason;
   }
 }
