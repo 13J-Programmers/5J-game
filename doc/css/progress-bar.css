@@ -1,3 +1,6 @@
+.progress-bar-wrapper {
+  height: 60px;
+}
 
 .progress-bar-wrapper ul.progress-bar {
   width: 100%;

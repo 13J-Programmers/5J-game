@@ -4,9 +4,11 @@ window.urlParams = new URLParams(location);
 class GameEvent extends EventEmitter {}
 var gameEvent = new GameEvent();
 var intro;
+var introLast;
 
 window.addEventListener('load', () => {
   intro = gameIntro();
+  introLast = gameIntroLast();
 
   // --- Init Puzzle ---
   var gameManager1 = new GameManager(1, InputManager, HTMLActuator, gameEvent);
@@ -136,6 +138,7 @@ window.addEventListener('load', () => {
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
+    // $('.game-window').addClass('blur');
     gameTitle.style.transition = 'opacity 500ms ease';
 
     document.addEventListener('keyup', listener);
@@ -144,6 +147,7 @@ window.addEventListener('load', () => {
       // Right arrow or A or D
       if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode === 68) {
         gameTitle.style.opacity = 0;
+        // $('.game-window').removeClass('blur');
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro');
           console.log('emit: game-intro');
@@ -156,6 +160,7 @@ window.addEventListener('load', () => {
       }
       else if (event.keyCode === 27) { // ESC
         gameTitle.style.opacity = 0;
+        // $('.game-window').removeClass('blur');
         document.removeEventListener('keyup', listener);
       }
     }
@@ -165,11 +170,29 @@ window.addEventListener('load', () => {
   gameEvent.on('game-intro', () => {
     intro.start()
     intro.oncomplete(() => {
-      gameEvent.emit('game-countdown');
+      $('body').chardinJs('start');
+      setTimeout(() => {
+        document.addEventListener('keyup', chardinExitListener);
+      }, 500);
     });
   });
+  function chardinExitListener(event) {
+    event.stopPropagation();
+    // Space or Right arrow
+    if (event.keyCode === 32 || event.keyCode === 39) {
+      $('body').chardinJs('stop');
+      introLast.start();
+      introLast.oncomplete(() => {
+        gameEvent.emit('game-countdown');
+      });
+      document.removeEventListener('keyup', chardinExitListener);
+    }
+  }
   gameEvent.on('game-reset', () => {
     intro.exit();
+    introLast.exit();
+    document.removeEventListener('keyup', chardinExitListener);
+    $('body').chardinJs('stop');
   });
 
   // --- Game Countdown until Start ---
@@ -231,6 +254,7 @@ window.addEventListener('load', () => {
     var elapsedTime = Date.now() - startTime;
     timeoutGameResult = setTimeout(() => {
       gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
+      // $('.game-window').addClass('blur');
 
       document.addEventListener('keyup', resetListener);
     }, 5000);

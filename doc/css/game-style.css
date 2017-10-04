@@ -138,9 +138,17 @@ hr {
 
 .introjs-tooltip {
   font-size: 26pt;
+  text-align: center;
+  word-wrap: break-word;
+  width: 30em;
+  height: 10em;
+  color: #43ff11;
+  font-family: 'Mplus 1p';
+  font-weight: Thin;
 }
+
 .introjs-tooltipbuttons {
-  display: none;
+  font-size: 5em;
 }
 
 .game-panel {
@@ -238,9 +246,19 @@ hr {
   height: 30%;
 }
 .game-title-desc {
+  color: #696969;
   font-weight: bold;
   text-shadow: white 1px 1px 0px, white -1px 1px 0px,
                white 1px -1px 0px, white -1px -1px 0px;
+}
+
+.gamepad-a-button {
+  color: fireBrick;
+}
+
+.blur {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
 }
 
 .game-countdown {

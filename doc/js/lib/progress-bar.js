@@ -61,6 +61,9 @@ class ProgressBar {
       }
       ul.appendChild(li);
     }
+    ul.children[5].setAttribute('data-intro', 'これは残り時間を表している. このバーが一番右まで到達してしまうとゲームオーバーだから気をつけるように. ');
+    ul.children[5].setAttribute('data-position', 'left');
+
     return ul;
   }
 

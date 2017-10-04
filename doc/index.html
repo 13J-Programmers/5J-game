@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <title>Puzzdemic</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Joti+One">
-    <link rel="stylesheet" href="css/game-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
     <link rel="stylesheet" href="css/progress-bar.css">
     <link rel="stylesheet" href="css/introjs.css">
-    <link rel="stylesheet" href="css/introjs-flattener.css">
+    <link rel="stylesheet" href="css/introjs-modern.css">
+    <link rel="stylesheet" href="css/chardinjs.css">
+    <link rel="stylesheet" href="css/game-style.css">
 
     <script src="js/lib/jquery-3.2.1.min.js"></script>
     <script src="js/lib/event-emitter-5.1.0.min.js"></script>
     <script src="js/lib/progress-bar.js"></script>
-    <script src="js/lib/intro-2.6.0.js"></script>
+    <script src="js/lib/intro-2.7.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <script src="js/lib/circle-progress.js"></script>
@@ -28,146 +30,150 @@
     <script src="js/game-earth-globe.js"></script>
     <script src="js/game-result.js"></script>
     <script src="js/game-main.js"></script>
+
     <script src="js/intro.js"></script>
+    <script src="js/chardinjs.min.js"></script>
   </head>
   <body>
     <div class="top-space"></div>
 
-    <table class="center-block virus-list">
-      <td><div class="game-panel game-virus-panel virus-red"></div></td>
-      <td><div class="game-panel game-virus-panel virus-yellow"></div></td>
-      <td style="width: 475px;"></td>
-      <td><div class="game-panel game-virus-panel virus-green"></div></td>
-      <td><div class="game-panel game-virus-panel virus-blue"></div></td>
-    </table>
+    <div class="game-window">
+      <table class="center-block virus-list">
+        <td><div class="game-panel game-virus-panel virus-red"></div></td>
+        <td><div class="game-panel game-virus-panel virus-yellow"></div></td>
+        <td style="width: 475px;"></td>
+        <td><div class="game-panel game-virus-panel virus-green"></div></td>
+        <td><div class="game-panel game-virus-panel virus-blue" data-intro="これがウイルスだ. 君たちには協力して2つずつワクチンを作ってもらう. " data-position="left" ></div></td>
+      </table>
 
-    <table class="center-block puzzle-list">
-      <td>
-        <div class="game-container player1">
-          <div class="game-message">
-            <p></p>
-            <span></span>
+      <table class="center-block puzzle-list">
+        <td>
+          <div class="game-container player1" data-intro="このパズルを使ってワクチンを作る. 操作方法は簡単だ. 4つのボタンでこのパズルを上下左右に動かすことによって, 同じ色の薬を合体させるだけだ. " data-position="right">
+            <div class="game-message">
+              <p></p>
+              <span></span>
+            </div>
+
+            <div class="grid-container">
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+            </div>
+
+            <div class="tile-container"></div>
+
+            <div class="tile-removed-container"></div>
           </div>
+        </td>
 
-          <div class="grid-container">
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
+        <td>
+          <div style="width: 200px"></div>
+        </td>
+
+        <td>
+          <div class="game-container player2">
+            <div class="game-message">
+              <p></p>
+              <span></span>
             </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
+
+            <div class="grid-container">
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
+              <div class="grid-row">
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+              </div>
             </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-            </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
+
+            <div class="tile-container"></div>
+            <div class="tile-removed-container"></div>
+          </div>
+        </td>
+      </table>
+
+      <table class="center-block player-info-list">
+        <td>
+          <div class="game-panel player1">
+            <div class="syringe">
+              <div class="background"></div>
+              <div class="syringe-image"></div>
             </div>
           </div>
+        </td>
+        <td><div style="width: 340px"></div></td>
+        <td>
+          <div class="game-panel player2">
+            <div class="syringe">
+              <div class="background"></div>
+              <div class="syringe-image"></div>
+            </div>
 
-          <div class="tile-container"></div>
+          </div>
+        </td>
+      </table>
 
-          <div class="tile-removed-container"></div>
+      <br><br>
+
+      <div class="progress-bar-wrapper"></div>
+
+      <div class="game-termination-message">
+        <div class="game-termination-message-inner">
+          <h3></h3>
+          <p></p>
         </div>
-      </td>
-
-      <td>
-        <div style="width: 200px"></div>
-      </td>
-
-      <td>
-        <div class="game-container player2">
-          <div class="game-message">
-            <p></p>
-            <span></span>
-          </div>
-
-          <div class="grid-container">
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-            </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-            </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-            </div>
-            <div class="grid-row">
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-              <div class="grid-cell"></div>
-            </div>
-          </div>
-
-          <div class="tile-container"></div>
-          <div class="tile-removed-container"></div>
-        </div>
-      </td>
-    </table>
-
-    <table class="center-block player-info-list">
-      <td>
-        <div class="game-panel player1">
-          <div class="syringe">
-            <div class="background"></div>
-            <div class="syringe-image"></div>
-          </div>
-        </div>
-      </td>
-      <td><div style="width: 340px"></div></td>
-      <td>
-        <div class="game-panel player2">
-          <div class="syringe">
-            <div class="background"></div>
-            <div class="syringe-image"></div>
-          </div>
-
-        </div>
-      </td>
-    </table>
-
-    <br><br>
-
-    <div class="progress-bar-wrapper"></div>
-
-    <div class="game-termination-message">
-      <div class="game-termination-message-inner">
-        <h3></h3>
-        <p></p>
       </div>
-    </div>
 
-    <div id="game-background"></div>
+      <div id="game-background"></div>
 
-    <div class="game-loading-wrapper" style="opacity: 0;">
-      <div class="game-loading"></div>
+      <div class="game-loading-wrapper" style="opacity: 0;">
+        <div class="game-loading"></div>
+      </div>
     </div>
 
     <div class="game-title" style="opacity: 0;">
       <div class="space"></div>
       <h1 class="game-font">Puzzdemic</h1>
-      <small class="game-title-desc">Aボタンを押して開始</small>
+      <small class="game-title-desc">- Press <span class="gamepad-a-button">Ⓐ</span> to Start -</small>
     </div>
 
     <div class="game-countdown" style="opacity: 0;">
