@@ -4,9 +4,11 @@ window.urlParams = new URLParams(location);
 class GameEvent extends EventEmitter {}
 var gameEvent = new GameEvent();
 var intro;
+var introLast;
 
 window.addEventListener('load', () => {
   intro = gameIntro();
+  introLast = gameIntroLast();
 
   // --- Init Puzzle ---
   var gameManager1 = new GameManager(1, InputManager, HTMLActuator, gameEvent);
@@ -126,6 +128,7 @@ window.addEventListener('load', () => {
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
+    $('.game-window').addClass('blur');
     gameTitle.style.transition = 'opacity 500ms ease';
 
     document.addEventListener('keyup', listener);
@@ -134,6 +137,7 @@ window.addEventListener('load', () => {
       // Right arrow or A
       if (event.which === 39 || event.which === 65) {
         gameTitle.style.opacity = 0;
+        $('.game-window').removeClass('blur');
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro');
           console.log('emit: game-intro');
@@ -142,6 +146,7 @@ window.addEventListener('load', () => {
       }
       else if (event.which === 27) { // ESC
         gameTitle.style.opacity = 0;
+        $('.game-window').removeClass('blur');
         document.removeEventListener('keyup', listener);
       }
     }
@@ -151,11 +156,22 @@ window.addEventListener('load', () => {
   gameEvent.on('game-intro', () => {
     intro.start()
     intro.oncomplete(() => {
-      gameEvent.emit('game-countdown');
+      $('body').chardinJs('start');
+      document.addEventListener('keydown', function (event) {
+        if (event.which === 32) { // Space
+          $('body').chardinJs('stop');
+          introLast.start();
+          introLast.oncomplete(() => {
+            gameEvent.emit('game-countdown');
+          });
+        }
+      });
     });
   });
   gameEvent.on('game-reset', () => {
     intro.exit();
+    introLast.exit();
+    $('body').chardinJs('stop');
   });
 
   // --- Game Countdown until Start ---
@@ -210,6 +226,7 @@ window.addEventListener('load', () => {
     var elapsedTime = Date.now() - startTime;
     timeoutGameResult = setTimeout(() => {
       gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
+      $('.game-window').addClass('blur');
 
       document.addEventListener('keyup', resetListener);
 
@@ -219,6 +236,7 @@ window.addEventListener('load', () => {
           console.log('emit: game-reset-transition');
           gameEvent.emit('game-reset-transition');
           document.removeEventListener('keyup', resetListener);
+          $('.game-window').removeClass('blur');
         }
       }
     }, 5000);
