@@ -1,12 +1,12 @@
 .progress-bar-wrapper {
   position: relative;
-  bottom: 0px;
-  transition: bottom 1000ms ease-out;
-  transition-delay: 400ms;
+  opacity: 1;
+  transition: opacity 1000ms ease-out;
+  transition-delay: 500ms;
   height: 60px;
 }
 .progress-bar-wrapper.on-title {
-  bottom: -1000px;
+  opacity: 0;
 }
 
 .progress-bar-wrapper ul.progress-bar {
