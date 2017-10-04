@@ -4,10 +4,12 @@ window.urlParams = new URLParams(location);
 class GameEvent extends EventEmitter {}
 var gameEvent = new GameEvent();
 var intro;
+var introMiddle;
 var introLast;
 
 window.addEventListener('load', () => {
   intro = gameIntro();
+  introMiddle = gameIntroMiddle();
   introLast = gameIntroLast();
 
   // --- Init Puzzle ---
@@ -170,7 +172,7 @@ window.addEventListener('load', () => {
   gameEvent.on('game-intro', () => {
     intro.start()
     intro.oncomplete(() => {
-      $('body').chardinJs('start');
+      introMiddle.start();
       setTimeout(() => {
         document.addEventListener('keyup', chardinExitListener);
       }, 500);
@@ -180,7 +182,7 @@ window.addEventListener('load', () => {
     event.stopPropagation();
     // Space or Right arrow
     if (event.keyCode === 32 || event.keyCode === 39) {
-      $('body').chardinJs('stop');
+      introMiddle.stop();
       introLast.start();
       introLast.oncomplete(() => {
         gameEvent.emit('game-countdown');
@@ -192,7 +194,7 @@ window.addEventListener('load', () => {
     intro.exit();
     introLast.exit();
     document.removeEventListener('keyup', chardinExitListener);
-    $('body').chardinJs('stop');
+    introMiddle.stop();
   });
 
   // --- Game Countdown until Start ---
