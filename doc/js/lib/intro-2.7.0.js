@@ -282,13 +282,15 @@
 
       if (window.addEventListener) {
         if (this._options.keyboardNavigation) {
-          window.addEventListener('keydown', self._onKeyDown, true);
+          // window.addEventListener('keydown', self._onKeyDown, true);
+          window.addEventListener('keyup', self._onKeyDown, true);
         }
         //for window resize
         window.addEventListener('resize', self._onResize, true);
       } else if (document.attachEvent) { //IE
         if (this._options.keyboardNavigation) {
-          document.attachEvent('onkeydown', self._onKeyDown);
+          // document.attachEvent('onkeydown', self._onKeyDown);
+          document.attachEvent('onkeyup', self._onKeyDown);
         }
         //for window resize
         document.attachEvent('onresize', self._onResize);
@@ -441,7 +443,7 @@
     var continueExit = true;
 
     // calling onbeforeexit callback
-    // 
+    //
     // If this callback return `false`, it would halt the process
     if (this._introBeforeExitCallback != undefined) {
       continueExit = this._introBeforeExitCallback.call(self);
@@ -502,9 +504,11 @@
 
     //clean listeners
     if (window.removeEventListener) {
-      window.removeEventListener('keydown', this._onKeyDown, true);
+      // window.removeEventListener('keydown', this._onKeyDown, true);
+      window.removeEventListener('keyup', this._onKeyDown, true);
     } else if (document.detachEvent) { //IE
-      document.detachEvent('onkeydown', this._onKeyDown);
+      // document.detachEvent('onkeydown', this._onKeyDown);
+      document.detachEvent('onkeyup', this._onKeyDown);
     }
 
     //check if any callback is defined
