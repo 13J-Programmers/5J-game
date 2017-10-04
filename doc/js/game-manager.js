@@ -91,7 +91,6 @@ class GameManager {
 
       var tile4percentages = [
         0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99, 1.00];
-      console.log(this.receivedKnowledge, tile4percentages[this.receivedKnowledge]);
       var value = 2;
       if (this.receivedKnowledge >= tile4percentages.length) {
         value = 4;
