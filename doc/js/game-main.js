@@ -172,8 +172,13 @@ window.addEventListener('load', () => {
       gadget.classList.remove('on-title');
     }
     setTimeout(() => {
-      console.log('emit: game-intro');
-      gameEvent.emit('game-intro');
+      if (window.urlParams.get('skipTutorial')) {
+        console.log('skip tutorial');
+        gameEvent.emit('game-countdown');
+      } else {
+        console.log('emit: game-intro');
+        gameEvent.emit('game-intro');
+      }
     }, 1500);
   });
   gameEvent.on('game-reset', () => {
