@@ -92,8 +92,13 @@ class HTMLActuator {
     // Add the inner part of the tile to the wrapper
     wrapper.appendChild(inner);
 
-    // Put the tile on the board
-    this.tileContainer.appendChild(wrapper);
+    if (tile.syringe || tile.pack) {
+      // Put the tile on container for animation
+      this.animationContainer.appendChild(wrapper);
+    } else {
+      // Put the tile on the board
+      this.tileContainer.appendChild(wrapper);
+    }
   }
 
   applyClasses(element, classes) {

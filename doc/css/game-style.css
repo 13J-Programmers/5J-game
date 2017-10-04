@@ -562,6 +562,12 @@ hr {
   transition: 100ms ease-in-out;
   transition-property: transform;
 }
+.tile-pink-pack,
+.tile-lightblue-pack,
+.tile-lightgreen-pack,
+.tile-yellow-pack {
+  z-index: 50;
+}
 .tile-pink-pack .tile-inner,
 .tile-lightblue-pack .tile-inner,
 .tile-lightgreen-pack .tile-inner,
@@ -570,6 +576,12 @@ hr {
   animation-delay: 0.5s;
   animation-duration: 3s;
   animation-fill-mode: forwards;
+}
+.tile-pink-syringe,
+.tile-lightblue-syringe,
+.tile-lightgreen-syringe,
+.tile-yellow-syringe {
+  z-index: 50;
 }
 .tile-pink-syringe .tile-inner,
 .tile-lightblue-syringe .tile-inner,
