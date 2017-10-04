@@ -142,13 +142,17 @@ window.addEventListener('load', () => {
 
     function listener(event) {
       // Right arrow or A or D
-      if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode == 68) {
+      if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode === 68) {
         gameTitle.style.opacity = 0;
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro');
           console.log('emit: game-intro');
         }, { once: true });
         document.removeEventListener('keyup', listener);
+      }
+      // Up arrow or W or X
+      else if (event.keyCode === 38 || event.keyCode === 87 || event.keyCode === 88) {
+        console.log("selected hard mode!");
       }
       else if (event.keyCode === 27) { // ESC
         gameTitle.style.opacity = 0;
