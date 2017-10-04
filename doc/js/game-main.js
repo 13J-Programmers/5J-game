@@ -140,7 +140,6 @@ window.addEventListener('load', () => {
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
-    // $('.game-window').addClass('blur');
     gameTitle.style.transition = 'opacity 500ms ease';
 
     document.addEventListener('keyup', listener);
@@ -149,10 +148,8 @@ window.addEventListener('load', () => {
       // Right arrow or A or D
       if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode === 68) {
         gameTitle.style.opacity = 0;
-        // $('.game-window').removeClass('blur');
         gameTitle.addEventListener('transitionend', () => {
-          gameEvent.emit('game-intro');
-          console.log('emit: game-intro');
+          gameEvent.emit('game-intro-transition');
         }, { once: true });
         document.removeEventListener('keyup', listener);
       }
@@ -165,6 +162,24 @@ window.addEventListener('load', () => {
         // $('.game-window').removeClass('blur');
         document.removeEventListener('keyup', listener);
       }
+    }
+  });
+
+  // --- Game Title => Intro animation ---
+  gameEvent.on('game-intro-transition', () => {
+    var gadgets = document.querySelectorAll('.title-animation');
+    for (var gadget of gadgets) {
+      gadget.classList.remove('on-title');
+    }
+    setTimeout(() => {
+      console.log('emit: game-intro');
+      gameEvent.emit('game-intro');
+    }, 1500);
+  });
+  gameEvent.on('game-reset', () => {
+    var gadgets = document.querySelectorAll('.title-animation');
+    for (var gadget of gadgets) {
+      gadget.classList.add('on-title');
     }
   });
 

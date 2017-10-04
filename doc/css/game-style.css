@@ -160,6 +160,10 @@ hr {
   height: 100px;
 }
 .game-panel.player1 {
+  position: relative;
+  left: 0px;
+  transition: left 1000ms ease-out;
+  transition-delay: 200ms;
   background-image: url('../img/CoolClips_researcher.png');
   background-size: 220px 220px;
   background-repeat: no-repeat;
@@ -167,11 +171,21 @@ hr {
   text-align: right;
 }
 .game-panel.player2 {
+  position: relative;
+  right: 0px;
+  transition: right 1000ms ease-out;
+  transition-delay: 200ms;
   background-image: url('../img/CoolClips_scientist.png');
   background-size: 195px 200px;
   background-repeat: no-repeat;
   background-position: right center;
   text-align: left;
+}
+.game-panel.player1.on-title {
+  left: -1000px;
+}
+.game-panel.player2.on-title {
+  right: -1000px;
 }
 .game-panel.player1 .syringe {
   width: 100px;
@@ -211,18 +225,28 @@ hr {
 .game-virus-panel {
   width: 100px;
   height: 100px;
+  position: relative;
+  top: 0px;
+  transition: top 1000ms ease-out;
 }
 .game-virus-panel.virus-red {
   background-image: url('../img/icon-virus-red.png');
+  transition-delay: 100ms;
 }
 .game-virus-panel.virus-yellow {
   background-image: url('../img/icon-virus-yellow.png');
+  transition-delay: 200ms;
 }
 .game-virus-panel.virus-green {
   background-image: url('../img/icon-virus-green.png');
+  transition-delay: 300ms;
 }
 .game-virus-panel.virus-blue {
   background-image: url('../img/icon-virus-blue.png');
+  transition-delay: 400ms;
+}
+.game-virus-panel.on-title {
+  top: -1000px;
 }
 
 #game-background {
@@ -403,6 +427,22 @@ hr {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.game-container.player1 {
+  position: relative;
+  left: 0px;
+  transition: left 500ms ease-out;
+}
+.game-container.player1.on-title {
+  left: -1000px;
+}
+.game-container.player2 {
+  position: relative;
+  right: 0px;
+  transition: right 500ms ease-out;
+}
+.game-container.player2.on-title {
+  right: -1000px;
 }
 
 .game-message {
