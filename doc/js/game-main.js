@@ -157,20 +157,27 @@ window.addEventListener('load', () => {
     intro.start()
     intro.oncomplete(() => {
       $('body').chardinJs('start');
-      document.addEventListener('keydown', function (event) {
-        if (event.which === 32) { // Space
-          $('body').chardinJs('stop');
-          introLast.start();
-          introLast.oncomplete(() => {
-            gameEvent.emit('game-countdown');
-          });
-        }
-      });
+      setTimeout(() => {
+        document.addEventListener('keyup', chardinExitListener);
+      }, 500);
     });
   });
+  function chardinExitListener(event) {
+    event.stopPropagation();
+    // Space or Right arrow
+    if (event.keyCode === 32 || event.keyCode === 39) {
+      $('body').chardinJs('stop');
+      introLast.start();
+      introLast.oncomplete(() => {
+        gameEvent.emit('game-countdown');
+      });
+      document.removeEventListener('keyup', chardinExitListener);
+    }
+  }
   gameEvent.on('game-reset', () => {
     intro.exit();
     introLast.exit();
+    document.removeEventListener('keyup', chardinExitListener);
     $('body').chardinJs('stop');
   });
 
