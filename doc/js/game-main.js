@@ -250,8 +250,33 @@ window.addEventListener('load', () => {
   });
 
   // --- Game Clear and Game Over ---
-  gameEvent.on('game-clear', () => { gameEvent.emit('game-result'); });
-  gameEvent.on('game-over',  () => { gameEvent.emit('game-result'); });
+  gameEvent.on('game-clear', () => { gameEvent.emit('game-result-transition'); });
+  gameEvent.on('game-over',  () => { gameEvent.emit('game-result-transition'); });
+
+  // --- Game => Result animation ---
+  var timeoutGameResultAnimation1;
+  var timeoutGameResultAnimation2;
+  gameEvent.on('game-result-transition', () => {
+    timeoutGameResultAnimation1 = setTimeout(() => {
+      var gadgets = document.querySelectorAll('.result-animation');
+      for (var gadget of gadgets) {
+        gadget.style.transitionDuration = '1000ms';
+        gadget.classList.add('on-result');
+      }
+
+      console.log('emit: game-result');
+      gameEvent.emit('game-result');
+    }, 5000);
+  });
+  gameEvent.on('game-reset', () => {
+    clearTimeout(timeoutGameResultAnimation1);
+    clearTimeout(timeoutGameResultAnimation2);
+    var gadgets = document.querySelectorAll('.result-animation');
+    for (var gadget of gadgets) {
+      gadget.style.transitionDuration = '500ms';
+      gadget.classList.remove('on-result');
+    }
+  });
 
   // --- Game Result ---
   var gameResult = new GameResult(gameEvent);
@@ -269,12 +294,11 @@ window.addEventListener('load', () => {
   });
   gameEvent.on('game-result', () => {
     var elapsedTime = Date.now() - startTime;
-    timeoutGameResult = setTimeout(() => {
+    // timeoutGameResult = setTimeout(() => {
       gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
-      // $('.game-window').addClass('blur');
 
       document.addEventListener('keyup', resetListener);
-    }, 5000);
+    // }, 5000);
   });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeoutGameResult);

@@ -431,17 +431,19 @@ hr {
 .game-container.player1 {
   position: relative;
   left: 0px;
-  transition: left 500ms ease-out;
+  transition: left 500ms ease;
 }
-.game-container.player1.on-title {
+.game-container.player1.on-title,
+.game-container.player1.on-result {
   left: -1000px;
 }
 .game-container.player2 {
   position: relative;
   right: 0px;
-  transition: right 500ms ease-out;
+  transition: right 500ms ease;
 }
-.game-container.player2.on-title {
+.game-container.player2.on-title,
+.game-container.player2.on-result {
   right: -1000px;
 }
 
