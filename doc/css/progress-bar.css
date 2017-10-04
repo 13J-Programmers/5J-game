@@ -40,19 +40,20 @@
   background: gray;
 }
 .progress-bar-wrapper .status-bar {
-  height: 2px;
-  background: gray;
+  height: 6px;
+  background: #88888866;/* gray of half transparent */
   position: relative;
   top: 20px;
   margin: 0 auto;
 }
 .progress-bar-wrapper .current-status {
   position: relative;
-  top: -2px;
+  top: 0px;
   height: 6px;
   width: 0;
   border-radius: 1px;
   background: firebrick;
+  background-color: #E83015; /* bright red */
 }
 
 @keyframes changeBackground {
