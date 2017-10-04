@@ -282,7 +282,8 @@
 
       if (window.addEventListener) {
         if (this._options.keyboardNavigation) {
-          window.addEventListener('keydown', self._onKeyDown, true);
+          // window.addEventListener('keydown', self._onKeyDown, true);
+          window.addEventListener('keyup', self._onKeyDown, true);
         }
         //for window resize
         window.addEventListener('resize', self._onResize, true);
@@ -488,7 +489,8 @@
 
     //clean listeners
     if (window.removeEventListener) {
-      window.removeEventListener('keydown', this._onKeyDown, true);
+      // window.removeEventListener('keydown', this._onKeyDown, true);
+      window.removeEventListener('keyup', this._onKeyDown, true);
     } else if (document.detachEvent) { //IE
       document.detachEvent('onkeydown', this._onKeyDown);
     }

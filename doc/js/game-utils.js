@@ -45,4 +45,14 @@ class Utils {
     if (seconds < 10) { seconds = "0" + seconds; }
     return minutes + ':' + seconds;
   }
+
+  // trigger html event
+  static triggerKeyboardEvent(element, event, options) {
+    var evt = new CustomEvent("gamepadEvent", options);
+    evt.keyCode = options.keyCode;
+    evt.shiftKey = options.shiftKey;
+    // console.log(evt);
+    evt.initEvent(event, true, true); // event type, bubbling, cancelable
+    return element.dispatchEvent(evt);
+  }
 }

@@ -126,7 +126,7 @@ window.addEventListener('load', () => {
 
   // Press ESC key to reset game
   document.addEventListener('keydown', function (event) {
-    if (event.which === 27) { // ESC
+    if (event.keyCode === 27) { // ESC
       gameEvent.emit('game-reset-transition');
     }
   });
@@ -141,8 +141,8 @@ window.addEventListener('load', () => {
     document.addEventListener('keyup', listener);
 
     function listener(event) {
-      // Right arrow or A
-      if (event.which === 39 || event.which === 65) {
+      // Right arrow or A or D
+      if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode == 68) {
         gameTitle.style.opacity = 0;
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro');
@@ -150,7 +150,7 @@ window.addEventListener('load', () => {
         }, { once: true });
         document.removeEventListener('keyup', listener);
       }
-      else if (event.which === 27) { // ESC
+      else if (event.keyCode === 27) { // ESC
         gameTitle.style.opacity = 0;
         document.removeEventListener('keyup', listener);
       }
@@ -215,7 +215,7 @@ window.addEventListener('load', () => {
   var timeoutGameResult;
   var resetListener = function (event) {
     // Right arrow or A
-    if (event.which === 39 || event.which === 65) {
+    if (event.keyCode === 39 || event.keyCode === 65) {
       console.log('emit: game-reset-transition');
       gameEvent.emit('game-reset-transition');
     }
@@ -262,6 +262,22 @@ window.addEventListener('load', () => {
       gameLoadingWrapper.style.opacity = 0;
       $(this).unbind('circle-animation-end');
     });
+  });
+
+  // --- Gamepad ---
+  gameEvent.on('input', (playerID, direction) => {
+    var mapping = {
+      0: 38, // Up
+      1: 39, // Right
+      2: 40, // Down
+      3: 37, // Left
+      4: 87, // W
+      5: 68, // D
+      6: 83, // S
+      7: 65, // A
+    };
+    var key = mapping[direction + (playerID - 1) * 4];
+    Utils.triggerKeyboardEvent(document, 'keyup', { keyCode: key });
   });
 
   // --- Audio ---

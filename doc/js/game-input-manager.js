@@ -2,7 +2,19 @@
 class InputManager extends EventEmitter {
   constructor(playerID, gameEvent) {
     super();
+    this.playerID = playerID;
     this.gameEvent = gameEvent;
+    this.freezed = true;
+
+    gameEvent.on('game-title', () => {
+      this.freezed = true;
+    });
+    gameEvent.on('game-start', () => {
+      this.freezed = false;
+    });
+    gameEvent.on('game-reset', () => {
+      this.freezed = true;
+    });
 
     this.listenKey(playerID);
 
@@ -40,7 +52,7 @@ class InputManager extends EventEmitter {
     // Respond to direction keys
     document.addEventListener("keydown", function (event) {
       var modifiers = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
-      var mapped = mapping[event.which];
+      var mapped = mapping[event.keyCode];
 
       if (!modifiers) {
         if (mapped !== undefined) {
@@ -50,7 +62,7 @@ class InputManager extends EventEmitter {
       }
 
       // R key restarts the game
-      if (!modifiers && event.which === restartButton) {
+      if (!modifiers && event.keyCode === restartButton) {
         self.restart.call(self, event);
       }
     });
@@ -82,6 +94,7 @@ class InputManager extends EventEmitter {
     if (!this.gamepadPressed &&
         (yAxis <= -1 || this.gamepadButtonPressed(gp.buttons[1]))) {
       this.emit("move", 0);
+      if (this.freezed) this.gameEvent.emit("input", playerID, 0);
       this.gamepadPressed = true;
       setTimeout(() => {
         this.gamepadPressed = false;
@@ -90,6 +103,7 @@ class InputManager extends EventEmitter {
     else if (!this.gamepadPressed &&
         (xAxis >= 1 || this.gamepadButtonPressed(gp.buttons[3]))) {
       this.emit("move", 1);
+      if (this.freezed) this.gameEvent.emit("input", playerID, 1);
       this.gamepadPressed = true;
       setTimeout(() => {
         this.gamepadPressed = false;
@@ -98,6 +112,7 @@ class InputManager extends EventEmitter {
     else if (!this.gamepadPressed &&
         (yAxis >= 1 || this.gamepadButtonPressed(gp.buttons[2]))) {
       this.emit("move", 2);
+      if (this.freezed) this.gameEvent.emit("input", playerID, 2);
       this.gamepadPressed = true;
       setTimeout(() => {
         this.gamepadPressed = false;
@@ -106,6 +121,7 @@ class InputManager extends EventEmitter {
     else if (!this.gamepadPressed &&
         (xAxis <= -1 || this.gamepadButtonPressed(gp.buttons[0]))) {
       this.emit("move", 3);
+      if (this.freezed) this.gameEvent.emit("input", playerID, 3);
       this.gamepadPressed = true;
       setTimeout(() => {
         this.gamepadPressed = false;
