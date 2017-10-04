@@ -146,9 +146,16 @@ hr {
   font-family: 'Mplus 1p';
   font-weight: Thin;
 }
-
 .introjs-tooltipbuttons {
   font-size: 5em;
+}
+
+.chardinjs-tooltiptext {
+  width: 380px;
+  font-size: 16pt;
+}
+.chardinjs-tooltip.chardinjs-left .chardinjs-tooltiptext {
+  position: relative; left: -170px;
 }
 
 .game-panel {
