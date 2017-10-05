@@ -106,6 +106,18 @@ window.addEventListener('load', () => {
       throw 'Unexpected type';
     }
     createdVaccines[type] += 1;
+
+    // Emit make-syringe if a player created 2 different vaccines.
+    if ((createdVaccines['red'] == 1 && createdVaccines['yellow'] >= 1) || 
+      (createdVaccines['yelow'] == 1 && createdVaccines['red'] >= 1)) {
+      console.log('emit: make-syringe');
+      this.gameEvent.emit('make-syringe', 'player1');
+    } else if ((createdVaccines['blue'] == 1 && createdVaccines['green'] >= 1) || 
+      (createdVaccines['green'] == 1 && createdVaccines['blue'] >= 1)) {
+      console.log('emit: make-syringe');
+      this.gameEvent.emit('make-syringe', 'player2');
+    }
+
     // Emit game-clear if all vaccine are created.
     var isCreatedAllVaccines = Utils.values(createdVaccines).every(x => x > 0);
     if (isCreatedAllVaccines) {
@@ -116,6 +128,10 @@ window.addEventListener('load', () => {
   gameEvent.on('game-reset', () => {
     createdVaccines = { red: 0, blue: 0, yellow: 0, green: 0 };
   });
+
+  function getVaccineList() {
+    return createdVaccines;
+  }
 
 
   // --- Knowledge ---

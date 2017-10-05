@@ -16,6 +16,7 @@ open http://localhost:8000
 3. game-countdown
 4. game-start
 5. create-vaccine
+5.1 make-syringe
 6. create-knowledge
 7. game-clear
 8. game-over

@@ -1,0 +1,19 @@
+@keyframes blink {
+  0%   { opacity: 0; }
+  25% { opacity: 1; }
+  50%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.run-animation {
+	animation-name: blink;
+	animation-duration: 0.6s;
+	animation-timing-function: linear;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+.syringe-effect {
+	transform: rotateY(1080deg); /* 360*3 */
+	transition: transform 1.2s 0s cubic-bezier(0.2, 1.07, 1, 1.01);
+}
