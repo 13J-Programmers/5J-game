@@ -234,8 +234,7 @@ hr {
   height: 100px;
   position: relative;
   top: 0px;
-  transition: top 1000ms ease-out;
-  transition: opacity 1000ms ease;
+  transition: top 1000ms ease-out, opacity 1000ms ease;
 }
 .game-virus-panel.virus-red {
   background-image: url('../img/icon-virus-red.png');
