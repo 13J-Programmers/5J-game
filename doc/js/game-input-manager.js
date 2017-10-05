@@ -21,7 +21,7 @@ class InputManager extends EventEmitter {
     this.gamepadPressed = false; // Avoid that player keeps button pressing.
     setInterval(() => {
       this.listenGamepad(playerID);
-    }, 100);
+    }, 30);
   }
 
   listenKey(playerID) {
