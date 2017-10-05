@@ -262,6 +262,8 @@ window.addEventListener('load', () => {
   var timeoutGameResultAnimation1;
   var timeoutGameResultAnimation2;
   gameEvent.on('game-result-transition', () => {
+    finalPhase = progress.getCurrentStage() + 1;
+
     timeoutGameResultAnimation1 = setTimeout(() => {
       var gadgets = document.querySelectorAll('.result-animation');
       for (var gadget of gadgets) {
@@ -285,7 +287,7 @@ window.addEventListener('load', () => {
 
   // --- Game Result ---
   var gameResult = new GameResult(gameEvent);
-  var startTime;
+  var finalPhase;
   var timeoutGameResult;
   var resetListener = function (event) {
     // Right arrow or A
@@ -294,16 +296,10 @@ window.addEventListener('load', () => {
       gameEvent.emit('game-reset-transition');
     }
   }
-  gameEvent.on('game-start', () => {
-    startTime = Date.now();
-  });
   gameEvent.on('game-result', () => {
-    var elapsedTime = Date.now() - startTime;
-    // timeoutGameResult = setTimeout(() => {
-      gameResult.show(createdVaccines, createdKnowledge, elapsedTime);
+    gameResult.show(createdVaccines, createdKnowledge, finalPhase);
 
-      document.addEventListener('keyup', resetListener);
-    // }, 5000);
+    document.addEventListener('keyup', resetListener);
   });
   gameEvent.on('game-reset', () => {
     clearTimeout(timeoutGameResult);
