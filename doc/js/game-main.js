@@ -52,7 +52,8 @@ window.addEventListener('load', () => {
   // --- Progress ---
   var timeout;
   var interval = window.urlParams.get('phaseInterval') || 30000;
-  var intervals = [interval, interval, interval, interval, interval, 5000];
+  //var intervals = [interval, interval, interval, interval, interval, 5000];
+  var intervals = [26600, 27400, 27500, 27500, 29000, 5000];
   gameEvent.on('game-start', () => {
     earthGlobe.setDisasterPhase(0);
     progress.incrementStage(intervals[0]);
@@ -367,7 +368,8 @@ window.addEventListener('load', () => {
   });
 
   // --- Audio ---
-  var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
+  //var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
+  var audioPuzzle = new Audio('bgm/yosinani-bgm.mp3');
   audioPuzzle.volume = 0.6;
   var audioFadeout = function (audio) {
     setTimeout(() => { audio.volume = 0.5; }, 100);
@@ -381,6 +383,9 @@ window.addEventListener('load', () => {
       audio.currentTime = 0;
     }, 600);
   }
+  /*setInterval(function() {
+    console.log(audioPuzzle.currentTime);
+  });*/
   gameEvent.on('game-start', () => {
     audioPuzzle.volume = 0.6;
     audioPuzzle.play();
