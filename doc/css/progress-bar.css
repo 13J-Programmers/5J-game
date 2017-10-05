@@ -48,7 +48,7 @@
 }
 .progress-bar-wrapper .status-bar {
   height: 6px;
-  background: #88888866;/* gray of half transparent */
+  background: rgba(128, 128, 128, 0.5);
   position: relative;
   top: 20px;
   margin: 0 auto;
