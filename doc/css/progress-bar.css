@@ -1,5 +1,12 @@
 .progress-bar-wrapper {
+  position: relative;
+  opacity: 1;
+  transition: opacity 1000ms ease-out;
+  transition-delay: 500ms;
   height: 60px;
+}
+.progress-bar-wrapper.on-title {
+  opacity: 0;
 }
 
 .progress-bar-wrapper ul.progress-bar {
@@ -41,8 +48,7 @@
 }
 .progress-bar-wrapper .status-bar {
   height: 6px;
-  background-color: rgb(128, 128, 128);
-  opacity: 0.4;
+  background: rgba(128, 128, 128, 0.5);
   position: relative;
   top: 20px;
   margin: 0 auto;
