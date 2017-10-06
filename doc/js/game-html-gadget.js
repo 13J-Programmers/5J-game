@@ -48,7 +48,7 @@ class HTMLGadget {
     });
 
     // When developed my vaccines
-    this.gameEvent.on('make-syringe', (player) => {
+    this.gameEvent.on('finish-player-task', (player) => {
       if (player === 'player1') {
         $(this.player1Syringe).addClass('syringe-effect');
         console.log("made syringe: " + player);

@@ -108,15 +108,15 @@ window.addEventListener('load', () => {
     }
     createdVaccines[type] += 1;
 
-    // Emit make-syringe if a player created 2 different vaccines.
-    if ((createdVaccines['red'] == 1 && createdVaccines['yellow'] >= 1) || 
+    // Emit finish-player-task if a player created 2 different vaccines.
+    if ((createdVaccines['red'] == 1 && createdVaccines['yellow'] >= 1) ||
       (createdVaccines['yelow'] == 1 && createdVaccines['red'] >= 1)) {
-      console.log('emit: make-syringe');
-      this.gameEvent.emit('make-syringe', 'player1');
-    } else if ((createdVaccines['blue'] == 1 && createdVaccines['green'] >= 1) || 
+      console.log('emit: finish-player-task');
+      this.gameEvent.emit('finish-player-task', 'player1');
+    } else if ((createdVaccines['blue'] == 1 && createdVaccines['green'] >= 1) ||
       (createdVaccines['green'] == 1 && createdVaccines['blue'] >= 1)) {
-      console.log('emit: make-syringe');
-      this.gameEvent.emit('make-syringe', 'player2');
+      console.log('emit: finish-player-task');
+      this.gameEvent.emit('finish-player-task', 'player2');
     }
 
     // Emit game-clear if all vaccine are created.
@@ -383,9 +383,6 @@ window.addEventListener('load', () => {
       audio.currentTime = 0;
     }, 600);
   }
-  /*setInterval(function() {
-    console.log(audioPuzzle.currentTime);
-  });*/
   gameEvent.on('game-start', () => {
     audioPuzzle.volume = 0.6;
     audioPuzzle.play();
