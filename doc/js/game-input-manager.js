@@ -12,7 +12,7 @@ class InputManager extends EventEmitter {
     gameEvent.on('game-start', () => {
       this.freezed = false;
     });
-    gameEvent.on('game-reset', () => {
+    gameEvent.on('game-result', () => {
       this.freezed = true;
     });
 
