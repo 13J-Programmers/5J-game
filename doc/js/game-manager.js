@@ -12,7 +12,7 @@ class GameManager {
     this.syringeValue = window.urlParams.get('syringeValue') || 30;
     this.packValue    = window.urlParams.get('packValue') || 20;
     this.over         = false; // over: Only this player failed this puzzle.
-    this.won          = false; // won:  This player successfully created a vaccine.
+    this.myVaccine    = []; // The list of vaccine made by this player
     this.receivedKnowledge = 0;
 
     this.inputManager.on('move', this.move.bind(this));
@@ -173,15 +173,14 @@ class GameManager {
         var tile = this.grid.cellContent(cell);
         if (!tile) return;
 
-        // TODO: this.won will be replace to array. won = ["red", "yellow"]
-        if (this.won && tile.value >= this.packValue ||
+        if (this.myVaccine.indexOf(tile.type) >= 0 && tile.value >= this.packValue ||
             this.copeWith.indexOf(tile.type) === -1 && tile.value >= this.packValue) {
           tile.pack = true;
           console.log("Developed knowledge: " + tile.type);
           this.gameEvent.emit('create-knowledge', tile.type);
         } else if (tile.value >= this.syringeValue && this.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
-          // this.won = true;
+          this.myVaccine.push(tile.type);
           console.log("Developed vaccine: " + tile.type);
           this.gameEvent.emit('create-vaccine', tile.type);
         }
