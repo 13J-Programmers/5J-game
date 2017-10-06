@@ -150,6 +150,20 @@ window.addEventListener('load', () => {
 
 
   // --- Game Title ---
+  function getDefaultPlayerConfigs() {
+    return {
+      player1: {
+        confirm: false,
+        level: 0,
+      },
+      player2: {
+        confirm: false,
+        level: 0,
+      },
+    };
+  }
+  var playerConfigs = getDefaultPlayerConfigs();
+
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
@@ -158,24 +172,49 @@ window.addEventListener('load', () => {
     document.addEventListener('keyup', listener);
 
     function listener(event) {
-      // Right arrow or A or D
-      if (event.keyCode === 39 || event.keyCode === 65 || event.keyCode === 68) {
-        gameTitle.style.opacity = 0;
-        gameTitle.addEventListener('transitionend', () => {
-          gameEvent.emit('game-intro-transition');
-        }, { once: true });
-        document.removeEventListener('keyup', listener);
+      // Ready to puzzle
+      if (event.keyCode === 68) { // D
+        playerConfigs.player1.confirm = true;
       }
-      // Up arrow or W or X
-      else if (event.keyCode === 38 || event.keyCode === 87 || event.keyCode === 88) {
-        console.log("selected hard mode!");
+      else if (event.keyCode === 39) { // Right arrow
+        playerConfigs.player2.confirm = true;
+      }
+      else if (event.keyCode === 87) { // W
+        playerConfigs.player1.level =
+          (playerConfigs.player1.level + 1 + 3) % 3;
+      }
+      else if (event.keyCode === 38) { // Up arrow
+        playerConfigs.player2.level =
+          (playerConfigs.player2.level + 1 + 3) % 3;
+      }
+      else if (event.keyCode === 83) { // S
+        playerConfigs.player1.level =
+          (playerConfigs.player1.level - 1 + 3) % 3;
+      }
+      else if (event.keyCode === 40) { // Down arrow
+        playerConfigs.player2.level =
+          (playerConfigs.player2.level - 1 + 3) % 3;
       }
       else if (event.keyCode === 27) { // ESC
         gameTitle.style.opacity = 0;
-        // $('.game-window').removeClass('blur');
+        document.removeEventListener('keyup', listener);
+      }
+
+      if (playerConfigs.player1.confirm && playerConfigs.player2.confirm) {
+        gameManager1.setGameLevel(playerConfigs.player1.level);
+        gameManager2.setGameLevel(playerConfigs.player2.level);
+
+        gameTitle.style.opacity = 0;
+        gameTitle.addEventListener('transitionend', () => {
+          gameEvent.emit('game-intro-transition');
+          console.log(playerConfigs);
+        }, { once: true });
         document.removeEventListener('keyup', listener);
       }
     }
+  });
+  gameEvent.on('game-reset', () => {
+    playerConfigs = getDefaultPlayerConfigs();
   });
 
   // --- Game Title => Intro animation ---
