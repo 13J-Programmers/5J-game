@@ -4,6 +4,10 @@ function gameIntro() {
 
   intro.setOptions({
     showStepNumbers: false,
+    showBullets: false,
+    nextLabel: ' Ⓐ ',
+    prevLabel: ' Ⓑ ',
+    skipLabel: ' Skip(START) ',
     doneLabel: ' Ⓐ ',
     steps: [
       {
@@ -37,7 +41,7 @@ function gameIntroMiddle() {
       var progressbarSections = document.querySelectorAll('.progress-bar .section');
       var progressDesc = progressbarSections[progressbarSections.length - 1];
       progressDesc.setAttribute('data-intro',
-        'これは残り時間を表している. このバーが一番右まで到達してしまうとゲームオーバーだから気をつけるように. ');
+        'これは残り時間だ. 一番右まで到達してしまうと時間切れとなる. ');
       progressDesc.setAttribute('data-position', 'left');
 
       // Start chardin
@@ -56,6 +60,10 @@ function gameIntroLast() {
 
   intro.setOptions({
     showStepNumbers: false,
+    showBullets: false,
+    nextLabel: ' Ⓐ ',
+    prevLabel: ' Ⓑ ',
+    skipLabel: ' Skip(START) ',
     doneLabel: ' Ⓐ ',
     steps: [
       {
