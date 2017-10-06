@@ -172,13 +172,8 @@ window.addEventListener('load', () => {
       gadget.classList.remove('on-title');
     }
     setTimeout(() => {
-      if (window.urlParams.get('skipTutorial')) {
-        console.log('skip tutorial');
-        gameEvent.emit('game-countdown');
-      } else {
-        console.log('emit: game-intro');
-        gameEvent.emit('game-intro');
-      }
+      console.log('emit: game-intro');
+      gameEvent.emit('game-intro');
     }, 1500);
   });
   gameEvent.on('game-reset', () => {
@@ -190,6 +185,11 @@ window.addEventListener('load', () => {
 
   // --- Game Introduction ---
   gameEvent.on('game-intro', () => {
+    if (window.urlParams.get('skipTutorial')) {
+      console.log('skip tutorial');
+      gameEvent.emit('game-countdown');
+      return;
+    }
     intro.start()
     intro.oncomplete(() => {
       introMiddle.start();
