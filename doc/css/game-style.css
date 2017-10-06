@@ -875,6 +875,10 @@ hr {
   background: lightgreen url("../img/tile-pack.png");
   background-size: contain; }
 
+.tile.tile-black-2 .tile-inner {
+  background: gray url("../img/infection-rate.png");
+  background-size: contain; }
+
 .tile-new .tile-inner {
   animation: appear 200ms ease 100ms;
   animation-fill-mode: backwards;

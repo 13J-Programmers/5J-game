@@ -14,6 +14,7 @@ class GameManager {
     this.over         = false; // over: Only this player failed this puzzle.
     this.myVaccine    = []; // The list of vaccine made by this player
     this.receivedKnowledge = 0;
+    this.hardMode     = false;
 
     this.inputManager.on('move', this.move.bind(this));
     this.inputManager.on('restart', this.restart.bind(this));
@@ -39,6 +40,7 @@ class GameManager {
     this.freesed = true;
     this.gameEvent.on('game-title', () => {
       this.receivedKnowledge = 0;
+      this.hardMode = false;
     })
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
@@ -46,6 +48,7 @@ class GameManager {
     });
     this.gameEvent.on('game-reset', () => {
       this.freesed = true;
+      this.hardMode = false;
     });
 
     this.setup();
@@ -57,6 +60,11 @@ class GameManager {
 
   isFreezed() {
     return this.freesed;
+  }
+
+  setHardMode(value) {
+    this.hardMode = value;
+    this.setup();
   }
 
   // Restart the game
@@ -76,6 +84,9 @@ class GameManager {
     // Add the initial tiles
     for (var i = 0; i < this.startTiles; i++) {
       this.addRandomTile();
+    }
+    if (this.hardMode) {
+      this.addRandomTile('black');
     }
 
     // Update the actuator
@@ -299,8 +310,8 @@ class GameManager {
 // Class propaties and class methods
 
 // {red: "pink", blue: "lightblue", green: "lightgreen", yellow: "yellow"}
-GameManager.colors    = ["red",  "blue",      "green",      "yellow"];
-GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow"];
+GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black"];
+GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black"];
 GameManager.cssColorMap = (function () {
   var hash = {};
   for (var i = 0; i < GameManager.colors.length; i++) {
