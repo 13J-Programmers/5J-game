@@ -875,7 +875,12 @@ hr {
   background: lightgreen url("../img/tile-pack.png");
   background-size: contain; }
 
-.tile.tile-black-2 .tile-inner {
+.tile.tile-black-2 .tile-inner,
+.tile.tile-black-4 .tile-inner {
+  background: gray url("../img/infection-rate.png");
+  background-size: contain; }
+.tile.tile-black2-2 .tile-inner,
+.tile.tile-black2-4 .tile-inner {
   background: gray url("../img/infection-rate.png");
   background-size: contain; }
 

@@ -313,8 +313,8 @@ class GameManager {
 // Class propaties and class methods
 
 // {red: "pink", blue: "lightblue", green: "lightgreen", yellow: "yellow"}
-GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black"];
-GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black"];
+GameManager.colors    = ["red",  "blue",      "green",      "yellow", "black", "black2"];
+GameManager.cssColors = ["pink", "lightblue", "lightgreen", "yellow", "black", "black2"];
 GameManager.cssColorMap = (function () {
   var hash = {};
   for (var i = 0; i < GameManager.colors.length; i++) {
