@@ -148,6 +148,11 @@ hr {
 }
 .introjs-tooltipbuttons {
   font-size: 5em;
+  margin-top: -5%;
+}
+
+.introjs-tooltiptext {
+  margin-top: 14%;
 }
 
 .chardinjs-tooltiptext {
