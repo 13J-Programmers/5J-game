@@ -52,7 +52,8 @@ window.addEventListener('load', () => {
   // --- Progress ---
   var timeout;
   var interval = window.urlParams.get('phaseInterval') || 30000;
-  var intervals = [interval, interval, interval, interval, interval, 5000];
+  //var intervals = [interval, interval, interval, interval, interval, 5000];
+  var intervals = [26600, 27400, 27500, 27500, 29000, 5000];
   gameEvent.on('game-start', () => {
     earthGlobe.setDisasterPhase(0);
     progress.incrementStage(intervals[0]);
@@ -105,7 +106,17 @@ window.addEventListener('load', () => {
     if (['red', 'blue', 'yellow', 'green'].indexOf(type) == -1) {
       throw 'Unexpected type';
     }
-    createdVaccines[type] += 1;
+    createdVaccines[type] = 1;
+
+    // Emit finish-player-task if a player created 2 different vaccines.
+    if (createdVaccines['red'] >= 1 && createdVaccines['yellow'] >= 1) {
+      console.log('emit: finish-player-task');
+      this.gameEvent.emit('finish-player-task', 'player1');
+    } else if (createdVaccines['blue'] >= 1 && createdVaccines['green'] >= 1) {
+      console.log('emit: finish-player-task');
+      this.gameEvent.emit('finish-player-task', 'player2');
+    }
+
     // Emit game-clear if all vaccine are created.
     var isCreatedAllVaccines = Utils.values(createdVaccines).every(x => x > 0);
     if (isCreatedAllVaccines) {
@@ -116,6 +127,10 @@ window.addEventListener('load', () => {
   gameEvent.on('game-reset', () => {
     createdVaccines = { red: 0, blue: 0, yellow: 0, green: 0 };
   });
+
+  function getVaccineList() {
+    return createdVaccines;
+  }
 
 
   // --- Knowledge ---
@@ -351,7 +366,8 @@ window.addEventListener('load', () => {
   });
 
   // --- Audio ---
-  var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
+  //var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
+  var audioPuzzle = new Audio('bgm/yosinani-bgm.mp3');
   audioPuzzle.volume = 0.6;
   var audioFadeout = function (audio) {
     setTimeout(() => { audio.volume = 0.5; }, 100);
