@@ -12,9 +12,10 @@ class GameManager {
     this.syringeValue = window.urlParams.get('syringeValue') || 30;
     this.packValue    = window.urlParams.get('packValue') || 20;
     this.over         = false; // over: Only this player failed this puzzle.
-    this.myVaccine    = []; // The list of vaccine made by this player
+    this.myVaccines   = []; // The list of vaccine made by this player
     this.receivedKnowledge = 0;
     this.hardMode     = false;
+    this.freesed      = true; // puzzle mode when freesed is false
 
     this.inputManager.on('move', this.move.bind(this));
     this.inputManager.on('restart', this.restart.bind(this));
@@ -37,9 +38,9 @@ class GameManager {
       this.receivedKnowledge += 1;
     });
 
-    this.freesed = true;
     this.gameEvent.on('game-title', () => {
       this.receivedKnowledge = 0;
+      this.myVaccines = [];
       this.hardMode = false;
     })
     this.gameEvent.on('game-start', () => {
@@ -47,7 +48,9 @@ class GameManager {
       this.receivedKnowledge = 0;
     });
     this.gameEvent.on('game-reset', () => {
+      this.receivedKnowledge = 0;
       this.freesed = true;
+      this.myVaccines = [];
       this.hardMode = false;
     });
 
@@ -184,14 +187,14 @@ class GameManager {
         var tile = this.grid.cellContent(cell);
         if (!tile) return;
 
-        if (this.myVaccine.indexOf(tile.type) >= 0 && tile.value >= this.packValue ||
+        if (this.myVaccines.indexOf(tile.type) >= 0 && tile.value >= this.packValue ||
             this.copeWith.indexOf(tile.type) === -1 && tile.value >= this.packValue) {
           tile.pack = true;
           console.log("Developed knowledge: " + tile.type);
           this.gameEvent.emit('create-knowledge', tile.type);
         } else if (tile.value >= this.syringeValue && this.copeWith.indexOf(tile.type) >= 0) {
           tile.syringe = true;
-          this.myVaccine.push(tile.type);
+          this.myVaccines.push(tile.type);
           console.log("Developed vaccine: " + tile.type);
           this.gameEvent.emit('create-vaccine', tile.type);
         }
