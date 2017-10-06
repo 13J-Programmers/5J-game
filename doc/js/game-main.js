@@ -51,8 +51,6 @@ window.addEventListener('load', () => {
 
   // --- Progress ---
   var timeout;
-  var interval = window.urlParams.get('phaseInterval') || 30000;
-  //var intervals = [interval, interval, interval, interval, interval, 5000];
   var intervals = [26600, 27400, 27500, 27500, 29000, 5000];
   gameEvent.on('game-start', () => {
     earthGlobe.setDisasterPhase(0);
