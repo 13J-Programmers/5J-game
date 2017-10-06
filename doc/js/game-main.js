@@ -106,15 +106,13 @@ window.addEventListener('load', () => {
     if (['red', 'blue', 'yellow', 'green'].indexOf(type) == -1) {
       throw 'Unexpected type';
     }
-    createdVaccines[type] += 1;
+    createdVaccines[type] = 1;
 
     // Emit finish-player-task if a player created 2 different vaccines.
-    if ((createdVaccines['red'] == 1 && createdVaccines['yellow'] >= 1) ||
-      (createdVaccines['yelow'] == 1 && createdVaccines['red'] >= 1)) {
+    if (createdVaccines['red'] >= 1 && createdVaccines['yellow'] >= 1) {
       console.log('emit: finish-player-task');
       this.gameEvent.emit('finish-player-task', 'player1');
-    } else if ((createdVaccines['blue'] == 1 && createdVaccines['green'] >= 1) ||
-      (createdVaccines['green'] == 1 && createdVaccines['blue'] >= 1)) {
+    } else if (createdVaccines['blue'] >= 1 && createdVaccines['green'] >= 1) {
       console.log('emit: finish-player-task');
       this.gameEvent.emit('finish-player-task', 'player2');
     }
