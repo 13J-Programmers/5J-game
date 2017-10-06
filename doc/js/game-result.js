@@ -10,7 +10,8 @@ class GameResult {
       3: "動物から人への感染が確認されている",
       4: "人から人への感染が確認されている",
       5: "人から人へのより大きな集団感染が確認されている",
-      6: "パンデミックが発生し、急速に感染が拡大している",
+      6: "アウトブレイクが発生し、急速に感染が拡大している",
+      7: "パンデミックが発生し、壊滅的な被害が確認されている",
     };
 
     gameEvent.on('game-reset', () => {
@@ -49,7 +50,7 @@ class GameResult {
 
     // phase
     var phaseDOM = document.querySelector('.phase');
-    phaseDOM.textContent = phase;
+    phaseDOM.textContent = (phase === 7) ? 'PANDEMIC' : 'PHASE ' + phase;
     var phaseDescDOM = document.querySelector('.phase-desc');
     phaseDescDOM.textContent = this.phaseDesc[phase];
   }

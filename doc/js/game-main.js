@@ -46,8 +46,8 @@ window.addEventListener('load', () => {
   }
 
   // --- Progress Bar ---
-  var stages = ['PHASE 1', 'PHASE 2', 'PHASE 3', 'PHASE 4', 'PHASE 5', 'PHASE 6'];
-  var progress = new ProgressBar(stages, 'PHASE 1', 'progress-bar-wrapper');
+  var stages = ['PHASE 2', 'PHASE 3', 'PHASE 4', 'PHASE 5', 'PHASE 6', 'PANDEMIC'];
+  var progress = new ProgressBar(stages, 'PHASE 2', 'progress-bar-wrapper');
 
   // --- Progress ---
   var timeout;
@@ -91,7 +91,7 @@ window.addEventListener('load', () => {
   gameEvent.on('game-reset', () => {
     clearTimeout(timeout);
     progress.stopAnimation();
-    progress.updateStage('PHASE 1', 100);
+    progress.updateStage('PHASE 2', 100);
   });
 
   if (window.location.hostname === 'localhost') {
@@ -277,7 +277,7 @@ window.addEventListener('load', () => {
   var timeoutGameResultAnimation1;
   var timeoutGameResultAnimation2;
   gameEvent.on('game-result-transition', () => {
-    finalPhase = progress.getCurrentStage() + 1;
+    finalPhase = progress.getCurrentStage() + 2;
 
     timeoutGameResultAnimation1 = setTimeout(() => {
       var gadgets = document.querySelectorAll('.result-animation');
