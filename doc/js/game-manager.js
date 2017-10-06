@@ -14,7 +14,7 @@ class GameManager {
     this.over         = false; // over: Only this player failed this puzzle.
     this.myVaccines   = []; // The list of vaccine made by this player
     this.receivedKnowledge = 0;
-    this.hardMode     = false;
+    this.gameLevel    = 0;
     this.freesed      = true; // puzzle mode when freesed is false
 
     this.inputManager.on('move', this.move.bind(this));
@@ -41,7 +41,7 @@ class GameManager {
     this.gameEvent.on('game-title', () => {
       this.receivedKnowledge = 0;
       this.myVaccines = [];
-      this.hardMode = false;
+      this.gameLevel = 0;
     })
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
@@ -51,7 +51,7 @@ class GameManager {
       this.receivedKnowledge = 0;
       this.freesed = true;
       this.myVaccines = [];
-      this.hardMode = false;
+      this.gameLevel = 0;
     });
 
     this.setup();
@@ -65,8 +65,8 @@ class GameManager {
     return this.freesed;
   }
 
-  setHardMode(value) {
-    this.hardMode = value;
+  setGameLevel(value) {
+    this.gameLevel = value;
     this.setup();
   }
 
@@ -88,8 +88,13 @@ class GameManager {
     for (var i = 0; i < this.startTiles; i++) {
       this.addRandomTile();
     }
-    if (this.hardMode) {
+
+    if (this.gameLevel === 1) {
       this.addRandomTile('black');
+    }
+    else if (this.gameLevel === 2) {
+      this.addRandomTile('black');
+      this.addRandomTile('black2');
     }
 
     // Update the actuator
