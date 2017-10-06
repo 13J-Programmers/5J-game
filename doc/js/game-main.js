@@ -69,9 +69,9 @@ window.addEventListener('load', () => {
             progress.incrementStage(intervals[4]);
             timeout = setTimeout(() => {
               earthGlobe.setDisasterPhase(5);
+              gameEvent.emit('game-over');
               timeout = setTimeout(() => {
                 earthGlobe.setDisasterPhase(6);
-                gameEvent.emit('game-over');
               }, intervals[5]);
             }, intervals[4]);
           }, intervals[3]);
