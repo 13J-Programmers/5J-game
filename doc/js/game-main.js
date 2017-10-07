@@ -151,7 +151,7 @@ window.addEventListener('load', () => {
 
   // --- Game Title ---
   function getDefaultPlayerConfigs() {
-    return {
+    var config = {
       player1: {
         confirm: false,
         level: 0,
@@ -161,9 +161,9 @@ window.addEventListener('load', () => {
         level: 0,
       },
     };
+    return JSON.parse(JSON.stringify(config));
   }
   var playerConfigs = getDefaultPlayerConfigs();
-
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
@@ -175,25 +175,35 @@ window.addEventListener('load', () => {
       // Ready to puzzle
       if (event.keyCode === 68) { // D
         playerConfigs.player1.confirm = true;
+        confirmLevel('player1');
       }
       else if (event.keyCode === 39) { // Right arrow
         playerConfigs.player2.confirm = true;
+        confirmLevel('player2');
       }
       else if (event.keyCode === 87) { // W
-        playerConfigs.player1.level =
-          (playerConfigs.player1.level + 1 + 3) % 3;
+        if (!playerConfigs.player1.confirm && playerConfigs.player1.level < 2) {
+          playerConfigs.player1.level += 1;
+          selectLevel('player1', playerConfigs.player1.level);
+        }
       }
       else if (event.keyCode === 38) { // Up arrow
-        playerConfigs.player2.level =
-          (playerConfigs.player2.level + 1 + 3) % 3;
+        if (!playerConfigs.player2.confirm && playerConfigs.player2.level < 2) {
+          playerConfigs.player2.level += 1;
+          selectLevel('player2', playerConfigs.player2.level);
+        }
       }
       else if (event.keyCode === 83) { // S
-        playerConfigs.player1.level =
-          (playerConfigs.player1.level - 1 + 3) % 3;
+        if (!playerConfigs.player1.confirm && playerConfigs.player1.level > 0) {
+          playerConfigs.player1.level -= 1;
+          selectLevel('player1', playerConfigs.player1.level);
+        }
       }
       else if (event.keyCode === 40) { // Down arrow
-        playerConfigs.player2.level =
-          (playerConfigs.player2.level - 1 + 3) % 3;
+        if (!playerConfigs.player2.confirm && playerConfigs.player2.level > 0) {
+          playerConfigs.player2.level -= 1;
+          selectLevel('player2', playerConfigs.player2.level);
+        }
       }
       else if (event.keyCode === 27) { // ESC
         gameTitle.style.opacity = 0;
@@ -207,7 +217,6 @@ window.addEventListener('load', () => {
         gameTitle.style.opacity = 0;
         gameTitle.addEventListener('transitionend', () => {
           gameEvent.emit('game-intro-transition');
-          console.log(playerConfigs);
         }, { once: true });
         document.removeEventListener('keyup', listener);
       }
@@ -215,7 +224,32 @@ window.addEventListener('load', () => {
   });
   gameEvent.on('game-reset', () => {
     playerConfigs = getDefaultPlayerConfigs();
+    selectLevel('player1', 0);
+    selectLevel('player2', 0);
   });
+  function selectLevel(player, level) {
+    var playerLevel = document.querySelectorAll('.game-title .level-select .' + player + ' .level');
+    for (var i = 0; i < playerLevel.length; i++) {
+      if (i === level) {
+        playerLevel[i].classList.add('current');
+      } else {
+        playerLevel[i].classList.remove('current');
+      }
+      playerLevel[i].classList.remove('confirm');
+    }
+    var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
+    var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
+    upArrow.style.opacity   = (level === 2) ? 0 : 1;
+    downArrow.style.opacity = (level === 0) ? 0 : 1;
+  }
+  function confirmLevel(player) {
+    var currentLevel = document.querySelector('.game-title .level-select .' + player + ' .current');
+    currentLevel.classList.add('confirm');
+    var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
+    var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
+    upArrow.style.opacity   = 0;
+    downArrow.style.opacity = 0;
+  }
 
   // --- Game Title => Intro animation ---
   gameEvent.on('game-intro-transition', () => {

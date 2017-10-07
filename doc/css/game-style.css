@@ -330,6 +330,9 @@ hr {
   text-shadow: white 1px 1px 0px, white -1px 1px 0px,
                white 1px -1px 0px, white -1px -1px 0px;
 }
+.game-title .level-select .title {
+  font-size: 20pt;
+}
 .game-title .level-select .level-up {
   font-size: 20pt;
   margin-bottom: -10px;
@@ -337,6 +340,21 @@ hr {
 .game-title .level-select .level-down {
   font-size: 20pt;
   margin-up: -10px;
+}
+.game-title .level-select .level {
+  height: 0;
+  opacity: 0;
+}
+.game-title .level-select .level.current {
+  height: 70px;
+  opacity: 1;
+}
+.game-title .level-select .level.confirm:after {
+  float: right;
+  width: 0;
+  height: 0;
+  content: ' \2714';
+  color: fireBrick;
 }
 
 .gamepad-a-button {
