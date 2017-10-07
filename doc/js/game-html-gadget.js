@@ -16,34 +16,29 @@ class HTMLGadget {
         virus.style.opacity = 0.3;
       }
 
+      if (type == 'red' || type == 'yellow') {
+        $(this.player1SyringeBackground).addClass('blink-' + type);
+      }
+      else if (type == 'green' || type == 'blue') {
+        $(this.player2SyringeBackground).addClass('blink-' + type);
+      }
+
       // Update syringe color to highlight
       if (type === 'red') {
         this.player1SyringeBackground.style.borderTopColor  = 'rgba(255,192,203,1)';
         this.player1SyringeBackground.style.borderLeftColor = 'rgba(255,192,203,1)';
-        if ($(this.player1SyringeBackground).hasClass('run-animation') == false) {
-          $(this.player1SyringeBackground).addClass('run-animation');
-        }
       }
       else if (type === 'yellow') {
         this.player1SyringeBackground.style.borderRightColor  = 'rgba(255,255,0,1)';
         this.player1SyringeBackground.style.borderBottomColor = 'rgba(255,255,0,1)';
-        if ($(this.player1SyringeBackground).hasClass('run-animation') == false) {
-          $(this.player1SyringeBackground).addClass('run-animation');
-        }
       }
       else if (type === 'green') {
         this.player2SyringeBackground.style.borderTopColor  = 'rgba(144,238,144,1)';
         this.player2SyringeBackground.style.borderLeftColor = 'rgba(144,238,144,1)';
-        if ($(this.player2SyringeBackground).hasClass('run-animation') == false) {
-          $(this.player2SyringeBackground).addClass('run-animation');
-        }
       }
       else if (type === 'blue') {
         this.player2SyringeBackground.style.borderRightColor  = 'rgba(173,216,230,1)';
         this.player2SyringeBackground.style.borderBottomColor = 'rgba(173,216,230,1)';
-        if ($(this.player2SyringeBackground).hasClass('run-animation') == false) {
-          $(this.player2SyringeBackground).addClass('run-animation');
-        }
       }
     });
 
@@ -90,16 +85,23 @@ class HTMLGadget {
     this.player2SyringeBackground.style.borderRightColor  = 'rgba(173,216,230,0.1)';
     this.player2SyringeBackground.style.borderBottomColor = 'rgba(173,216,230,0.1)';
 
-    if ($(this.player1SyringeBackground).hasClass('run-animation') == true) {
-      $(this.player1SyringeBackground).removeClass('run-animation');
+    if ($(this.player1SyringeBackground).hasClass('blink-red')) {
+      $(this.player1SyringeBackground).removeClass('blink-red');
     }
-    if ($(this.player2SyringeBackground).hasClass('run-animation') == true) {
-      $(this.player2SyringeBackground).removeClass('run-animation');
+    if ($(this.player1SyringeBackground).hasClass('blink-yellow')) {
+      $(this.player1SyringeBackground).removeClass('blink-yellow');
     }
-    if ($(this.player1Syringe).hasClass('syringe-effect') == true) {
+    if ($(this.player2SyringeBackground).hasClass('blink-green')) {
+      $(this.player2SyringeBackground).removeClass('blink-green');
+    }
+    if ($(this.player2SyringeBackground).hasClass('blink-blue')) {
+      $(this.player2SyringeBackground).removeClass('blink-blue');
+    }
+
+    if ($(this.player1Syringe).hasClass('syringe-effect')  == true) {
       $(this.player1Syringe).removeClass('syringe-effect');
     }
-    if ($(this.player2Syringe).hasClass('syringe-effect') == true) {
+    if ($(this.player2Syringe).hasClass('syringe-effect')  == true) {
       $(this.player2Syringe).removeClass('syringe-effect');
     }
   }
