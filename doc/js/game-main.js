@@ -343,8 +343,8 @@ window.addEventListener('load', () => {
   var finalPhase;
   var timeoutGameResult;
   var resetListener = function (event) {
-    // Right arrow or A
-    if (event.keyCode === 39 || event.keyCode === 65) {
+    // Right arrow or D
+    if (event.keyCode === 39 || event.keyCode === 68) {
       console.log('emit: game-reset-transition');
       gameEvent.emit('game-reset-transition');
     }
