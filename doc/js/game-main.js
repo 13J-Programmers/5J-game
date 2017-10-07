@@ -150,20 +150,7 @@ window.addEventListener('load', () => {
 
 
   // --- Game Title ---
-  function getDefaultPlayerConfigs() {
-    var config = {
-      player1: {
-        confirm: false,
-        level: 0,
-      },
-      player2: {
-        confirm: false,
-        level: 0,
-      },
-    };
-    return JSON.parse(JSON.stringify(config));
-  }
-  var playerConfigs = getDefaultPlayerConfigs();
+  var playerConfigs = GameTitle.getDefaultPlayerConfigs();
   gameEvent.on('game-title', () => {
     var gameTitle = document.querySelector('.game-title');
     gameTitle.style.opacity = 1;
@@ -175,34 +162,34 @@ window.addEventListener('load', () => {
       // Ready to puzzle
       if (event.keyCode === 68) { // D
         playerConfigs.player1.confirm = true;
-        confirmLevel('player1');
+        GameTitle.confirmLevel('player1');
       }
       else if (event.keyCode === 39) { // Right arrow
         playerConfigs.player2.confirm = true;
-        confirmLevel('player2');
+        GameTitle.confirmLevel('player2');
       }
       else if (event.keyCode === 87) { // W
         if (!playerConfigs.player1.confirm && playerConfigs.player1.level < 2) {
           playerConfigs.player1.level += 1;
-          selectLevel('player1', playerConfigs.player1.level);
+          GameTitle.selectLevel('player1', playerConfigs.player1.level);
         }
       }
       else if (event.keyCode === 38) { // Up arrow
         if (!playerConfigs.player2.confirm && playerConfigs.player2.level < 2) {
           playerConfigs.player2.level += 1;
-          selectLevel('player2', playerConfigs.player2.level);
+          GameTitle.selectLevel('player2', playerConfigs.player2.level);
         }
       }
       else if (event.keyCode === 83) { // S
         if (!playerConfigs.player1.confirm && playerConfigs.player1.level > 0) {
           playerConfigs.player1.level -= 1;
-          selectLevel('player1', playerConfigs.player1.level);
+          GameTitle.selectLevel('player1', playerConfigs.player1.level);
         }
       }
       else if (event.keyCode === 40) { // Down arrow
         if (!playerConfigs.player2.confirm && playerConfigs.player2.level > 0) {
           playerConfigs.player2.level -= 1;
-          selectLevel('player2', playerConfigs.player2.level);
+          GameTitle.selectLevel('player2', playerConfigs.player2.level);
         }
       }
       else if (event.keyCode === 27) { // ESC
@@ -223,33 +210,11 @@ window.addEventListener('load', () => {
     }
   });
   gameEvent.on('game-reset', () => {
-    playerConfigs = getDefaultPlayerConfigs();
-    selectLevel('player1', 0);
-    selectLevel('player2', 0);
+    playerConfigs = GameTitle.getDefaultPlayerConfigs();
+    GameTitle.selectLevel('player1', 0);
+    GameTitle.selectLevel('player2', 0);
   });
-  function selectLevel(player, level) {
-    var playerLevel = document.querySelectorAll('.game-title .level-select .' + player + ' .level');
-    for (var i = 0; i < playerLevel.length; i++) {
-      if (i === level) {
-        playerLevel[i].classList.add('current');
-      } else {
-        playerLevel[i].classList.remove('current');
-      }
-      playerLevel[i].classList.remove('confirm');
-    }
-    var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
-    var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
-    upArrow.style.opacity   = (level === 2) ? 0 : 1;
-    downArrow.style.opacity = (level === 0) ? 0 : 1;
-  }
-  function confirmLevel(player) {
-    var currentLevel = document.querySelector('.game-title .level-select .' + player + ' .current');
-    currentLevel.classList.add('confirm');
-    var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
-    var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
-    upArrow.style.opacity   = 0;
-    downArrow.style.opacity = 0;
-  }
+
 
   // --- Game Title => Intro animation ---
   gameEvent.on('game-intro-transition', () => {
