@@ -108,5 +108,5 @@
 
 .syringe-effect {
   transform: rotateY(1080deg); /* 360*3 */
-  transition: transform 1.2s 0s cubic-bezier(0.2, 1.07, 1, 1.01);*/
+  transition: transform 1.2s 0s cubic-bezier(0.2, 1.07, 1, 1.01);
 }
