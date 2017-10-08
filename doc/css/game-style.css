@@ -650,10 +650,10 @@ hr {
 .tile-lightblue-pack .tile-inner,
 .tile-lightgreen-pack .tile-inner,
 .tile-yellow-pack .tile-inner {
-  animation-name: packmove;
+  /*animation-name: packmove;
   animation-delay: 0.5s;
   animation-duration: 3s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards;*/
 }
 .tile-pink-syringe,
 .tile-lightblue-syringe,
@@ -665,10 +665,10 @@ hr {
 .tile-lightblue-syringe .tile-inner,
 .tile-lightgreen-syringe .tile-inner,
 .tile-yellow-syringe .tile-inner {
-  animation-name: packmove;
+  /*animation-name: packmove;
   animation-delay: 0.5s;
   animation-duration: 3s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards;*/
 }
 .tile-will-disappear {
   animation-name: disappear;

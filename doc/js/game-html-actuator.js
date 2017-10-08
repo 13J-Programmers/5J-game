@@ -1,6 +1,7 @@
 
 class HTMLActuator {
   constructor(playerID, gameEvent) {
+    this.playerID = playerID;
     this.tileContainer      = document.querySelector(".player" + playerID + " .tile-container");
     this.animationContainer = document.querySelector(".player" + playerID + " .tile-animation-container");
     this.messageContainer   = document.querySelector(".player" + playerID + " .game-message");
@@ -18,6 +19,13 @@ class HTMLActuator {
       // Break countdown for restart puzzle
       clearTimeout(this.countdownTimeout);
       this.messageContainer.querySelector('span').textContent = "";
+    });
+
+    this.gameEvent.on('game-reset', () => {
+      // Remove all animated tiles
+      while (this.animationContainer.firstChild) {
+        this.animationContainer.removeChild(this.animationContainer.firstChild);
+      }
     });
   }
 
@@ -95,6 +103,21 @@ class HTMLActuator {
     if (tile.syringe || tile.pack) {
       // Put the tile on container for animation
       this.animationContainer.appendChild(wrapper);
+
+      var tileCoordinate = wrapper.getBoundingClientRect();
+      var targetCSSSelector = (tile.pack) ? '.game-panel.pack'
+                            : '.game-panel.player' + this.playerID + ' .syringe';
+      var destCoordinate = document.querySelector(targetCSSSelector).getBoundingClientRect();
+      var diffY = destCoordinate.y - tileCoordinate.y;
+      var diffX = destCoordinate.x - tileCoordinate.x;
+      var moveX = diffX + tile.x * 120;
+      var moveY = diffY + tile.y * 120;
+      setTimeout(() => {
+        wrapper.style.opacity = 0;
+        wrapper.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px) scale(0.8, 0.8)';
+        wrapper.style.transition = 'transform 1s ease-in, opacity 1s ease-in';
+      }, 200);
+
     } else {
       // Put the tile on the board
       this.tileContainer.appendChild(wrapper);
