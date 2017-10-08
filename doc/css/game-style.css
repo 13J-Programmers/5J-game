@@ -24,10 +24,10 @@ hr {
 }
 
 /* --- Utils ---------------------------------------------------------------- */
-.red    { color: red    }
-.blue   { color: blue   }
+.red    { color: pink }
+.blue   { color: lightblue }
 .yellow { color: yellow }
-.green  { color: green  }
+.green  { color: lightgreen }
 .hidden { display: none }
 .text-left   { text-align: left; }
 .text-right  { text-align: right; }
@@ -40,9 +40,6 @@ hr {
   display: block;
   margin-right: 0;
   margin-left: auto;
-}
-.margin-top--15px {
-  margin-top: -15px;
 }
 .game-font {
   font-family: 'Joti One', cursive;
