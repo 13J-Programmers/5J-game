@@ -6,8 +6,8 @@ function gameIntro() {
     showStepNumbers: false,
     showBullets: false,
     nextLabel: ' Ⓐ ',
-    prevLabel: ' Ⓑ ',
-    skipLabel: ' Skip(START) ',
+    prevLabel: ' Ⓨ ',
+    skipLabel: ' ',
     doneLabel: ' Ⓐ ',
     steps: [
       {
@@ -61,8 +61,8 @@ function gameIntroLast() {
     showStepNumbers: false,
     showBullets: false,
     nextLabel: ' Ⓐ ',
-    prevLabel: ' Ⓑ ',
-    skipLabel: ' Skip(START) ',
+    prevLabel: ' Ⓨ ',
+    skipLabel: ' ',
     doneLabel: ' Ⓐ ',
     steps: [
       {
