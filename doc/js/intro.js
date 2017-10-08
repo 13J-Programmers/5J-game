@@ -35,14 +35,13 @@ function gameIntroMiddle() {
       virusDesc.setAttribute('data-position', 'left');
       var puzzleDesc = document.querySelector('.game-container.player1');
       puzzleDesc.setAttribute('data-intro',
-        'このパズルを使ってワクチンを作る. 操作方法は簡単だ. ' +
-        '4つのボタンでこのパズルを上下左右に動かすことによって, 同じ色の薬を合体させるだけだ.');
+        'このパズルを使ってワクチンを作る. 操作方法は「4つのボタンで上下左右」に動かすことによって, ' +
+        '同じ色の抗体を合体させるだけだ.');
       puzzleDesc.setAttribute('data-position', 'right');
-      var progressbarSections = document.querySelectorAll('.progress-bar .section');
-      var progressDesc = progressbarSections[progressbarSections.length - 1];
+      var progressDesc = document.querySelector('.progress-bar-wrapper');
       progressDesc.setAttribute('data-intro',
         'これは残り時間だ. 一番右まで到達してしまうと時間切れとなる. ');
-      progressDesc.setAttribute('data-position', 'left');
+      progressDesc.setAttribute('data-position', 'top');
 
       // Start chardin
       $('body').chardinJs('start');
@@ -67,10 +66,20 @@ function gameIntroLast() {
     doneLabel: ' Ⓐ ',
     steps: [
       {
-        intro: "操作方法はご理解いただけただろうか. "
+        element: document.querySelector('.virus-list .player1'),
+        intro: "PLAYER1は「赤色」と「黄色」のワクチンしか作れない. ",
+        tooltipClass: 'width-20em',
       },
       {
-        intro: "それでは, 健闘を祈る. "
+        element: document.querySelector('.virus-list .player2'),
+        intro: "PLAYER2は「緑色」と「青色」のワクチンしか作れない. ",
+        tooltipClass: 'width-20em',
+      },
+      {
+        intro: "操作方法はご理解いただけただろうか. ",
+      },
+      {
+        intro: "それでは, 健闘を祈る. ",
       }
     ]
   });
