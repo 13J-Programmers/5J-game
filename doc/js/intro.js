@@ -67,20 +67,19 @@ function gameIntroLast() {
     steps: [
       {
         element: document.querySelector('.virus-list .player1'),
-        intro: "PLAYER1は「赤色」と「黄色」のワクチンしか作れない. ",
+        intro: 'PLAYER1は「<span class="red">赤色</span>」と' +
+          '「<span class="yellow">黄色</span>」のワクチンしか作れない. ',
         tooltipClass: 'width-20em',
       },
       {
         element: document.querySelector('.virus-list .player2'),
-        intro: "PLAYER2は「緑色」と「青色」のワクチンしか作れない. ",
+        intro: 'PLAYER2は「<span class="green">緑色</span>」と' +
+          '「<span class="blue">青色</span>」のワクチンしか作れない. ',
         tooltipClass: 'width-20em',
       },
       {
-        intro: "操作方法はご理解いただけただろうか. ",
+        intro: "操作方法はご理解いただけただろうか. <br>それでは, 健闘を祈る.",
       },
-      {
-        intro: "それでは, 健闘を祈る. ",
-      }
     ]
   });
 
