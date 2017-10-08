@@ -119,8 +119,11 @@ class ProgressBar {
 
     if (currentStageIndex === nextStageIndex) return;
 
+    for (var i = 0; i < checkpoints.length; i++) {
+      checkpoints[i].classList.remove('current');
+    }
+
     if (nextStageIndex > currentStageIndex) {
-      checkpoints[currentStageIndex].classList.remove('current');
       for (var i = currentStageIndex; i <= nextStageIndex; i++) {
         this.timeouts[i] = setTimeout((checkpoints, i) => {
           this.currentStageIndex = i;
@@ -134,9 +137,7 @@ class ProgressBar {
     }
 
     if (nextStageIndex < currentStageIndex) {
-      var i;
-      checkpoints[currentStageIndex].classList.remove('current');
-      for (i = currentStageIndex; i >= nextStageIndex; i--) {
+      for (var i = currentStageIndex; i >= nextStageIndex; i--) {
         this.timeouts[i] = setTimeout((checkpoints, i) => {
           this.currentStageIndex = i;
           if (i !== nextStageIndex) {
