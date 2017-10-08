@@ -141,20 +141,23 @@ hr {
 }
 
 .introjs-tooltip {
-  font-size: 26pt;
+  font-size: 24pt;
   text-align: center;
   word-wrap: break-word;
-  width: 30em;
+  min-width: 30em;
   height: 10em;
   color: #43ff11;
   font-family: 'Mplus 1p';
   font-weight: Thin;
 }
-.introjs-tooltipbuttons {
-  font-size: 5em;
-  margin-top: -5%;
+.introjs-tooltip.width-20em {
+  min-width: 20em;
 }
-
+.introjs-tooltipbuttons {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
 .introjs-tooltiptext {
   margin-top: 14%;
 }
