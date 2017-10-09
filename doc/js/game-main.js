@@ -409,18 +409,43 @@ window.addEventListener('load', () => {
     clearTimeout(timeoutGameResetTransition);
   });
 
+
   // --- Gamepad ---
+  // In game-intro, player1 input (WASD) and player2 input (↑←↓→) will swap
+  // because intro.js accepts arrow key event
+  var isSwapMapping = false;
+  gameEvent.on('game-intro', () => {
+    isSwapMapping = true;
+  });
+  gameEvent.on('game-countdown', () => {
+    isSwapMapping = false;
+  });
+
   gameEvent.on('input', (playerID, direction) => {
-    var mapping = {
-      0: 38, // Up
-      1: 39, // Right
-      2: 40, // Down
-      3: 37, // Left
-      4: 87, // W
-      5: 68, // D
-      6: 83, // S
-      7: 65, // A
-    };
+    var mapping;
+    if (isSwapMapping) { // when game intro
+      mapping = {
+        4: 87, // W
+        5: 68, // D
+        6: 83, // S
+        7: 65, // A
+        0: 38, // Up
+        1: 39, // Right
+        2: 40, // Down
+        3: 37, // Left
+      };
+    } else {
+      mapping = {
+        0: 87, // W
+        1: 68, // D
+        2: 83, // S
+        3: 65, // A
+        4: 38, // Up
+        5: 39, // Right
+        6: 40, // Down
+        7: 37, // Left
+      };
+    }
     var key = mapping[direction + (playerID - 1) * 4];
     Utils.triggerKeyboardEvent(document, 'keyup', { keyCode: key });
   });
