@@ -17,7 +17,8 @@ class GameTitle {
   static selectLevel(player, level) {
     var playerLevel = document.querySelectorAll('.game-title .level-select .' + player + ' .level');
     for (var i = 0; i < playerLevel.length; i++) {
-      if (i === level) {
+      var thisLevel = i - 1;
+      if (thisLevel === level) {
         playerLevel[i].classList.add('current');
       } else {
         playerLevel[i].classList.remove('current');
@@ -26,8 +27,8 @@ class GameTitle {
     }
     var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
     var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
-    upArrow.style.opacity   = (level === 2) ? 0 : 1;
-    downArrow.style.opacity = (level === 0) ? 0 : 1;
+    upArrow.style.opacity   = (level ===  2) ? 0 : 1;
+    downArrow.style.opacity = (level === -1) ? 0 : 1;
   }
 
   static confirmLevel(player) {

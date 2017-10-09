@@ -48,6 +48,8 @@ class GameManager {
       this.receivedKnowledge = 0;
     });
     this.gameEvent.on('game-reset', () => {
+      this.syringeValue = window.urlParams.get('syringeValue') || 30;
+      this.packValue    = window.urlParams.get('packValue') || 20;
       this.receivedKnowledge = 0;
       this.freesed = true;
       this.myVaccines = [];
@@ -65,9 +67,21 @@ class GameManager {
     return this.freesed;
   }
 
-  setGameLevel(value) {
-    this.gameLevel = value;
+  setGameLevel(level) {
+    // level -1 => easy
+    // level  0 => normal
+    // level  1 => hard
+    // level  2 => extreme
+    this.gameLevel = level;
     this.setup();
+
+    if (level === -1) {
+      this.syringeValue = 20;
+      this.packValue    = 20;
+    } else {
+      this.syringeValue = window.urlParams.get('syringeValue') || 30;
+      this.packValue    = window.urlParams.get('packValue') || 20;
+    }
   }
 
   // Restart the game
