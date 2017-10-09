@@ -147,16 +147,22 @@ hr {
   font-family: 'Mplus 1p';
   font-weight: Thin;
 }
-.introjs-tooltip.width-20em {
-  min-width: 20em;
+.introjs-tooltip.width-17em {
+  min-width: 17em;
+}
+.introjs-tooltip.height-15em {
+  height: 15em;
 }
 .introjs-tooltipbuttons {
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
-.introjs-tooltiptext {
-  margin-top: 14%;
+.tooltiptext-margin-top-120 .introjs-tooltiptext {
+  margin-top: 120px;
+}
+.tooltiptext-margin-top-20 .introjs-tooltiptext {
+  margin-top: 20px;
 }
 
 .chardinjs-tooltiptext {

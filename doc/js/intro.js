@@ -11,13 +11,16 @@ function gameIntro() {
     doneLabel: ' Ⓐ ',
     steps: [
       {
-        intro: "20XX年, 地球上で未知のウイルスが発見された. "
+        intro: "20XX年, 地球上で未知のウイルスが発見された. ",
+        tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
-        intro: "そのウイルスは猛威を奮い, 人類滅亡はすぐそこまで迫っている. "
+        intro: "そのウイルスは猛威を奮い, 人類滅亡はすぐそこまで迫っている. ",
+        tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
-        intro: "一刻も早くワクチンを作るため, 二人の科学者が立ち上がった. "
+        intro: "一刻も早くワクチンを作るため, 二人の科学者が立ち上がった. ",
+        tooltipClass: 'tooltiptext-margin-top-120',
       }
     ]
   });
@@ -66,19 +69,43 @@ function gameIntroLast() {
     doneLabel: ' Ⓐ ',
     steps: [
       {
+        intro: '同じ色の抗体を合体させると,より強力な抗体ができあがる.<br>' +
+          '<img src="img/tutorial-tile-merge.png">',
+        tooltipClass: 'tooltiptext-margin-top-20',
+      },
+      {
+        intro: '担当の色の抗体を30個合体させると,ワクチンが完成する.<br>' +
+          '<img src="img/tutorial-tile-syringe.png">',
+        tooltipClass: 'tooltiptext-margin-top-20',
+      },
+      {
         element: document.querySelector('.virus-list .player1'),
-        intro: 'PLAYER1は「<span class="red">赤色</span>」と' +
-          '「<span class="yellow">黄色</span>」のワクチンしか作れない. ',
-        tooltipClass: 'width-20em',
+        intro: 'PLAYER1 には「<span class="red">赤色</span>」と' +
+          '「<span class="yellow">黄色</span>」のワクチンを作ってもらう. ',
+        tooltipClass: 'width-17em tooltiptext-margin-top-120',
       },
       {
         element: document.querySelector('.virus-list .player2'),
-        intro: 'PLAYER2は「<span class="green">緑色</span>」と' +
-          '「<span class="blue">青色</span>」のワクチンしか作れない. ',
-        tooltipClass: 'width-20em',
+        intro: 'PLAYER2 には「<span class="green">緑色</span>」と' +
+          '「<span class="blue">青色</span>」のワクチン作ってもらう. ',
+        tooltipClass: 'width-17em tooltiptext-margin-top-120',
+      },
+      {
+        intro: '担当外の色の抗体を20個合体させると,ビンが完成する.<br>' +
+          'ビンを作ることによって現れる抗体の数が増える.<br>' +
+          '<img src="img/tutorial-tile-pack.png">',
+        tooltipClass: 'tooltiptext-margin-top-20',
+      },
+      {
+        intro: '4つのボタンで上下左右に動かしながら,同じ色を合わせていく.<br><br>' +
+          '<video width="300" height="300" autoplay loop>' +
+          '<source src="video/tutorial.mp4">' +
+          '</video>',
+        tooltipClass: 'height-15em tooltiptext-margin-top-20',
       },
       {
         intro: "操作方法はご理解いただけただろうか. <br>それでは, 健闘を祈る.",
+        tooltipClass: 'tooltiptext-margin-top-120',
       },
     ]
   });
