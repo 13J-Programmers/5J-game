@@ -215,7 +215,7 @@ window.addEventListener('load', () => {
 
         gameTitle.style.opacity = 0;
         gameTitle.addEventListener('transitionend', () => {
-          gameEvent.emit('game-intro-transition');
+          gameEvent.emit('game-intro-transition', playerConfigs);
         }, { once: true });
         document.removeEventListener('keyup', listener);
       }
@@ -230,14 +230,19 @@ window.addEventListener('load', () => {
 
   // --- Game Title => Intro animation ---
   var timeoutGameIntroTransition;
-  gameEvent.on('game-intro-transition', () => {
+  gameEvent.on('game-intro-transition', (playerConfigs) => {
     var gadgets = document.querySelectorAll('.title-animation');
     for (var gadget of gadgets) {
       gadget.classList.remove('on-title');
     }
     timeoutGameIntroTransition = setTimeout(() => {
-      console.log('emit: game-intro');
-      gameEvent.emit('game-intro');
+      // If each player selected Hard mode, skip tutorial.
+      if (playerConfigs.player1.level >= 1 && playerConfigs.player2.level >= 1) {
+        gameEvent.emit('game-countdown');
+      } else {
+        console.log('emit: game-intro');
+        gameEvent.emit('game-intro');
+      }
     }, 1500);
   });
   gameEvent.on('game-reset', () => {
