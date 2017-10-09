@@ -77,12 +77,12 @@ class GameManager {
     this.setup();
 
     if (level === -2) {
-      this.syringeValue = 20;
-      this.packValue    = 10;
+      this.syringeValue = 10;
+      this.packValue    = 6;
     }
     else if (level === -1) {
       this.syringeValue = 20;
-      this.packValue    = 20;
+      this.packValue    = 10;
     }
     else {
       this.syringeValue = window.urlParams.get('syringeValue') || 30;
