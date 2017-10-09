@@ -170,6 +170,16 @@ window.addEventListener('load', () => {
         playerConfigs.player2.confirm = true;
         GameTitle.confirmLevel('player2');
       }
+      else if (event.keyCode === 65) { // A
+        playerConfigs.player1.confirm = false;
+        GameTitle.unconfirmLevel('player1');
+        GameTitle.selectLevel('player1', playerConfigs.player1.level);
+      }
+      else if (event.keyCode === 37) { // Left arrow
+        playerConfigs.player2.confirm = false;
+        GameTitle.unconfirmLevel('player2');
+        GameTitle.selectLevel('player2', playerConfigs.player2.level);
+      }
       else if (event.keyCode === 87) { // W
         if (!playerConfigs.player1.confirm && playerConfigs.player1.level < 2) {
           playerConfigs.player1.level += 1;

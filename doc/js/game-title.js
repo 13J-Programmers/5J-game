@@ -39,4 +39,13 @@ class GameTitle {
     upArrow.style.opacity   = 0;
     downArrow.style.opacity = 0;
   }
+
+  static unconfirmLevel(player) {
+    var currentLevel = document.querySelector('.game-title .level-select .' + player + ' .current');
+    currentLevel.classList.remove('confirm');
+    var upArrow   = document.querySelector('.game-title .level-select .' + player + ' .level-up');
+    var downArrow = document.querySelector('.game-title .level-select .' + player + ' .level-down');
+    upArrow.style.opacity   = 1;
+    downArrow.style.opacity = 1;
+  }
 }
