@@ -109,11 +109,11 @@ window.addEventListener('load', () => {
     // Emit finish-player-task if a player created 2 different vaccines.
     if ((createdVaccines['red'] >= 1 && createdVaccines['yellow'] >= 1) &&
         (type === 'red' || type === 'yellow')) {
-      console.log('emit: finish-player-task');
+      console.log('emit: finish-player-task, player1');
       this.gameEvent.emit('finish-player-task', 'player1');
     } else if ((createdVaccines['blue'] >= 1 && createdVaccines['green'] >= 1) &&
               (type === 'blue' || type === 'green')) {
-      console.log('emit: finish-player-task');
+      console.log('emit: finish-player-task, player2');
       this.gameEvent.emit('finish-player-task', 'player2');
     }
 

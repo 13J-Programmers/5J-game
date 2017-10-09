@@ -17,10 +17,10 @@ class HTMLGadget {
       }
 
       if (type == 'red' || type == 'yellow') {
-        $(this.player1SyringeBackground).addClass('blink-' + type);
+        this.player1SyringeBackground.classList.add('blink-' + type);
       }
       else if (type == 'green' || type == 'blue') {
-        $(this.player2SyringeBackground).addClass('blink-' + type);
+        this.player2SyringeBackground.classList.add('blink-' + type);
       }
 
       // Update syringe color to highlight
@@ -45,21 +45,12 @@ class HTMLGadget {
     // When developed my vaccines
     this.gameEvent.on('finish-player-task', (player) => {
       if (player === 'player1') {
-        $(this.player1Syringe).addClass('syringe-effect');
-        console.log("made syringe: " + player);
+        this.player1Syringe.classList.add('syringe-effect');
       }
       else if (player === 'player2') {
-        $(this.player2Syringe).addClass('syringe-effect');
-        console.log("made syringe: " + player);
+        this.player2Syringe.classList.add('syringe-effect');
       }
     });
-
-
-    // When developed Knowledge
-    this.gameEvent.on('create-knowledge', function (type) {
-      // TODO: Additional Time
-    });
-
 
     this.gameEvent.on('game-reset', () => {
       this.reset();
@@ -85,24 +76,24 @@ class HTMLGadget {
     this.player2SyringeBackground.style.borderRightColor  = 'rgba(173,216,230,0.1)';
     this.player2SyringeBackground.style.borderBottomColor = 'rgba(173,216,230,0.1)';
 
-    if ($(this.player1SyringeBackground).hasClass('blink-red')) {
-      $(this.player1SyringeBackground).removeClass('blink-red');
+    if (this.player1SyringeBackground.classList.contains('blink-red')) {
+      this.player1SyringeBackground.classList.remove('blink-red');
     }
-    if ($(this.player1SyringeBackground).hasClass('blink-yellow')) {
-      $(this.player1SyringeBackground).removeClass('blink-yellow');
+    if (this.player1SyringeBackground.classList.contains('blink-yellow')) {
+      this.player1SyringeBackground.classList.remove('blink-yellow');
     }
-    if ($(this.player2SyringeBackground).hasClass('blink-green')) {
-      $(this.player2SyringeBackground).removeClass('blink-green');
+    if (this.player2SyringeBackground.classList.contains('blink-green')) {
+      this.player2SyringeBackground.classList.remove('blink-green');
     }
-    if ($(this.player2SyringeBackground).hasClass('blink-blue')) {
-      $(this.player2SyringeBackground).removeClass('blink-blue');
+    if (this.player2SyringeBackground.classList.contains('blink-blue')) {
+      this.player2SyringeBackground.classList.remove('blink-blue');
     }
 
-    if ($(this.player1Syringe).hasClass('syringe-effect')  == true) {
-      $(this.player1Syringe).removeClass('syringe-effect');
+    if (this.player1Syringe.classList.contains('syringe-effect')) {
+      this.player1Syringe.classList.remove('syringe-effect');
     }
-    if ($(this.player2Syringe).hasClass('syringe-effect')  == true) {
-      $(this.player2Syringe).removeClass('syringe-effect');
+    if (this.player2Syringe.classList.contains('syringe-effect')) {
+      this.player2Syringe.classList.remove('syringe-effect');
     }
   }
 }
