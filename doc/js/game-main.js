@@ -4,13 +4,13 @@ window.urlParams = new URLParams(location);
 class GameEvent extends EventEmitter {}
 var gameEvent = new GameEvent();
 var intro;
-var introMiddle;
-var introLast;
+// var introMiddle;
+// var introLast;
 
 window.addEventListener('load', () => {
   intro = gameIntro();
-  introMiddle = gameIntroMiddle();
-  introLast = gameIntroLast();
+  // introMiddle = gameIntroMiddle();
+  // introLast = gameIntroLast();
 
   // --- Init Puzzle ---
   var gameManager1 = new GameManager(1, InputManager, HTMLActuator, gameEvent);
@@ -245,29 +245,30 @@ window.addEventListener('load', () => {
     }
     intro.start()
     intro.oncomplete(() => {
-      introMiddle.start();
-      setTimeout(() => {
-        document.addEventListener('keyup', chardinExitListener);
-      }, 500);
+      // introMiddle.start();
+      // setTimeout(() => {
+      //   document.addEventListener('keyup', chardinExitListener);
+      // }, 500);
+      gameEvent.emit('game-countdown');
     });
   });
-  function chardinExitListener(event) {
-    event.stopPropagation();
-    // Space or Right arrow
-    if (event.keyCode === 32 || event.keyCode === 39) {
-      introMiddle.stop();
-      introLast.start();
-      introLast.oncomplete(() => {
-        gameEvent.emit('game-countdown');
-      });
-      document.removeEventListener('keyup', chardinExitListener);
-    }
-  }
+  // function chardinExitListener(event) {
+  //   event.stopPropagation();
+  //   // Space or Right arrow
+  //   if (event.keyCode === 32 || event.keyCode === 39) {
+  //     introMiddle.stop();
+  //     introLast.start();
+  //     introLast.oncomplete(() => {
+  //       gameEvent.emit('game-countdown');
+  //     });
+  //     document.removeEventListener('keyup', chardinExitListener);
+  //   }
+  // }
   gameEvent.on('game-reset', () => {
     intro.exit();
-    introLast.exit();
-    document.removeEventListener('keyup', chardinExitListener);
-    introMiddle.stop();
+    // introLast.exit();
+    // document.removeEventListener('keyup', chardinExitListener);
+    // introMiddle.stop();
   });
 
   // --- Game Countdown until Start ---
