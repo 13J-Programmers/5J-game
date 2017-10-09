@@ -183,13 +183,13 @@ window.addEventListener('load', () => {
         }
       }
       else if (event.keyCode === 83) { // S
-        if (!playerConfigs.player1.confirm && playerConfigs.player1.level > -1) {
+        if (!playerConfigs.player1.confirm && playerConfigs.player1.level > -2) {
           playerConfigs.player1.level -= 1;
           GameTitle.selectLevel('player1', playerConfigs.player1.level);
         }
       }
       else if (event.keyCode === 40) { // Down arrow
-        if (!playerConfigs.player2.confirm && playerConfigs.player2.level > -1) {
+        if (!playerConfigs.player2.confirm && playerConfigs.player2.level > -2) {
           playerConfigs.player2.level -= 1;
           GameTitle.selectLevel('player2', playerConfigs.player2.level);
         }

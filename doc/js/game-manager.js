@@ -68,6 +68,7 @@ class GameManager {
   }
 
   setGameLevel(level) {
+    // level -2 => beginner
     // level -1 => easy
     // level  0 => normal
     // level  1 => hard
@@ -75,10 +76,15 @@ class GameManager {
     this.gameLevel = level;
     this.setup();
 
-    if (level === -1) {
+    if (level === -2) {
+      this.syringeValue = 20;
+      this.packValue    = 10;
+    }
+    else if (level === -1) {
       this.syringeValue = 20;
       this.packValue    = 20;
-    } else {
+    }
+    else {
       this.syringeValue = window.urlParams.get('syringeValue') || 30;
       this.packValue    = window.urlParams.get('packValue') || 20;
     }
