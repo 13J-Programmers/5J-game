@@ -219,12 +219,13 @@ window.addEventListener('load', () => {
 
 
   // --- Game Title => Intro animation ---
+  var timeoutGameIntroTransition;
   gameEvent.on('game-intro-transition', () => {
     var gadgets = document.querySelectorAll('.title-animation');
     for (var gadget of gadgets) {
       gadget.classList.remove('on-title');
     }
-    setTimeout(() => {
+    timeoutGameIntroTransition = setTimeout(() => {
       console.log('emit: game-intro');
       gameEvent.emit('game-intro');
     }, 1500);
@@ -234,6 +235,7 @@ window.addEventListener('load', () => {
     for (var gadget of gadgets) {
       gadget.classList.add('on-title');
     }
+    clearTimeout(timeoutGameIntroTransition);
   });
 
   // --- Game Introduction ---
@@ -365,9 +367,10 @@ window.addEventListener('load', () => {
   });
 
   // --- Game Reset Transition ---
+  var timeoutGameResetTransition;
   gameEvent.on('game-reset-transition', () => {
     // Reset game parameters
-    setTimeout(() => {
+    timeoutGameResetTransition = setTimeout(() => {
       gameEvent.emit('game-reset');
     }, 1000);
 
@@ -386,6 +389,9 @@ window.addEventListener('load', () => {
       gameLoadingWrapper.style.opacity = 0;
       $(this).unbind('circle-animation-end');
     });
+  });
+  gameEvent.on('game-reset', () => {
+    clearTimeout(timeoutGameResetTransition);
   });
 
   // --- Gamepad ---
