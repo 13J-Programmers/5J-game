@@ -420,6 +420,9 @@ window.addEventListener('load', () => {
   gameEvent.on('game-countdown', () => {
     isSwapMapping = false;
   });
+  gameEvent.on('game-reset', () => {
+    isSwapMapping = false;
+  });
 
   gameEvent.on('input', (playerID, direction) => {
     var mapping;
