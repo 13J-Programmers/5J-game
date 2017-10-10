@@ -1,0 +1,112 @@
+@keyframes blink-red {
+  0% {
+    border-top-color: rgba(255,192,203,0);
+    border-left-color: rgba(255,192,203,0);
+  }
+  25% {
+    border-top-color: rgba(255,192,203,1);
+    border-left-color: rgba(255,192,203,1);
+  }
+  50% {
+    border-top-color: rgba(255,192,203,0);
+    border-left-color: rgba(255,192,203,0);
+  }
+  100% {
+    border-top-color: rgba(255,192,203,1);
+    border-left-color: rgba(255,192,203,1);
+  }
+}
+
+@keyframes blink-yellow {
+  0% {
+    border-bottom-color: rgba(255,255,0,0);
+    border-right-color: rgba(255,255,0,0);
+  }
+  25% {
+    border-bottom-color: rgba(255,255,0,1);
+    border-right-color: rgba(255,255,0,1);
+  }
+  50% {
+    border-bottom-color: rgba(255,255,0,0);
+    border-right-color: rgba(255,255,0,0);
+  }
+  100% {
+    border-bottom-color: rgba(255,255,0,1);
+    border-right-color: rgba(255,255,0,1);
+  }
+}
+
+@keyframes blink-green {
+  0% {
+    border-top-color: rgba(144,238,144,0);
+    border-left-color: rgba(144,238,144,0);
+  }
+  25% {
+    border-top-color: rgba(144,238,144,1);
+    border-left-color: rgba(144,238,144,1);
+  }
+  50% {
+    border-top-color: rgba(144,238,144,0);
+    border-left-color: rgba(144,238,144,0);
+  }
+  100% {
+    border-top-color: rgba(144,238,144,1);
+    border-left-color: rgba(144,238,144,1);
+  }
+}
+
+@keyframes blink-blue {
+  0% {
+    border-bottom-color: rgba(173,216,230,0);
+    border-right-color: rgba(173,216,230,0);
+  }
+  25% {
+    border-bottom-color: rgba(173,216,230,1);
+    border-right-color: rgba(173,216,230,1);
+  }
+  50% {
+    border-bottom-color: rgba(173,216,230,0);
+    border-right-color: rgba(173,216,230,0);
+  }
+  100% {
+    border-bottom-color: rgba(173,216,230,1);
+    border-right-color: rgba(173,216,230,1);
+  }
+}
+
+.blink-red {
+  animation-name: blink-red;
+  animation-duration: 0.6s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+
+.blink-yellow {
+  animation-name: blink-yellow;
+  animation-duration: 0.6s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;	
+}
+
+.blink-green {
+  animation-name: blink-green;
+  animation-duration: 0.6s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;	
+}
+
+.blink-blue {
+  animation-name: blink-blue;
+  animation-duration: 0.6s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;	
+}
+
+.syringe-effect {
+  transform: rotateY(1080deg); /* 360*3 */
+  transition: transform 1.2s 0s cubic-bezier(0.2, 1.07, 1, 1.01);
+}
