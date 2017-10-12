@@ -7,6 +7,8 @@ class HTMLGadget {
     this.player2SyringeBackground = document.querySelector('.game-panel.player2 .syringe .background');
     this.player1Syringe = document.querySelector('.game-panel.player1 .syringe .syringe-image');
     this.player2Syringe = document.querySelector('.game-panel.player2 .syringe .syringe-image');
+    this.packBackground = document.querySelector('.game-panel .pack .background');
+    this.packDesc = document.querySelector('.game-panel .pack .pack-image .desc');
 
     // When developed vaccine
     this.gameEvent.on('create-vaccine', (type) => {
@@ -52,6 +54,23 @@ class HTMLGadget {
       }
     });
 
+    // When developed knowledge
+    this.receivedKnowledge = 0;
+    this.gameEvent.on('create-knowledge', (type) => {
+      this.receivedKnowledge += 1;
+      var value = '0%';
+      if (this.receivedKnowledge >= this.tile4percentages.length) {
+        value = '100%';
+        console.log('100%');
+        this.packBackground.style.borderColor =
+          'rgba(255,255,0,1) rgba(144,238,144,1) rgba(173,216,230,1) rgba(255,192,203,1)';
+        console.log(this.packBackground.style);
+      } else {
+        value = parseInt(this.tile4percentages[this.receivedKnowledge] * 100) + '%';
+      }
+      this.packDesc.textContent = value;
+    });
+
     this.gameEvent.on('game-reset', () => {
       this.reset();
     });
@@ -95,5 +114,10 @@ class HTMLGadget {
     if (this.player2Syringe.classList.contains('syringe-effect')) {
       this.player2Syringe.classList.remove('syringe-effect');
     }
+
+    this.receivedKnowledge = 0;
+    this.packBackground.style.borderColor =
+      'rgba(255,255,0,0.1) rgba(144,238,144,0.1) rgba(173,216,230,0.1) rgba(255,192,203,0.1)';
+    this.packDesc.textContent = '0%';
   }
 }

@@ -19,6 +19,7 @@ window.addEventListener('load', () => {
 
   // --- Gadget ---
   var htmlGadget = new HTMLGadget(gameEvent);
+  htmlGadget.tile4percentages = gameManager1.tile4percentages; // copy
 
   // --- Earth Globe ---
   var earthGlobe = new EarthGlobe("#game-background");

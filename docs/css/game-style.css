@@ -278,6 +278,16 @@ hr {
   height: 100px;
   background: url("../img/tile-pack.png");
   background-size: contain;
+  text-align: center;
+}
+.game-panel.pack .pack .desc {
+  position: relative;
+  top: -50px;
+  font-size: 20pt;
+  color: black;
+  font-weight: bold;
+  text-shadow: white 1px 1px 0px, white -1px 1px 0px,
+               white 1px -1px 0px, white -1px -1px 0px;
 }
 
 .game-virus-panel {
