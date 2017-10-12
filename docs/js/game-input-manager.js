@@ -127,6 +127,15 @@ class InputManager extends EventEmitter {
         this.gamepadPressed = false;
       }, 200);
     }
+    else if (!this.gamepadPressed &&
+        (this.gamepadButtonPressed(gp.buttons[7]))) {
+      // this.emit("skip");
+      if (this.freezed) this.gameEvent.emit("game-tutorial-skip", playerID);
+      this.gamepadPressed = true;
+      setTimeout(() => {
+        this.gamepadPressed = false;
+      }, 200);
+    }
 
   }
 

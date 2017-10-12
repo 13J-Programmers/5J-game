@@ -287,6 +287,10 @@ window.addEventListener('load', () => {
     // document.removeEventListener('keyup', chardinExitListener);
     // introMiddle.stop();
   });
+  gameEvent.on('game-tutorial-skip', (playerID) => {
+    intro.exit();
+    gameEvent.emit('game-countdown');
+  })
 
   // --- Game Countdown until Start ---
   var timeout;
