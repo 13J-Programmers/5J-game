@@ -70,7 +70,7 @@ function gameIntro() {
       },
       {
         intro: '自分の色以外の抗体を20個合体させると, ビンが完成する.<br>' +
-          'ビンを作ることによって現れる抗体の数が増える.<br>' +
+          'ビンを作ることによって強力な抗体が現れやすくなる.<br>' +
           '<img src="img/tutorial-tile-pack.png">' +
           '<br><small>（Easy モードでは 10 個, Very Easy モードでは 6 個）</small>',
         tooltipClass: 'height-12em tooltiptext-margin-top-20',
