@@ -11,7 +11,8 @@ function gameIntro() {
     doneLabel: ' Ⓐ ',
     steps: [
       {
-        intro: '20XX年, 地球上で未知のウイルスが発見された. ',
+        intro: '20XX年, 地球上で未知のウイルスが発見された. ' +
+          '<br><br><br><small>PLAYER1 の Ⓐ ボタンで進む</small>',
         tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
@@ -63,14 +64,16 @@ function gameIntro() {
       },
       {
         intro: '自分の色の抗体を30個合体させると, ワクチンが完成する.<br>' +
-          '<img src="img/tutorial-tile-syringe.png">',
-        tooltipClass: 'tooltiptext-margin-top-20',
+          '<img src="img/tutorial-tile-syringe.png">' +
+          '<br><small>（Easy モードでは 20 個, Very Easy モードでは 10 個）</small>',
+        tooltipClass: 'height-12em tooltiptext-margin-top-20',
       },
       {
         intro: '自分の色以外の抗体を20個合体させると, ビンが完成する.<br>' +
           'ビンを作ることによって現れる抗体の数が増える.<br>' +
-          '<img src="img/tutorial-tile-pack.png">',
-        tooltipClass: 'tooltiptext-margin-top-20',
+          '<img src="img/tutorial-tile-pack.png">' +
+          '<br><small>（Easy モードでは 10 個, Very Easy モードでは 6 個）</small>',
+        tooltipClass: 'height-12em tooltiptext-margin-top-20',
       },
       {
         intro: '最終目標は2人で協力して4つ全てのワクチンを作ることだ. <br><br>' +
