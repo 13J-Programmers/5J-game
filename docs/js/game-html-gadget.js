@@ -61,10 +61,8 @@ class HTMLGadget {
       var value = '0%';
       if (this.receivedKnowledge >= this.tile4percentages.length) {
         value = '100%';
-        console.log('100%');
         this.packBackground.style.borderColor =
           'rgba(255,255,0,1) rgba(144,238,144,1) rgba(173,216,230,1) rgba(255,192,203,1)';
-        console.log(this.packBackground.style);
       } else {
         value = parseInt(this.tile4percentages[this.receivedKnowledge] * 100) + '%';
       }
