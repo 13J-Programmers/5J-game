@@ -20,19 +20,21 @@ class GameManager {
       0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99];
 
     // Puzzle auto solver
+    this.gameEvent.on("game-start", () => {
+      if (this.gameLevel === 2) {
+        this.autoSolverInterval = 150;
+      } else if (this.gameLevel === 1) {
+        this.autoSolverInterval = 300;
+      } else if (this.gameLevel === 0) {
+        this.autoSolverInterval = 1000;
+      } else if (this.gameLevel === -1) {
+        this.autoSolverInterval = 2000;
+      } else if (this.gameLevel === -2) {
+        this.autoSolverInterval = 3000;
+      }
+    });
     this.isAutoSolverMode = false;
     this.autoSolverDirection = 0;
-    if (this.gameLevel === 2) {
-      this.autoSolverInterval = 150;
-    } else if (this.gameLevel === 1) {
-      this.autoSolverInterval = 300;
-    } else if (this.gameLevel === 0) {
-      this.autoSolverInterval = 1000;
-    } else if (this.gameLevel === -1) {
-      this.autoSolverInterval = 2000;
-    } else if (this.gameLevel === -2) {
-      this.autoSolverInterval = 3000;
-    }
     this.autoSolver = () => {
       var step = this.autoSolverDirection % 5;
       if (step >= 4) {
