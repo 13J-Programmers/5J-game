@@ -145,6 +145,9 @@ hr {
   height: 10em;
   color: #43ff11;
   font-family: 'Mplus 1p';
+  font-weight: bold;
+  text-shadow: black 1px 1px 0px, black -1px 1px 0px,
+               black 1px -1px 0px, black -1px -1px 0px;
 }
 .introjs-button {
   font-size: 0.6em;
