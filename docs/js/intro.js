@@ -12,7 +12,7 @@ function gameIntro() {
     steps: [
       {
         intro: '20XX年, 地球上で未知のウイルスが発見された. ' +
-          '<br><br><br><small>PLAYER1 の Ⓐ ボタンで進む</small>',
+          '<br><br><br><small>PLAYER1 の Ⓐ ボタンで進む. STARTでゲーム開始</small>',
         tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
