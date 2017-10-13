@@ -355,7 +355,7 @@ hr {
 }
 .game-title .level-select .level-up {
   font-size: 20pt;
-  margin-bottom: 0px;
+  margin-bottom: -10px;
 }
 .game-title .level-select .level-down {
   font-size: 20pt;

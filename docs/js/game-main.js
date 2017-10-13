@@ -256,18 +256,26 @@ window.addEventListener('load', () => {
       gameEvent.emit('game-countdown');
       return;
     }
-    intro.start()
+    intro.start();
     intro.oncomplete(() => {
       gameEvent.emit('game-countdown');
     });
+    document.addEventListener('keyup', tutorialSkipListener);
   });
   gameEvent.on('game-reset', () => {
     intro.exit();
+    document.removeEventListener('keyup', tutorialSkipListener);
   });
   gameEvent.on('game-tutorial-skip', (playerID) => {
     intro.exit();
     gameEvent.emit('game-countdown');
-  })
+    document.removeEventListener('keyup', tutorialSkipListener);
+  });
+  function tutorialSkipListener(event) {
+    if (event.keyCode === 32) { // SPACE
+      gameEvent.emit('game-tutorial-skip');
+    }
+  }
 
   // --- Game Countdown until Start ---
   var timeout;
@@ -431,6 +439,9 @@ window.addEventListener('load', () => {
       };
     }
     var key = mapping[direction + (playerID - 1) * 4];
+    Utils.triggerKeyboardEvent(document, 'keyup', { keyCode: key });
+  });
+  gameEvent.on('input-special', (key) => {
     Utils.triggerKeyboardEvent(document, 'keyup', { keyCode: key });
   });
 
