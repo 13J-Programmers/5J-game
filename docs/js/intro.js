@@ -9,6 +9,7 @@ function gameIntro() {
     prevLabel: ' < Ⓨ ',
     skipLabel: ' ',
     doneLabel: ' Ⓐ ',
+    overlayOpacity: 0.6,
     steps: [
       {
         intro: '20XX年, 地球上で未知のウイルスが発見された. ' +
