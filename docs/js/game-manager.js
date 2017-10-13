@@ -19,33 +19,6 @@ class GameManager {
     this.tile4percentages = [
       0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99];
 
-    // Puzzle auto solver
-    this.gameEvent.on("game-start", () => {
-      if (this.gameLevel === 2) {
-        this.autoSolverInterval = 150;
-      } else if (this.gameLevel === 1) {
-        this.autoSolverInterval = 300;
-      } else if (this.gameLevel === 0) {
-        this.autoSolverInterval = 1000;
-      } else if (this.gameLevel === -1) {
-        this.autoSolverInterval = 2000;
-      } else if (this.gameLevel === -2) {
-        this.autoSolverInterval = 3000;
-      }
-    });
-    this.isAutoSolverMode = false;
-    this.autoSolverDirection = 0;
-    this.autoSolver = () => {
-      var step = this.autoSolverDirection % 5;
-      if (step >= 4) {
-        this.move(Utils.rand(0, 3));
-      } else {
-        this.move(step);
-      }
-      this.autoSolverDirection += 1;
-    };
-    this.autoSolverTimeout = null;
-
     this.inputManager.on('move', this.move.bind(this));
     this.inputManager.on('restart', this.restart.bind(this));
 
@@ -71,18 +44,11 @@ class GameManager {
       this.receivedKnowledge = 0;
       this.myVaccines = [];
       this.gameLevel = 0;
-      this.isAutoSolverMode = false;
     });
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
       this.receivedKnowledge = 0;
-      if (this.isAutoSolverMode) {
-        this.autoSolverTimeout = setInterval(this.autoSolver, this.autoSolverInterval);
-      }
     });
-    this.gameEvent.on('game-result', () => {
-      clearTimeout(this.autoSolverTimeout);
-    })
     this.gameEvent.on('game-reset', () => {
       this.syringeValue = window.urlParams.get('syringeValue') || 30;
       this.packValue    = window.urlParams.get('packValue') || 20;
@@ -90,7 +56,45 @@ class GameManager {
       this.freesed = true;
       this.myVaccines = [];
       this.gameLevel = 0;
+    });
+
+    // Puzzle auto solver
+    this.isAutoSolverMode = false;
+    this.autoSolverDirection = 0;
+    this.autoSolver = () => {
+      var step = this.autoSolverDirection % 5;
+      if (step >= 4) {
+        this.move(Utils.rand(0, 3));
+      } else {
+        this.move(step);
+      }
+      this.autoSolverDirection += 1;
+    };
+    this.autoSolverTimeout = null;
+    this.gameEvent.on('game-title', () => {
       this.isAutoSolverMode = false;
+    });
+    this.gameEvent.on('game-start', () => {
+      if (this.gameLevel === 2) {
+        this.autoSolverInterval = 150;
+      } else if (this.gameLevel === 1) {
+        this.autoSolverInterval = 300;
+      } else if (this.gameLevel === 0) {
+        this.autoSolverInterval = 1000;
+      } else if (this.gameLevel === -1) {
+        this.autoSolverInterval = 2000;
+      } else if (this.gameLevel === -2) {
+        this.autoSolverInterval = 3000;
+      }
+      if (this.isAutoSolverMode) {
+        this.autoSolverTimeout = setInterval(this.autoSolver, this.autoSolverInterval);
+      }
+    });
+    this.gameEvent.on('game-reset', () => {
+      this.isAutoSolverMode = false;
+      clearTimeout(this.autoSolverTimeout);
+    });
+    this.gameEvent.on('game-result', () => {
       clearTimeout(this.autoSolverTimeout);
     });
 
