@@ -455,8 +455,8 @@ window.addEventListener('load', () => {
   var audioPuzzle = new Audio('bgm/yosinani-bgm.mp3');
   audioPuzzle.volume = 0.6;
   audioPuzzle.addEventListener('ended', () => {
-    this.currentTime = 0;
-    this.play();
+    audioPuzzle.currentTime = 0;
+    audioPuzzle.play();
   }, false);
   var audioFadeout = function (audio) {
     setTimeout(() => { audio.volume = 0.5; }, 100);
