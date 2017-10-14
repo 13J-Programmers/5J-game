@@ -461,6 +461,13 @@ window.addEventListener('load', () => {
       audio.currentTime = 0;
     }, 600);
   }
+  gameEvent.on('game-title', () => {
+    audioPuzzle.volume = 0.4;
+    audioPuzzle.play();
+  });
+  gameEvent.on('game-intro', () => {
+    audioFadeout(audioPuzzle);
+  })
   gameEvent.on('game-start', () => {
     audioPuzzle.volume = 0.6;
     audioPuzzle.play();
