@@ -144,6 +144,11 @@ window.addEventListener('load', () => {
     if (event.keyCode === 27) { // ESC
       gameEvent.emit('game-reset-transition');
     }
+    if (event.keyCode === 48) { // '0'
+      console.log('auto solver mode!');
+      gameManager1.isAutoSolverMode = true;
+      gameManager2.isAutoSolverMode = true;
+    }
   });
 
 
