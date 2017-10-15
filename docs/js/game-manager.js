@@ -14,7 +14,7 @@ class GameManager {
     this.over         = false; // over: Only this player failed this puzzle.
     this.myVaccines   = []; // The list of vaccine made by this player
     this.receivedKnowledge = 0;
-    this.gameLevel    = 0;
+    this.gameLevel    = -1; // very easy (-2) <----> extreme (2)
     this.freesed      = true; // puzzle mode when freesed is false
     this.tile4percentages = [
       0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99];
@@ -43,7 +43,7 @@ class GameManager {
     this.gameEvent.on('game-title', () => {
       this.receivedKnowledge = 0;
       this.myVaccines = [];
-      this.gameLevel = 0;
+      this.gameLevel = -1; // easy mode
     });
     this.gameEvent.on('game-start', () => {
       this.freesed = false;
@@ -55,7 +55,7 @@ class GameManager {
       this.receivedKnowledge = 0;
       this.freesed = true;
       this.myVaccines = [];
-      this.gameLevel = 0;
+      this.gameLevel = -1; // easy mode
     });
 
     // Puzzle auto solver

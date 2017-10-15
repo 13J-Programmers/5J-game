@@ -224,8 +224,8 @@ window.addEventListener('load', () => {
   });
   gameEvent.on('game-reset', () => {
     playerConfigs = GameTitle.getDefaultPlayerConfigs();
-    GameTitle.selectLevel('player1', 0);
-    GameTitle.selectLevel('player2', 0);
+    GameTitle.selectLevel('player1', -1); // easy mode
+    GameTitle.selectLevel('player2', -1); // easy mode
   });
 
 
