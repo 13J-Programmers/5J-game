@@ -140,7 +140,7 @@ class HTMLActuator {
                 : "game-over";
     var message = args.won ? "Mission Complete!"
                 : args.failed ? "Oops!"
-                : "Game over!";
+                : "Game Over!";
 
     this.messageContainer.classList.add(type);
     this.messageContainer.querySelector('p').textContent = message;
