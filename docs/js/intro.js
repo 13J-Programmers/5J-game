@@ -13,7 +13,7 @@ function gameIntro() {
     steps: [
       {
         intro: '20XX年, 地球上で未知のウイルスが発見された. ' +
-          '<br><br><br><small>PLAYER1 の Ⓐ ボタンで進む. STARTでゲーム開始</small>',
+          '<br><br><br><small>PLAYER1 の <span class="red">Ⓐ</span> ボタンで進む. STARTでゲーム開始</small>',
         tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
@@ -57,7 +57,7 @@ function gameIntro() {
         tooltipClass: 'tooltiptext-margin-top-20',
       },
       {
-        intro: '4つのボタンで上下左右に動かしながら, 同じ色を合わせていく.<br><br>' +
+        intro: '4つのボタンで上下左右に動かして, 同じ色を合わせていく.<br><br>' +
           '<video width="400" height="400" autoplay loop>' +
           '<source src="video/tutorial.mp4">' +
           '</video>',
@@ -71,7 +71,7 @@ function gameIntro() {
       },
       {
         intro: '自分の色以外の抗体を20個合体させると, ビンが完成する.<br>' +
-          'ビンを作ることによって強力な抗体が現れやすくなる.<br>' +
+          'ビンを作ると強力な抗体が現れやすくなる.<br>' +
           '<img src="img/tutorial-tile-pack.png">' +
           '<br><small>（Easy モードでは 10 個, Very Easy モードでは 6 個）</small>',
         tooltipClass: 'height-12em tooltiptext-margin-top-20',
@@ -82,11 +82,11 @@ function gameIntro() {
         tooltipClass: 'tooltiptext-margin-top-60',
       },
       {
-        intro: '操作方法はご理解いただけただろうか.',
+        intro: 'パズルは動かせなくなっても, 時間内なら何回でも挑戦できる. <br>積極的にプレイしよう.',
         tooltipClass: 'tooltiptext-margin-top-120',
       },
       {
-        intro: 'それでは, 健闘を祈る.',
+        intro: '操作方法はご理解いただけただろうか.<br>それでは, 健闘を祈る.',
         tooltipClass: 'tooltiptext-margin-top-120',
       },
     ]

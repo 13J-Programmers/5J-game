@@ -224,8 +224,8 @@ window.addEventListener('load', () => {
   });
   gameEvent.on('game-reset', () => {
     playerConfigs = GameTitle.getDefaultPlayerConfigs();
-    GameTitle.selectLevel('player1', 0);
-    GameTitle.selectLevel('player2', 0);
+    GameTitle.selectLevel('player1', -1); // easy mode
+    GameTitle.selectLevel('player2', -1); // easy mode
   });
 
 
@@ -454,6 +454,10 @@ window.addEventListener('load', () => {
   //var audioPuzzle = new Audio('bgm/puzzle-nc144385.mp3');
   var audioPuzzle = new Audio('bgm/yosinani-bgm.mp3');
   audioPuzzle.volume = 0.6;
+  audioPuzzle.addEventListener('ended', () => {
+    audioPuzzle.currentTime = 0;
+    audioPuzzle.play();
+  }, false);
   var audioFadeout = function (audio) {
     setTimeout(() => { audio.volume = 0.5; }, 100);
     setTimeout(() => { audio.volume = 0.4; }, 200);
@@ -466,6 +470,13 @@ window.addEventListener('load', () => {
       audio.currentTime = 0;
     }, 600);
   }
+  gameEvent.on('game-title', () => {
+    audioPuzzle.volume = 0.4;
+    audioPuzzle.play();
+  });
+  gameEvent.on('game-countdown', () => {
+    audioFadeout(audioPuzzle);
+  })
   gameEvent.on('game-start', () => {
     audioPuzzle.volume = 0.6;
     audioPuzzle.play();

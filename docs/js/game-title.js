@@ -4,11 +4,11 @@ class GameTitle {
     var config = {
       player1: {
         confirm: false,
-        level: 0,
+        level: -1, // easy mode
       },
       player2: {
         confirm: false,
-        level: 0,
+        level: -1, // easy mode
       },
     };
     return JSON.parse(JSON.stringify(config));
